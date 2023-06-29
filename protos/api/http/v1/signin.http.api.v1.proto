@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+import "google/protobuf/struct.proto";
+
+message V1SignInHttpRequest {
+  optional string email = 1;
+  string password = 2;
+  optional string username = 3;
+}
+
+message V1SignInHttpResponse {
+  string accessToken = 1;
+  string message = 2;
+}
+
+message V1SignInExceptions {
+  int32 statusCode = 1;
+  repeated google.protobuf.Struct message = 2;
+  string error = 3;
+}

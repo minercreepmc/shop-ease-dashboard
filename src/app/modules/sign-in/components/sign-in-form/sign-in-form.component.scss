@@ -1,0 +1,32 @@
+.sign-in-form-section {
+}
+
+.sign-in-form {
+  color: black;
+  border-radius: 1em 0;
+  background: #424242;
+  h1 {
+    padding: 3em;
+    text-align: center;
+    font-weight: bold;
+  }
+  &__inputs {
+    background: white;
+    padding: 1em;
+    border-radius: 1em 1em 1em 0;
+  }
+
+  &__group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 0.5rem;
+  }
+
+  &__button {
+    background: #424242;
+    padding: 0.25em 2em;
+    border-radius: 2rem;
+    border: none;
+    color: black;
+  }
+}

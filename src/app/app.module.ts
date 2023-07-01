@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { DashboardModule } from '@modules/dashboard/dashboard.module';
 import { SignInModule } from '@modules/sign-in/sign-in.module';
 import { HttpCustomExceptionHandler } from '@shared/exception-handler';
+import { SharedModule } from '@shared/shared.module';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -16,7 +17,13 @@ const exceptionHandlers: Provider[] = [
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, AppRoutingModule, SignInModule, DashboardModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    SignInModule,
+    DashboardModule,
+    SharedModule,
+  ],
   providers: [...exceptionHandlers],
   bootstrap: [AppComponent],
 })

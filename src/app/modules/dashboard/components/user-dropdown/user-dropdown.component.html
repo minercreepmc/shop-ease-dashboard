@@ -1,0 +1,40 @@
+<div class="action">
+  <div class="profile" (click)="toggleMenu()">
+    <img src="assets/avt.jpg" alt="" />
+  </div>
+
+  <div class="menu" [class.active]="isMenuOpen">
+    <h3>Someone Famouse <br /><span>Website Designer</span></h3>
+
+    <ul>
+      <li>
+        <fa-icon [icon]="faUsers"></fa-icon>
+        <a href="#">Profile</a>
+      </li>
+
+      <li>
+        <fa-icon [icon]="faGear"></fa-icon>
+        <a href="#">Edit Profile</a>
+      </li>
+
+      <li>
+        <fa-icon [icon]="faMail"></fa-icon>
+        <a href="#">Inbox</a>
+      </li>
+      <li>
+        <fa-icon [icon]="faGear"></fa-icon>
+        <a href="#">Settings</a>
+      </li>
+
+      <li>
+        <fa-icon [icon]="faCircleInfo"></fa-icon>
+        <a href="#">Help</a>
+      </li>
+
+      <li (click)="signOut()">
+        <fa-icon [icon]="faRightFromBracket"></fa-icon>
+        <a href="#">Sign Out</a>
+      </li>
+    </ul>
+  </div>
+</div>

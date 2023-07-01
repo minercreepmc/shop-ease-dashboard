@@ -1,0 +1,41 @@
+.dashboard {
+  display: flex;
+  background: #e5e7eb;
+  position: relative;
+  &__menu {
+    position: fixed;
+    width: 300px;
+    top: 0;
+    left: 0;
+    height: 100%;
+  }
+
+  &__content {
+    width: calc(100% - 300px);
+    margin-left: 300px;
+    position: relative;
+  }
+
+  &__navigation {
+    position: fixed;
+    width: calc(100% - 300px);
+  }
+}
+
+@media (max-width: 768px) {
+  .dashboard {
+    &__menu {
+      left: -300px;
+    }
+
+    &__content {
+      width: 100%;
+      margin-left: 0;
+      display: inline-block;
+    }
+
+    &__navigation {
+      width: 100%;
+    }
+  }
+}

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 import {
   faCoffee,
   faDollarSign,
@@ -7,11 +8,11 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
-  selector: 'app-body',
-  templateUrl: './body.component.html',
-  styleUrls: ['./body.component.scss'],
+  selector: 'app-analytic-header',
+  templateUrl: './analytic-header.component.html',
+  styleUrls: ['./analytic-header.component.scss'],
 })
-export class BodyComponent {
+export class AnalyticHeaderComponent {
   faUsers = faUsers;
   faShoppingCart = faShoppingCart;
   faCoffee = faCoffee;

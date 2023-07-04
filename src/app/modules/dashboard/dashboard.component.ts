@@ -3,11 +3,11 @@ import { Router } from '@angular/router';
 import { AuthService } from '@modules/sign-in/services/auth.service';
 
 @Component({
-  selector: 'app-dashboard-page',
-  templateUrl: './dashboard-page.component.html',
-  styleUrls: ['./dashboard-page.component.scss'],
+  selector: 'app-dashboard',
+  templateUrl: './dashboard.component.html',
+  styleUrls: ['./dashboard.component.scss'],
 })
-export class DashboardPageComponent implements OnInit {
+export class DashboardComponent implements OnInit {
   constructor(
     private readonly authService: AuthService,
     private readonly router: Router

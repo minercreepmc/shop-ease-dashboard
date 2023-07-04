@@ -1,0 +1,32 @@
+<div class="product-form">
+  <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+    <h3>Add new product</h3>
+    <input
+      class="box"
+      type="text"
+      placeholder="Enter product name"
+      formControlName="name"
+    />
+    <div formGroupName="price">
+      <input
+        class="box"
+        type="number"
+        placeholder="Enter product price"
+        formControlName="amount"
+      />
+    </div>
+    <textarea
+      class="box"
+      placeholder="Enter product description"
+      formControlName="description"
+    ></textarea>
+    <input
+      class="box"
+      type="file"
+      accept="image/*"
+      #productImage
+      (change)="handleFileInput($event)"
+    />
+    <button class="btn" type="submit">add a product</button>
+  </form>
+</div>

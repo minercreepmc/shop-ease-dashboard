@@ -5,8 +5,10 @@
       "@shared": ["./src/app/shared"],
       "@shared/*": ["./src/app/shared/*"],
       "@modules/*": ["./src/app/modules/*"],
+      "@core/*": ["./src/app/core/*"],
       "@protos/*": ["./protos/*"]
     },
+    "strictPropertyInitialization": false,
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,

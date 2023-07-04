@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { DashboardPageComponent } from '@modules/dashboard/pages/dashboard-page/dashboard-page.component';
 import { SignInPageComponent } from '@modules/sign-in/pages/sign-in-page/sign-in-page.component';
 
 const routes: Routes = [
@@ -11,8 +10,10 @@ const routes: Routes = [
   },
   {
     path: 'dashboard',
-    component: DashboardPageComponent,
-    pathMatch: 'full',
+    loadChildren: () =>
+      import('./modules/dashboard/dashboard.module').then(
+        (m) => m.DashboardModule
+      ),
   },
 ];
 

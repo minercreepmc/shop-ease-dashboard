@@ -1,0 +1,28 @@
+<div class="product-list">
+  <table width="100%" class="board">
+    <thead>
+      <tr>
+        <td>Select</td>
+        <td>Image</td>
+        <td>Name</td>
+        <td>Stock</td>
+        <td>Price</td>
+        <td>Category</td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let product of products; let i = index">
+        <td>
+          <input type="checkbox" [(ngModel)]="selectedProducts[i]" />
+        </td>
+        <td>
+          <img [src]="product.image" alt="{{ product.name }}" height="50" />
+        </td>
+        <td>{{ product.name }}</td>
+        <td>In Stock ({{ product.stock }})</td>
+        <td>{{ product.price.amount }}$</td>
+        <td>{{ product.categories.join(', ') }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

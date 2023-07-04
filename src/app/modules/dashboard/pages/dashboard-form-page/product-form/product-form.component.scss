@@ -1,0 +1,56 @@
+.product-form {
+  max-width: 1000px;
+  padding: 2rem;
+  margin: 0 auto;
+  input,
+  textarea {
+    border: 1px solid #2b2b2b;
+  }
+  form {
+    max-width: 50rem;
+    margin: 0 auto;
+    padding: 2rem;
+    border-radius: 0.5rem;
+    background: #fff;
+  }
+
+  form h3 {
+    text-transform: uppercase;
+    color: #2b2b2b;
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 500;
+  }
+
+  form .box {
+    width: 100%;
+    border-radius: 0.5rem;
+    padding: 1.2rem 1.5rem;
+    font-size: 1.25rem;
+    margin: 1rem 0;
+    background: #f7f7f7;
+    text-transform: none;
+  }
+
+  form .btn {
+    display: block;
+    width: 100%;
+    margin-top: 1rem;
+    font-size: 1.25rem;
+    padding: 1rem 3rem;
+    background: #594ef7;
+    color: #f7f7f7;
+    border: none;
+    &:hover {
+      background: #2b2b2b;
+    }
+  }
+}
+
+.form-group {
+  .message {
+    &__error {
+      color: #d92121;
+    }
+  }
+}

@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { BodyComponent } from './body.component';
+import { AnalyticBodyComponent } from './analytic-body.component';
 
-describe('BodyComponent', () => {
-  let component: BodyComponent;
-  let fixture: ComponentFixture<BodyComponent>;
+describe('AnalyticBodyComponent', () => {
+  let component: AnalyticBodyComponent;
+  let fixture: ComponentFixture<AnalyticBodyComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ BodyComponent ]
+      declarations: [ AnalyticBodyComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(BodyComponent);
+    fixture = TestBed.createComponent(AnalyticBodyComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

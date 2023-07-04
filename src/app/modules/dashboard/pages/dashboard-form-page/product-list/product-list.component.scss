@@ -1,0 +1,46 @@
+.product-list {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.board {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.board thead tr {
+  background-color: #f8f8f8;
+}
+
+.board thead td {
+  padding: 12px 15px;
+  font-weight: bold;
+  font-size: 15px;
+  border-bottom: 2px solid #ddd;
+}
+
+.board tbody tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.board tbody tr:nth-child(odd) {
+  background-color: #ffffff;
+}
+
+.board tbody td {
+  padding: 12px 15px;
+  border-bottom: 1px solid #ddd;
+  font-size: 14px;
+}
+
+.board img {
+  max-width: 100%;
+  height: auto;
+}
+
+@media (max-width: 600px) {
+  .board thead td,
+  .board tbody td {
+    font-size: 13px;
+  }
+}

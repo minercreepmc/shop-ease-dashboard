@@ -1,27 +1,53 @@
-<div class="product-list">
+<div class="product-list" *ngIf="products$ | async as productList">
+  <div class="button-group">
+    <button class="action-button" id="delete-button">Delete</button>
+
+    <details class="dropdown" #dropdown>
+      <summary class="action-button" id="add-button">Add New</summary>
+      <div class="dropdown-content">
+        <button (click)="onAddProductButtonClicked()">Add Product</button>
+        <button (click)="onAddCategoryButtonClicked()">Add Category</button>
+      </div>
+    </details>
+
+    <button class="action-button" id="import-button">Import</button>
+    <button class="action-button" id="export-button">Export</button>
+  </div>
   <table width="100%" class="board">
     <thead>
       <tr>
         <td>Select</td>
         <td>Image</td>
         <td>Name</td>
-        <td>Stock</td>
         <td>Price</td>
         <td>Category</td>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let product of products; let i = index">
+      <tr *ngFor="let product of productList; let i = index">
         <td>
           <input type="checkbox" [(ngModel)]="selectedProducts[i]" />
         </td>
         <td>
-          <img [src]="product.image" alt="{{ product.name }}" height="50" />
+          <div *ngIf="product.image as productImage">
+            <img
+              [src]="productImage"
+              alt="{{ product.name }}"
+              height="50"
+              onError="this.onerror=null;this.src='/assets/placeholder-default-image.webp';"
+            />
+          </div>
+          <div *ngIf="!product.image">
+            <img
+              src="/assets/placeholder-default-image.webp"
+              alt="{{ product.name }}"
+              height="50"
+            />
+          </div>
         </td>
         <td>{{ product.name }}</td>
-        <td>In Stock ({{ product.stock }})</td>
-        <td>{{ product.price.amount }}$</td>
-        <td>{{ product.categories.join(', ') }}</td>
+        <td>{{ product.price?.amount }}$</td>
+        <td>{{ product.categories?.join(', ') }}</td>
       </tr>
     </tbody>
   </table>

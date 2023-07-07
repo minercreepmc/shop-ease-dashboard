@@ -1,32 +1,48 @@
 <div class="product-form">
+  <button class="close-button" (click)="onCloseButtonClicked()">
+    <fa-icon [icon]="faX"></fa-icon>
+  </button>
   <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
     <h3>Add new product</h3>
+
+    <label for="name">Product Name</label>
     <input
+      id="name"
       class="box"
       type="text"
       placeholder="Enter product name"
       formControlName="name"
     />
+
     <div formGroupName="price">
+      <label for="amount">Product Price</label>
       <input
+        id="amount"
         class="box"
         type="number"
         placeholder="Enter product price"
         formControlName="amount"
       />
     </div>
+
+    <label for="description">Product Description</label>
     <textarea
+      id="description"
       class="box"
       placeholder="Enter product description"
       formControlName="description"
     ></textarea>
+
+    <label for="image">Product Image</label>
     <input
+      id="image"
       class="box"
       type="file"
       accept="image/*"
       #productImage
       (change)="handleFileInput($event)"
     />
-    <button class="btn" type="submit">add a product</button>
+
+    <button class="btn" type="submit">Add a product</button>
   </form>
 </div>

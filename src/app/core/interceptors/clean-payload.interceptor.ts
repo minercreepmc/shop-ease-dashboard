@@ -21,10 +21,20 @@ export class CleanPayloadInterceptor implements HttpInterceptor {
   }
 
   cleanObject(obj: any): any {
-    if (Array.isArray(obj)) {
+    if (obj instanceof FormData) {
+      // If it's FormData, clean its entries
+      const cleanedFormData = new FormData();
+      obj.forEach((value: any, key: string) => {
+        // Exclude null, empty string, or "null" string values
+        if (value != null && value !== '' && value !== 'null') {
+          cleanedFormData.append(key, value);
+        }
+      });
+      return cleanedFormData;
+    } else if (Array.isArray(obj)) {
       // If it's an array, filter out null or empty string values
       return obj
-        .filter((value) => value != null && value !== '')
+        .filter((value) => value != null && value !== '' && value !== 'null')
         .map((value) =>
           typeof value === 'object' ? this.cleanObject(value) : value
         );
@@ -32,7 +42,7 @@ export class CleanPayloadInterceptor implements HttpInterceptor {
       // If it's an object, recurse for each property
       const cleanedObj: any = {};
       for (const key in obj) {
-        if (obj[key] != null && obj[key] !== '') {
+        if (obj[key] != null && obj[key] !== '' && obj[key] !== 'null') {
           cleanedObj[key] =
             typeof obj[key] === 'object'
               ? this.cleanObject(obj[key])

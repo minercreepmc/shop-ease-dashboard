@@ -1,5 +1,6 @@
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ErrorHandler, NgModule, Provider } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { DashboardModule } from '@modules/dashboard/dashboard.module';
 import { SignInModule } from '@modules/sign-in/sign-in.module';
@@ -31,8 +32,9 @@ const interceptors: Provider[] = [
     BrowserModule,
     AppRoutingModule,
     SignInModule,
-    DashboardModule,
     SharedModule,
+    ReactiveFormsModule,
+    DashboardModule,
   ],
   providers: [...exceptionHandlers, ...interceptors],
   bootstrap: [AppComponent],

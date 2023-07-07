@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { faX } from '@fortawesome/free-solid-svg-icons';
 import {
   CurrencyEnum,
   currencyEnumToJSON,
-} from '@protos/api/http/v1/product.http.api.v1';
+} from '@protos/api/http/v1/create-product.http.api.v1';
 import { HttpCustomException } from '@shared/dtos';
 import { ProductService } from '@shared/services';
 
@@ -21,12 +22,13 @@ export interface IProductFormErrors {
 })
 export class ProductFormComponent implements OnInit {
   productForm: FormGroup;
+  faX = faX;
 
   ngOnInit() {
     this.productForm = this.formBuilder.group({
       name: '',
       price: this.formBuilder.group({
-        amount: 0,
+        amount: '',
         currency: currencyEnumToJSON(CurrencyEnum.USD),
       }),
       image: '',
@@ -48,7 +50,7 @@ export class ProductFormComponent implements OnInit {
     const productDto = this.productForm.value;
     productDto.price.amount = Number(productDto.price.amount);
     productDto.price.currency = currencyEnumToJSON(CurrencyEnum.USD);
-    this.productService.createProduct(productDto).subscribe({
+    this.productService.createProduct$(productDto).subscribe({
       next: (response) => {
         console.log(response);
       },
@@ -60,6 +62,12 @@ export class ProductFormComponent implements OnInit {
         console.log('complete');
       },
     });
+  }
+
+  @Output() closeButtonClicked = new EventEmitter();
+
+  onCloseButtonClicked() {
+    this.closeButtonClicked.emit();
   }
 
   constructor(

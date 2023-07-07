@@ -1,7 +1,9 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { HttpCustomException } from '@shared/dtos';
+import { ToastrCustomService } from '@shared/libraries/toastr';
 import { createFormData } from '@shared/utils';
+import { ToastrService } from 'ngx-toastr';
 import {
   Observable,
   catchError,
@@ -9,12 +11,15 @@ import {
   first,
   tap,
   throwError,
+  finalize,
 } from 'rxjs';
 import { Product } from './product.interface';
 import {
   CreateProductRequestDto,
   CreateProductResponseDto,
   GetProductsResponseDto,
+  RemoveProductsRequestDto,
+  RemoveProductsResponseDto,
 } from './product.service.dto';
 
 @Injectable()
@@ -22,6 +27,7 @@ export class ProductService {
   // TODO: setup proxy later;
   url = 'http://localhost:3002/api/v1/products';
   createUrl = 'create';
+  removeUrl = 'remove';
   getUrl = 'get';
 
   readonly products = new BehaviorSubject<Product[]>([]);
@@ -62,9 +68,35 @@ export class ProductService {
 
     return response$.pipe(
       first(),
-      tap((newProduct: CreateProductResponseDto) => {
+      tap((response: CreateProductResponseDto) => {
+        const newProduct = response;
         this.products.next([...this.products.value, newProduct]);
+        this.toast.success(response.message);
       }),
+      catchError(this.handleError)
+    );
+  }
+
+  removeProducts$(ids: string[]): Observable<RemoveProductsResponseDto> {
+    const request: RemoveProductsRequestDto = {
+      ids,
+    };
+    const productRemoving$ = this.http.post<RemoveProductsResponseDto>(
+      `${this.url}/${this.removeUrl}`,
+      request
+    );
+
+    return productRemoving$.pipe(
+      tap((response: RemoveProductsResponseDto) => {
+        const { ids: deletedIds } = response;
+        this.products.next(
+          this.products.value.filter(
+            (product) => !deletedIds.includes(product.id!)
+          )
+        );
+        this.toast.success(response.message);
+      }),
+
       catchError(this.handleError)
     );
   }
@@ -73,5 +105,8 @@ export class ProductService {
     return throwError(() => new HttpCustomException(error));
   }
 
-  constructor(private readonly http: HttpClient) {}
+  constructor(
+    private readonly http: HttpClient,
+    private readonly toast: ToastrCustomService
+  ) {}
 }

@@ -7,11 +7,7 @@ import {
   Output,
   ViewChild,
 } from '@angular/core';
-import {
-  GetProductsResponseDto,
-  Product,
-  ProductService,
-} from '@shared/services';
+import { Product, ProductService } from '@shared/services';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -21,18 +17,15 @@ import { Observable } from 'rxjs';
 })
 export class ProductListComponent implements OnInit {
   products$: Observable<Product[]>;
-  selectedProducts: boolean[];
+  selectedProductIds: string[];
 
   @ViewChild('dropdown') dropdown: ElementRef;
   @Output() addProductButtonClicked = new EventEmitter();
   @Output() addCategoryButtonClicked = new EventEmitter();
   ngOnInit() {
-    this.productService
-      .loadProducts$()
-      .subscribe((response: GetProductsResponseDto) => {
-        this.selectedProducts = Array(response.products.length).fill(false);
-      });
+    this.productService.loadProducts$().subscribe();
     this.products$ = this.productService.products$;
+    this.selectedProductIds = [];
   }
 
   onAddProductButtonClicked() {
@@ -45,13 +38,32 @@ export class ProductListComponent implements OnInit {
     this.dropdown.nativeElement.removeAttribute('open');
   }
 
+  onToggleCheckbox(productId: string, event: Event) {
+    const isChecked = (event.target as HTMLInputElement).checked;
+
+    if (isChecked) {
+      // Add the product's id to the selectedProducts array if it's not already included
+      if (!this.selectedProductIds.includes(productId)) {
+        this.selectedProductIds.push(productId);
+      }
+    } else {
+      // Remove the product's id from the selectedProducts array if it's checked off
+      this.selectedProductIds = this.selectedProductIds.filter(
+        (id) => id !== productId
+      );
+    }
+  }
+
+  onDeleteButtonClicked() {
+    this.productService.removeProducts$(this.selectedProductIds).subscribe();
+  }
+
   @HostListener('document:click', ['$event'])
   clickout(event: Event) {
     if (this.dropdown && !this.eRef.nativeElement.contains(event.target)) {
       this.dropdown.nativeElement.removeAttribute('open');
     }
   }
-
 
   constructor(
     private readonly eRef: ElementRef,

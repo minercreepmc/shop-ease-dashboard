@@ -1,6 +1,12 @@
 <div class="product-list" *ngIf="products$ | async as productList">
   <div class="button-group">
-    <button class="action-button" id="delete-button">Delete</button>
+    <button
+      class="action-button"
+      id="delete-button"
+      (click)="onDeleteButtonClicked()"
+    >
+      Delete
+    </button>
 
     <details class="dropdown" #dropdown>
       <summary class="action-button" id="add-button">Add New</summary>
@@ -26,7 +32,10 @@
     <tbody>
       <tr *ngFor="let product of productList; let i = index">
         <td>
-          <input type="checkbox" [(ngModel)]="selectedProducts[i]" />
+          <input
+            type="checkbox"
+            (change)="onToggleCheckbox(product.id!, $event)"
+          />
         </td>
         <td>
           <div *ngIf="product.image as productImage">

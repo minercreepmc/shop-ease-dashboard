@@ -1,12 +1,9 @@
 import { Component } from '@angular/core';
 import {
-  faChartPie,
-  faThLarge,
-  faUserEdit,
-  faHamburger,
-  faChartLine,
+  faBoxOpen,
+  faList,
+  faUserCheck,
 } from '@fortawesome/free-solid-svg-icons';
-import { faUikit, faCcVisa } from '@fortawesome/free-brands-svg-icons';
 
 @Component({
   selector: 'app-menu',
@@ -14,11 +11,7 @@ import { faUikit, faCcVisa } from '@fortawesome/free-brands-svg-icons';
   styleUrls: ['./menu.component.scss'],
 })
 export class MenuComponent {
-  faChartPie = faChartPie;
-  faUikit = faUikit;
-  faThLarge = faThLarge;
-  faUserEdit = faUserEdit;
-  faCcVisa = faCcVisa;
-  faHamburger = faHamburger;
-  faChartLine = faChartLine;
+  faBoxOpen = faBoxOpen;
+  faList = faList;
+  faUserCheck = faUserCheck;
 }

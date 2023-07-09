@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+message V1CreateCategoryHttpRequest {
+  string name = 1;
+  optional string description = 2;
+}
+
+message V1CreateCategoryHttpResponse {
+  string id = 1;
+  string name = 2;
+  optional string description = 3;
+  optional string message = 4;
+}

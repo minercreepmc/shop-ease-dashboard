@@ -2,7 +2,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './dashboard.component';
 import { AnalyticPageComponent } from './pages/analytic-page/analytic-page.component';
-import { DashboardFormPageComponent } from './pages/dashboard-form-page/dashboard-form-page.component';
+import { CategoriesPageComponent } from './pages/categories-page/categories-page.component';
+import { ProductsPageComponent } from './pages/products-page/products-page.component';
 
 const routes: Routes = [
   {
@@ -11,8 +12,12 @@ const routes: Routes = [
     children: [
       { path: '', component: AnalyticPageComponent },
       {
-        path: 'form',
-        component: DashboardFormPageComponent,
+        path: 'products',
+        component: ProductsPageComponent,
+      },
+      {
+        path: 'categories',
+        component: CategoriesPageComponent,
       },
     ],
   },

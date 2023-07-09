@@ -18,10 +18,9 @@ import { Observable } from 'rxjs';
 export class ProductListComponent implements OnInit {
   products$: Observable<Product[]>;
   selectedProductIds: string[];
+  productFormVisibility = false;
 
-  @ViewChild('dropdown') dropdown: ElementRef;
   @Output() addProductButtonClicked = new EventEmitter();
-  @Output() addCategoryButtonClicked = new EventEmitter();
   ngOnInit() {
     this.productService.loadProducts$().subscribe();
     this.products$ = this.productService.products$;
@@ -30,12 +29,6 @@ export class ProductListComponent implements OnInit {
 
   onAddProductButtonClicked() {
     this.addProductButtonClicked.emit();
-    this.dropdown.nativeElement.removeAttribute('open');
-  }
-
-  onAddCategoryButtonClicked() {
-    this.addCategoryButtonClicked.emit();
-    this.dropdown.nativeElement.removeAttribute('open');
   }
 
   onToggleCheckbox(productId: string, event: Event) {
@@ -54,19 +47,17 @@ export class ProductListComponent implements OnInit {
     }
   }
 
-  onDeleteButtonClicked() {
+  deleteProduct() {
     this.productService.removeProducts$(this.selectedProductIds).subscribe();
   }
 
-  @HostListener('document:click', ['$event'])
-  clickout(event: Event) {
-    if (this.dropdown && !this.eRef.nativeElement.contains(event.target)) {
-      this.dropdown.nativeElement.removeAttribute('open');
-    }
-  }
+  handleProductFormVisibility = () => {
+    this.productFormVisibility = !this.productFormVisibility;
+  };
 
-  constructor(
-    private readonly eRef: ElementRef,
-    private readonly productService: ProductService
-  ) {}
+  handleCloseButtonClicked = () => {
+    this.productFormVisibility = false;
+  };
+
+  constructor(private readonly productService: ProductService) {}
 }

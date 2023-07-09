@@ -1,24 +1,19 @@
 <div class="product-list" *ngIf="products$ | async as productList">
-  <div class="button-group">
-    <button
-      class="action-button"
-      id="delete-button"
-      (click)="onDeleteButtonClicked()"
-    >
-      Delete
-    </button>
+  <app-product-button
+    class="product-button"
+    (toggleButtonClicked)="handleProductFormVisibility()"
+    (deleteButtonClicked)="deleteProduct()"
+    [contentVisibility]="productFormVisibility"
+  >
 
-    <details class="dropdown" #dropdown>
-      <summary class="action-button" id="add-button">Add New</summary>
-      <div class="dropdown-content">
-        <button (click)="onAddProductButtonClicked()">Add Product</button>
-        <button (click)="onAddCategoryButtonClicked()">Add Category</button>
-      </div>
-    </details>
 
-    <button class="action-button" id="import-button">Import</button>
-    <button class="action-button" id="export-button">Export</button>
-  </div>
+  </app-product-button>
+
+  <app-product-form
+    *ngIf="productFormVisibility"
+    (closeButtonClicked)="handleCloseButtonClicked()"
+  >
+  </app-product-form>
   <table width="100%" class="board">
     <thead>
       <tr>

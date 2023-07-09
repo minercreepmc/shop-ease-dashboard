@@ -11,7 +11,7 @@ export class HttpCustomExceptionHandler implements ErrorHandler {
 
     if (HttpCustomException.isHttpException(exceptions)) {
       const customExceptions = exceptions as HttpCustomException;
-      customExceptions.message.forEach((m) => {
+      customExceptions?.message?.forEach((m) => {
         console.log(m.message);
         toaster.error(m.message);
       });

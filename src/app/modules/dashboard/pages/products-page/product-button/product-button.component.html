@@ -1,0 +1,17 @@
+<div class="button-group">
+  <app-primary-button id="delete-button" (click)="onDeleteButtonClicked()"
+    >Delete</app-primary-button
+  >
+  <app-secondary-button id="toggle-button" (click)="onToggleButtonClicked()">
+    <fa-icon *ngIf="!contentVisibility" [icon]="faPlus"></fa-icon>
+    <fa-icon *ngIf="contentVisibility" [icon]="faMinus"></fa-icon>
+    Toggle Add
+  </app-secondary-button>
+
+  <app-secondary-button id="import-button" (click)="onImportButtonClicked()"
+    >Import</app-secondary-button
+  >
+  <app-secondary-button id="export-button" (click)="onExportButtonClicked()"
+    >Export</app-secondary-button
+  >
+</div>

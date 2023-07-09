@@ -1,0 +1,31 @@
+<div class="category-form">
+  <button class="close-button" (click)="onCloseButtonClicked()">
+    <fa-icon [icon]="faX"></fa-icon>
+  </button>
+  <form [formGroup]="categoryForm" (ngSubmit)="onCategorySubmit()">
+    <h3>Add new category</h3>
+
+    <div class="form-group">
+      <label for="categoryName">Category Name</label>
+      <input
+        id="categoryName"
+        class="box"
+        type="text"
+        placeholder="Enter category name"
+        formControlName="categoryName"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="categoryDescription">Category Description</label>
+      <textarea
+        id="categoryDescription"
+        class="box"
+        placeholder="Enter category description"
+        formControlName="categoryDescription"
+      ></textarea>
+    </div>
+
+    <button class="btn" type="submit">Add a category</button>
+  </form>
+</div>

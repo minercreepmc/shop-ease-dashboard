@@ -1,0 +1,5 @@
+<button class="action-button" id="toggle-button" (click)="onClick()">
+  <fa-icon *ngIf="!contentVisibility" [icon]="faPlus"></fa-icon>
+  <fa-icon *ngIf="contentVisibility" [icon]="faMinus"></fa-icon>
+  <ng-content></ng-content>
+</button>

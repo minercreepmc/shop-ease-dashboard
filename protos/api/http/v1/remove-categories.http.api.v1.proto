@@ -1,0 +1,8 @@
+syntax = "proto3";
+
+message V1RemoveCategoriesHttpRequest { repeated string ids = 1; }
+
+message V1RemoveCategoriesHttpResponse {
+  repeated string ids = 1;
+  optional string message = 2;
+}

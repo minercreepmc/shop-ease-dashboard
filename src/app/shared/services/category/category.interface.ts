@@ -6,6 +6,10 @@ import {
   V1GetCategoriesHttpRequest,
   V1GetCategoriesHttpResponse,
 } from '@protos/api/http/v1/get-categories.http.api.v1';
+import {
+  V1RemoveCategoriesHttpRequest,
+  V1RemoveCategoriesHttpResponse,
+} from '@protos/api/http/v1/remove-categories.http.api.v1';
 
 export class Category {
   id: string;
@@ -18,3 +22,6 @@ export type CreateCategoryHttpResponse = V1CreateCategoryHttpResponse;
 
 export type GetCategoriesHttpRequest = V1GetCategoriesHttpRequest;
 export type GetCategoriesHttpResponse = V1GetCategoriesHttpResponse;
+
+export type RemoveCategoriesHttpRequest = V1RemoveCategoriesHttpRequest;
+export type RemoveCategoriesHttpResponse = V1RemoveCategoriesHttpResponse;

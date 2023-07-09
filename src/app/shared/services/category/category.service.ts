@@ -8,6 +8,8 @@ import {
   CreateCategoryHttpRequest,
   CreateCategoryHttpResponse,
   GetCategoriesHttpResponse,
+  RemoveCategoriesHttpRequest,
+  RemoveCategoriesHttpResponse,
 } from './category.interface';
 
 @Injectable({
@@ -17,6 +19,7 @@ export class CategoryService {
   private url = 'http://localhost:3002/api/v1/categories';
   private getUrl = 'get';
   private createUrl = 'create';
+  private removeUrl = 'remove';
   private categories = new BehaviorSubject<Category[]>([]);
 
   get categories$(): Observable<Category[]> {
@@ -51,6 +54,30 @@ export class CategoryService {
           const newCategory = response;
           this.categories.next([...this.categories.value, newCategory]);
           this.toast.success(response.message!);
+        }),
+        catchError(this.handleError)
+      );
+  }
+
+  removeCategories$(
+    dto: RemoveCategoriesHttpRequest
+  ): Observable<RemoveCategoriesHttpResponse> {
+    return this.http
+      .post<RemoveCategoriesHttpResponse>(`${this.url}/${this.removeUrl}`, dto)
+      .pipe(
+        tap((response: RemoveCategoriesHttpResponse) => {
+          if (response) {
+            const { ids } = response;
+            this.categories.next(
+              this.categories.value.filter(
+                (category) => !ids.includes(category.id)
+              )
+            );
+
+            if (response.message) {
+              this.toast.success(response.message);
+            }
+          }
         }),
         catchError(this.handleError)
       );

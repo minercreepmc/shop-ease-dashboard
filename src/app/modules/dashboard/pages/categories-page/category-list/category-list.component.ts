@@ -2,7 +2,11 @@ import { Component, HostListener, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { faMinus, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { HttpCustomException } from '@shared/dtos';
-import { Category, CreateCategoryHttpRequest } from '@shared/services/category';
+import {
+  Category,
+  CreateCategoryHttpRequest,
+  RemoveCategoriesHttpRequest,
+} from '@shared/services/category';
 import { CategoryService } from '@shared/services/category/category.service';
 import { Observable } from 'rxjs';
 
@@ -18,7 +22,7 @@ export class CategoryListComponent implements OnInit {
   categories$: Observable<Category[]>;
   addCategoryFormVisible = false;
   categoryForm: FormGroup;
-  selectedCategories: string[] = [];
+  selectedCategoryIds: string[] = [];
   isCategoryFormVisible = false;
   isSelecting = false;
 
@@ -37,14 +41,14 @@ export class CategoryListComponent implements OnInit {
 
   toggleSelection(event: MouseEvent, id: string) {
     event.stopPropagation();
-    const index = this.selectedCategories.indexOf(id);
+    const index = this.selectedCategoryIds.indexOf(id);
 
     if (index === -1) {
       // Not currently selected, add to selection
-      this.selectedCategories.push(id);
+      this.selectedCategoryIds.push(id);
     } else {
       // Currently selected, remove from selection
-      this.selectedCategories.splice(index, 1);
+      this.selectedCategoryIds.splice(index, 1);
     }
   }
 
@@ -52,17 +56,16 @@ export class CategoryListComponent implements OnInit {
     this.isSelecting = !this.isSelecting;
 
     if (this.isSelecting) {
-      this.selectedCategories = [];
+      this.selectedCategoryIds = [];
     }
   }
 
   deselectAll() {
-    this.selectedCategories = [];
+    this.selectedCategoryIds = [];
   }
 
   toggleAddCategory(event: MouseEvent): void {
     event.stopPropagation(); // Stop the event from bubbling up to the document
-    this.addCategoryFormVisible = !this.addCategoryFormVisible;
   }
 
   @HostListener('document:click', ['$event'])
@@ -101,9 +104,13 @@ export class CategoryListComponent implements OnInit {
     });
   }
 
-  deleteCategory() {
-    console.log(this.selectedCategories);
-    this.selectedCategories = [];
+  removeCategories() {
+    const dto: RemoveCategoriesHttpRequest = {
+      ids: this.selectedCategoryIds,
+    };
+    this.categoryService.removeCategories$(dto).subscribe();
+    this.selectedCategoryIds = [];
+    this.toggleSelectMode();
   }
 
   constructor(

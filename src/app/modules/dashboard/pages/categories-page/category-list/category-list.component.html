@@ -6,17 +6,17 @@
       Add</app-primary-button
     >
     <app-secondary-button
-      *ngIf="selectedCategories.length > 0"
-      (click)="deleteCategory()"
-      >Delete</app-secondary-button
+      *ngIf="selectedCategoryIds.length > 0"
+      (click)="removeCategories()"
+      >Remove</app-secondary-button
     >
     <app-secondary-button
-      *ngIf="selectedCategories.length > 0"
+      *ngIf="selectedCategoryIds.length > 0"
       (click)="deselectAll()"
       >Deselect All</app-secondary-button
     >
     <app-secondary-button
-      *ngIf="isSelecting && selectedCategories.length === 0"
+      *ngIf="isSelecting && selectedCategoryIds.length === 0"
       (click)="toggleSelectMode()"
       >Disable Selection</app-secondary-button
     >
@@ -37,7 +37,7 @@
         <div
           class="checkbox"
           *ngIf="isSelecting"
-          [class.checked]="selectedCategories.includes(category.id)"
+          [class.checked]="selectedCategoryIds.includes(category.id)"
           (click)="toggleSelection($event, category.id)"
         ></div>
       </div>

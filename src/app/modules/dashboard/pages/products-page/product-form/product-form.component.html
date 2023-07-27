@@ -11,16 +11,14 @@
       formControlName="name"
     />
 
-    <div formGroupName="price">
-      <label for="amount">Product Price</label>
-      <input
-        id="amount"
-        class="box"
-        type="number"
-        placeholder="Enter product price"
-        formControlName="amount"
-      />
-    </div>
+    <label for="price">Product Price</label>
+    <input
+      id="price"
+      class="box"
+      type="number"
+      placeholder="Enter product price"
+      formControlName="price"
+    />
 
     <label for="description">Product Description</label>
     <textarea
@@ -29,6 +27,26 @@
       placeholder="Enter product description"
       formControlName="description"
     ></textarea>
+
+    <div class="custom-select-container">
+      <label for="categories">Categories</label>
+      <select
+        name="categories"
+        id="categories"
+        class="select-multiple"
+        focus="onSelectFocus()"
+        blur="onSelectBlur()"
+        formControlName="categoryIds"
+        multiple
+      >
+        <option
+          *ngFor="let category of categories$ | async"
+          [value]="category.id"
+        >
+          {{ category.name }}
+        </option>
+      </select>
+    </div>
 
     <label for="image">Product Image</label>
     <input

@@ -1,13 +1,5 @@
-import {
-  Component,
-  ElementRef,
-  EventEmitter,
-  HostListener,
-  OnInit,
-  Output,
-  ViewChild,
-} from '@angular/core';
-import { Product, ProductService } from '@shared/services';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { ProductModel, ProductService } from '@shared/services';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -16,7 +8,7 @@ import { Observable } from 'rxjs';
   styleUrls: ['./product-list.component.scss'],
 })
 export class ProductListComponent implements OnInit {
-  products$: Observable<Product[]>;
+  products$: Observable<ProductModel[]>;
   selectedProductIds: string[];
   productFormVisibility = false;
 

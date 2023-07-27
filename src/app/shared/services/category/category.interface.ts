@@ -1,27 +1,17 @@
 import {
+  V1CategoryModel,
   V1CreateCategoryHttpRequest,
   V1CreateCategoryHttpResponse,
-} from '@protos/api/http/v1/create-category.http.api.v1';
-import {
-  V1GetCategoriesHttpRequest,
+  V1GetCategoriesHttpQuery,
   V1GetCategoriesHttpResponse,
-} from '@protos/api/http/v1/get-categories.http.api.v1';
-import {
   V1RemoveCategoriesHttpRequest,
   V1RemoveCategoriesHttpResponse,
-} from '@protos/api/http/v1/remove-categories.http.api.v1';
+} from '@api/http';
 
-export class Category {
-  id: string;
-  name: string;
-  description?: string;
-}
-
+export class CategoryModel extends V1CategoryModel {}
 export type CreateCategoryHttpRequest = V1CreateCategoryHttpRequest;
 export type CreateCategoryHttpResponse = V1CreateCategoryHttpResponse;
-
-export type GetCategoriesHttpRequest = V1GetCategoriesHttpRequest;
+export type GetCategoriesHttpRequest = V1GetCategoriesHttpQuery;
 export type GetCategoriesHttpResponse = V1GetCategoriesHttpResponse;
-
 export type RemoveCategoriesHttpRequest = V1RemoveCategoriesHttpRequest;
 export type RemoveCategoriesHttpResponse = V1RemoveCategoriesHttpResponse;

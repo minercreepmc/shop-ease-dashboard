@@ -8,7 +8,7 @@ import {
   faCircleInfo,
   faRightFromBracket,
 } from '@fortawesome/free-solid-svg-icons';
-import { AuthService } from '@modules/sign-in/services/auth.service';
+import { AuthService } from '@shared/services/auth';
 
 @Component({
   selector: 'app-user-dropdown',
@@ -34,7 +34,7 @@ export class UserDropdownComponent {
   }
 
   signOut() {
-    this.authService.signOut();
+    this.authService.logOut();
     this.router.navigate(['/']);
   }
 }

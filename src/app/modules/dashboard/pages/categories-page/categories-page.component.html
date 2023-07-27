@@ -1,5 +1,23 @@
-<section class="categories-page">
-  <div class="categories-list">
-    <app-category-list></app-category-list>
+<section class="categories-page" *ngIf="categories$ | async as categories">
+  <app-category-button
+    class="button-group"
+    (toggleButtonClicked)="toggleAddCategoryForm()"
+    [isToggleButtonVisible]="isCategoryFormVisible"
+    (removeButtonClicked)="removeCategories()"
+    [isRemoveButtonVisible]="selectedCategoryIds.length > 0"
+    (disableSelectionButtonClicked)="toggleSelectMode()"
+    [isDisableSelectionButtonVisible]="
+      isSelecting && selectedCategoryIds.length === 0
+    "
+    (enableSelectionButtonClicked)="toggleSelectMode()"
+    [isEnableSelectionButtonVisible]="!isSelecting"
+    (deselectButtonClicked)="deselectAll()"
+    [isDeselectButtonVisible]="selectedCategoryIds.length > 0"
+  ></app-category-button>
+  <div class="category-form">
+    <app-category-form *ngIf="isCategoryFormVisible"></app-category-form>
+  </div>
+  <div class="category-list">
+    <app-category-list [categories]="categories"></app-category-list>
   </div>
 </section>

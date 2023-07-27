@@ -13,9 +13,9 @@ import { ProductListComponent } from './pages/products-page/product-list/product
 import { ProductsPageComponent } from './pages/products-page/products-page.component';
 import { CategoriesPageComponent } from './pages/categories-page/categories-page.component';
 import { ProductButtonComponent } from './pages/products-page/product-button/product-button.component';
-import { CategoryFormComponent } from './pages/categories-page/category-form/category-form.component';
-import { CategoryListComponent } from './pages/categories-page/category-list/category-list.component';
-import { CategoryButtonComponent } from './pages/categories-page/category-button/category-button.component';
+import { CategoryButtonComponent } from './components/category-button/category-button.component';
+import { CategoryFormComponent } from './components/category-form/category-form.component';
+import { CategoryListComponent } from './components/category-list/category-list.component';
 
 @NgModule({
   declarations: [
@@ -29,8 +29,8 @@ import { CategoryButtonComponent } from './pages/categories-page/category-button
     ProductFormComponent,
     CategoriesPageComponent,
     ProductButtonComponent,
-    CategoryListComponent,
     CategoryButtonComponent,
+    CategoryListComponent,
   ],
   imports: [
     SharedModule,

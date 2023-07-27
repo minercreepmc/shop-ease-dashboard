@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { SignInPageComponent } from '@modules/sign-in/pages/sign-in-page/sign-in-page.component';
+import { LogInPageComponent } from '@modules/log-in/pages/sign-in-page/log-in-page.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: SignInPageComponent,
+    component: LogInPageComponent,
     pathMatch: 'full',
   },
   {

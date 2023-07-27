@@ -17,7 +17,12 @@ const routes: Routes = [
       },
       {
         path: 'categories',
-        component: CategoriesPageComponent,
+        children: [
+          {
+            path: '',
+            component: CategoriesPageComponent,
+          },
+        ],
       },
     ],
   },

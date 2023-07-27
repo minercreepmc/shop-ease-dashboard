@@ -6,7 +6,9 @@
       "@shared/*": ["./src/app/shared/*"],
       "@modules/*": ["./src/app/modules/*"],
       "@core/*": ["./src/app/core/*"],
-      "@protos/*": ["./protos/*"]
+      "@protos/*": ["./protos/*"],
+      "@api": ["./api"],
+      "@api/*": ["./api/*"]
     },
     "strictPropertyInitialization": false,
     "baseUrl": "./",

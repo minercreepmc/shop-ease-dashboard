@@ -1,3 +1,47 @@
 .categories-page {
   margin-top: 7rem;
 }
+
+
+.button-group {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 1rem;
+}
+
+
+.category-form {
+  margin-bottom: 2rem;
+}
+
+.category-add-item,
+.category-add-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.category-add-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  input {
+    width: 80%;
+  }
+}
+
+.category-confirm-button {
+  color: #4caf50;
+}
+
+.category-cancel-button {
+  color: #f44336;
+}
+
+.confirm-button-group {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

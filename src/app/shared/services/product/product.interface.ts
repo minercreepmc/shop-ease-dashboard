@@ -1,10 +1,3 @@
-export interface Product {
-  id?: string;
-  name?: string;
-  price?: {
-    amount: number;
-    currency: string;
-  };
-  categories?: string[];
-  image?: string;
-}
+import { V1ProductModel } from '@api/http';
+
+export type ProductModel = V1ProductModel;

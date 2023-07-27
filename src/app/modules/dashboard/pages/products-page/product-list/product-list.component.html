@@ -5,8 +5,6 @@
     (deleteButtonClicked)="deleteProduct()"
     [contentVisibility]="productFormVisibility"
   >
-
-
   </app-product-button>
 
   <app-product-form
@@ -21,7 +19,7 @@
         <td>Image</td>
         <td>Name</td>
         <td>Price</td>
-        <td>Category</td>
+        <td>Inventory</td>
       </tr>
     </thead>
     <tbody>
@@ -33,7 +31,7 @@
           />
         </td>
         <td>
-          <div *ngIf="product.image as productImage">
+          <div *ngIf="product.image_url as productImage">
             <img
               [src]="productImage"
               alt="{{ product.name }}"
@@ -41,7 +39,7 @@
               onError="this.onerror=null;this.src='/assets/placeholder-default-image.webp';"
             />
           </div>
-          <div *ngIf="!product.image">
+          <div *ngIf="!product.image_url">
             <img
               src="/assets/placeholder-default-image.webp"
               alt="{{ product.name }}"
@@ -50,8 +48,8 @@
           </div>
         </td>
         <td>{{ product.name }}</td>
-        <td>{{ product.price?.amount }}$</td>
-        <td>{{ product.categories?.join(', ') }}</td>
+        <td>{{ product.price }}$</td>
+        <td></td>
       </tr>
     </tbody>
   </table>

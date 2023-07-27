@@ -1,12 +1,14 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { faX } from '@fortawesome/free-solid-svg-icons';
-import {
-  CurrencyEnum,
-  currencyEnumToJSON,
-} from '@protos/api/http/v1/create-product.http.api.v1';
 import { HttpCustomException } from '@shared/dtos';
+import {
+  ToastrCustomModule,
+  ToastrCustomService,
+} from '@shared/libraries/toastr';
 import { ProductService } from '@shared/services';
+import { CategoryModel, CategoryService } from '@shared/services/category';
+import { Observable } from 'rxjs';
 
 export interface IProductFormErrors {
   name: string;
@@ -22,18 +24,19 @@ export interface IProductFormErrors {
 })
 export class ProductFormComponent implements OnInit {
   productForm: FormGroup;
+  categories$: Observable<CategoryModel[]>;
   faX = faX;
 
   ngOnInit() {
     this.productForm = this.formBuilder.group({
       name: '',
-      price: this.formBuilder.group({
-        amount: '',
-        currency: currencyEnumToJSON(CurrencyEnum.USD),
-      }),
+      price: '',
       image: '',
       description: null,
+      categoryIds: [],
     });
+    this.categoryService.loadCategories$().subscribe();
+    this.categories$ = this.categoryService.categories$;
   }
 
   handleFileInput(event: Event) {
@@ -48,20 +51,30 @@ export class ProductFormComponent implements OnInit {
 
   onSubmit() {
     const productDto = this.productForm.value;
-    productDto.price.amount = Number(productDto.price.amount);
-    productDto.price.currency = currencyEnumToJSON(CurrencyEnum.USD);
+    productDto.price = Number(productDto.price);
     this.productService.createProduct$(productDto).subscribe({
       next: (response) => {
-        console.log(response);
+        this.toast.success(response.message || 'Product created successfully');
       },
       error: (exception: HttpCustomException) => {
-        console.log(this.productForm.value);
         throw exception;
       },
       complete: () => {
         console.log('complete');
       },
     });
+  }
+
+  // Function to handle focus event of the multiple select input
+  onSelectFocus() {
+    const selectMultiple = document.querySelector('.select-multiple');
+    selectMultiple?.classList.add('expanded');
+  }
+
+  // Function to handle blur event of the multiple select input
+  onSelectBlur() {
+    const selectMultiple = document.querySelector('.select-multiple');
+    selectMultiple?.classList.remove('expanded');
   }
 
   @Output() closeButtonClicked = new EventEmitter();
@@ -72,6 +85,8 @@ export class ProductFormComponent implements OnInit {
 
   constructor(
     private readonly productService: ProductService,
-    private readonly formBuilder: FormBuilder
+    private readonly categoryService: CategoryService,
+    private readonly formBuilder: FormBuilder,
+    private readonly toast: ToastrCustomService
   ) {}
 }

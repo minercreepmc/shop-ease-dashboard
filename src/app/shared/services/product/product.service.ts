@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { HttpCustomException } from '@shared/dtos';
 import { ToastrCustomService } from '@shared/libraries/toastr';
 import { createFormData } from '@shared/utils';
-import { ToastrService } from 'ngx-toastr';
+import { v1ApiEndpoints } from '@api/http';
 import {
   Observable,
   catchError,
@@ -11,9 +11,8 @@ import {
   first,
   tap,
   throwError,
-  finalize,
 } from 'rxjs';
-import { Product } from './product.interface';
+import { ProductModel } from './product.interface';
 import {
   CreateProductRequestDto,
   CreateProductResponseDto,
@@ -25,14 +24,13 @@ import {
 @Injectable()
 export class ProductService {
   // TODO: setup proxy later;
-  url = 'http://localhost:3002/api/v1/products';
-  createUrl = 'create';
-  removeUrl = 'remove';
-  getUrl = 'get';
+  createUrl = v1ApiEndpoints.createProduct;
+  removeUrl = v1ApiEndpoints.removeProducts;
+  getAllUrl = v1ApiEndpoints.getProducts;
 
-  readonly products = new BehaviorSubject<Product[]>([]);
+  readonly products = new BehaviorSubject<ProductModel[]>([]);
 
-  get products$(): Observable<Product[]> {
+  get products$(): Observable<ProductModel[]> {
     return this.products.asObservable();
   }
 
@@ -49,7 +47,7 @@ export class ProductService {
   getProducts$(): Observable<GetProductsResponseDto> {
     // simulate server latency with 2 second delay
     return this.http
-      .post<GetProductsResponseDto>(`${this.url}/${this.getUrl}`, {})
+      .get<GetProductsResponseDto>(this.getAllUrl, {})
       .pipe(catchError(this.handleError));
   }
 
@@ -58,11 +56,10 @@ export class ProductService {
   ): Observable<CreateProductResponseDto> {
     const formData = createFormData({
       dto,
-      nestedKeys: ['price'],
     });
 
     const response$ = this.http.post<CreateProductResponseDto>(
-      `${this.url}/${this.createUrl}`,
+      this.createUrl,
       formData
     );
 
@@ -71,7 +68,7 @@ export class ProductService {
       tap((response: CreateProductResponseDto) => {
         const newProduct = response;
         this.products.next([...this.products.value, newProduct]);
-        this.toast.success(response.message);
+        this.toast.success(response.message || 'Product created successfully');
       }),
       catchError(this.handleError)
     );
@@ -82,7 +79,7 @@ export class ProductService {
       ids,
     };
     const productRemoving$ = this.http.post<RemoveProductsResponseDto>(
-      `${this.url}/${this.removeUrl}`,
+      this.removeUrl,
       request
     );
 

@@ -1,10 +1,10 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { v1ApiEndpoints } from '@api/http';
 import { HttpCustomException } from '@shared/dtos';
-import { ToastrCustomService } from '@shared/libraries/toastr';
 import { BehaviorSubject, catchError, Observable, tap, throwError } from 'rxjs';
 import {
-  Category,
+  CategoryModel,
   CreateCategoryHttpRequest,
   CreateCategoryHttpResponse,
   GetCategoriesHttpResponse,
@@ -16,13 +16,13 @@ import {
   providedIn: 'root',
 })
 export class CategoryService {
-  private url = 'http://localhost:3002/api/v1/categories';
-  private getUrl = 'get';
-  private createUrl = 'create';
-  private removeUrl = 'remove';
-  private categories = new BehaviorSubject<Category[]>([]);
+  private getAllUrl = v1ApiEndpoints.getCategories;
+  private createUrl = v1ApiEndpoints.createCategory;
+  private removeUrl = v1ApiEndpoints.removeCategories;
 
-  get categories$(): Observable<Category[]> {
+  private categories = new BehaviorSubject<CategoryModel[]>([]);
+
+  get categories$(): Observable<CategoryModel[]> {
     return this.categories.asObservable();
   }
 
@@ -39,31 +39,27 @@ export class CategoryService {
 
   getCategories$(): Observable<GetCategoriesHttpResponse> {
     return this.http
-      .post<GetCategoriesHttpResponse>(`${this.url}/${this.getUrl}`, {})
+      .get<GetCategoriesHttpResponse>(this.getAllUrl, {})
       .pipe(catchError(this.handleError));
   }
 
   createCategory$(
     dto: CreateCategoryHttpRequest
   ): Observable<CreateCategoryHttpResponse> {
-    console.log(dto);
-    return this.http
-      .post<CreateCategoryHttpResponse>(`${this.url}/${this.createUrl}`, dto)
-      .pipe(
-        tap((response: CreateCategoryHttpResponse) => {
-          const newCategory = response;
-          this.categories.next([...this.categories.value, newCategory]);
-          this.toast.success(response.message!);
-        }),
-        catchError(this.handleError)
-      );
+    return this.http.post<CreateCategoryHttpResponse>(this.createUrl, dto).pipe(
+      tap((response: CreateCategoryHttpResponse) => {
+        const newCategory = response;
+        this.categories.next([...this.categories.value, newCategory]);
+      }),
+      catchError(this.handleError)
+    );
   }
 
   removeCategories$(
     dto: RemoveCategoriesHttpRequest
   ): Observable<RemoveCategoriesHttpResponse> {
     return this.http
-      .post<RemoveCategoriesHttpResponse>(`${this.url}/${this.removeUrl}`, dto)
+      .post<RemoveCategoriesHttpResponse>(this.removeUrl, dto)
       .pipe(
         tap((response: RemoveCategoriesHttpResponse) => {
           if (response) {
@@ -73,10 +69,6 @@ export class CategoryService {
                 (category) => !ids.includes(category.id)
               )
             );
-
-            if (response.message) {
-              this.toast.success(response.message);
-            }
           }
         }),
         catchError(this.handleError)
@@ -87,8 +79,5 @@ export class CategoryService {
     return throwError(() => new HttpCustomException(error));
   }
 
-  constructor(
-    private readonly http: HttpClient,
-    private readonly toast: ToastrCustomService
-  ) {}
+  constructor(private readonly http: HttpClient) {}
 }

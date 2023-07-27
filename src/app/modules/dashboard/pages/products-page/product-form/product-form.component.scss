@@ -60,3 +60,34 @@
 .btn:hover {
   background: #4339b1;
 }
+
+/* Custom styling for the multiple select input */
+.custom-select-container {
+  position: relative;
+  width: 100%;
+}
+
+.select-multiple {
+  width: 100%;
+  height: 36px; /* Adjust the initial height as desired */
+  padding: 8px;
+  font-size: 14px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: #fff;
+  appearance: none;
+  -webkit-appearance: none;
+  background-position: right center;
+  background-repeat: no-repeat;
+}
+
+/* Styling for the dropdown menu */
+.select-multiple option {
+  padding: 8px;
+}
+
+/* Optional: Add a border color change on focus */
+.select-multiple:focus {
+  border-color: #594ef7;
+  outline: none;
+}

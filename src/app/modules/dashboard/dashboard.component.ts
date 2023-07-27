@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from '@modules/sign-in/services/auth.service';
+import { AuthService } from '@shared/services/auth';
 
 @Component({
   selector: 'app-dashboard',
@@ -13,7 +13,7 @@ export class DashboardComponent implements OnInit {
     private readonly router: Router
   ) {}
   ngOnInit(): void {
-    const isSignedIn = this.authService.isSignedIn();
+    const isSignedIn = this.authService.isLoggedIn();
     if (!isSignedIn) {
       this.router.navigate(['/']);
     }

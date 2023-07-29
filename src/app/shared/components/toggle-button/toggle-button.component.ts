@@ -5,6 +5,7 @@ import { faMinus, faPlus } from '@fortawesome/free-solid-svg-icons';
   selector: 'app-toggle-button',
   templateUrl: './toggle-button.component.html',
   styleUrls: ['./toggle-button.component.scss'],
+  standalone: true
 })
 export class ToggleButtonComponent {
   @Input() contentVisibility = false;

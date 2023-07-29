@@ -11,6 +11,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpCustomExceptionHandler } from './core/exception-handler';
 import { CleanPayloadInterceptor } from './core/interceptors';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 const exceptionHandlers: Provider[] = [
   {
@@ -36,6 +37,7 @@ const interceptors: Provider[] = [
     SharedModule,
     ReactiveFormsModule,
     DashboardModule,
+    BrowserAnimationsModule,
   ],
   providers: [...exceptionHandlers, ...interceptors],
   bootstrap: [AppComponent],

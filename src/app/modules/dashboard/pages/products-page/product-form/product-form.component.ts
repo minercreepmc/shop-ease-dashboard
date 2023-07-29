@@ -1,14 +1,23 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { faX } from '@fortawesome/free-solid-svg-icons';
 import { HttpCustomException } from '@shared/dtos';
-import {
-  ToastrCustomModule,
-  ToastrCustomService,
-} from '@shared/libraries/toastr';
+import { ToastrCustomService } from '@shared/libraries/toastr';
 import { ProductService } from '@shared/services';
 import { CategoryModel, CategoryService } from '@shared/services/category';
 import { Observable } from 'rxjs';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSelectModule } from '@angular/material/select';
+import { CommonModule } from '@angular/common';
+import { MatButtonModule } from '@angular/material/button';
+import { MaterialFileInputModule } from 'ngx-material-file-input';
 
 export interface IProductFormErrors {
   name: string;
@@ -21,6 +30,18 @@ export interface IProductFormErrors {
   selector: 'app-product-form',
   templateUrl: './product-form.component.html',
   styleUrls: ['./product-form.component.scss'],
+  standalone: true,
+  imports: [
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MaterialFileInputModule,
+    MatIconModule,
+    MatButtonModule,
+    CommonModule,
+  ],
 })
 export class ProductFormComponent implements OnInit {
   productForm: FormGroup;
@@ -51,7 +72,9 @@ export class ProductFormComponent implements OnInit {
 
   onSubmit() {
     const productDto = this.productForm.value;
+    console.log(productDto);
     productDto.price = Number(productDto.price);
+    productDto.image = productDto.image._files[0];
     this.productService.createProduct$(productDto).subscribe({
       next: (response) => {
         this.toast.success(response.message || 'Product created successfully');
@@ -63,18 +86,6 @@ export class ProductFormComponent implements OnInit {
         console.log('complete');
       },
     });
-  }
-
-  // Function to handle focus event of the multiple select input
-  onSelectFocus() {
-    const selectMultiple = document.querySelector('.select-multiple');
-    selectMultiple?.classList.add('expanded');
-  }
-
-  // Function to handle blur event of the multiple select input
-  onSelectBlur() {
-    const selectMultiple = document.querySelector('.select-multiple');
-    selectMultiple?.classList.remove('expanded');
   }
 
   @Output() closeButtonClicked = new EventEmitter();

@@ -487,7 +487,18 @@ body {
 }
 // regular style toast
 @import 'ngx-toastr/toastr';
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
 
 body {
   width: 100%;
+}
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  background: #e5e7eb;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
 }

@@ -1,14 +1,30 @@
 .products-page {
   padding: 7rem 0;
-}
+  width: 100%;
+  overflow-x: auto;
 
-.product-list {
-  max-width: 1200px;
-  margin: 0 auto;
-}
+  .product-button {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 20px;
+  }
 
-.product-button {
-  display: flex;
-  justify-content: flex-end;
-  margin-bottom: 20px;
+  .product-table {
+    margin-top: 1.5rem;
+  }
+  .product-image {
+    width: 25px;
+    padding: 0.5em 0;
+  }
+
+  .button-group {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-bottom: 20px;
+
+    :first-child {
+      margin-right: 20px;
+    }
+  }
 }

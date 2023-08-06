@@ -1,0 +1,35 @@
+<mat-form-field class="categories-chip">
+  <mat-chip-list #chipList>
+    <mat-chip
+      class="chip"
+      *ngFor="let category of chipSelectedCategories"
+      [selectable]="true"
+      [removable]="true"
+      (removed)="removeCategory(category)"
+    >
+      {{ category.name }}
+      <mat-icon matChipRemove>cancel</mat-icon>
+    </mat-chip>
+    <input
+      placeholder="Your Category"
+      #categoryInput
+      [formControl]="categoryControl"
+      [matAutocomplete]="auto"
+      [matChipInputFor]="chipList"
+      [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+      [matChipInputAddOnBlur]="true"
+      (matChipInputTokenEnd)="addCategory($event)"
+    />
+  </mat-chip-list>
+  <mat-autocomplete
+    #auto="matAutocomplete"
+    (optionSelected)="categorySelected($event)"
+  >
+    <mat-option
+      *ngFor="let thisCategoryName of filteredCategories | async"
+      [value]="thisCategoryName"
+    >
+      {{ thisCategoryName }}
+    </mat-option>
+  </mat-autocomplete>
+</mat-form-field>

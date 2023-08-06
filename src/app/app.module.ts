@@ -2,7 +2,6 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ErrorHandler, NgModule, Provider } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-import { RouterModule } from '@angular/router';
 import { DashboardModule } from '@modules/dashboard/dashboard.module';
 import { LogInModule } from '@modules/log-in/log-in.module';
 import { SharedModule } from '@shared/shared.module';

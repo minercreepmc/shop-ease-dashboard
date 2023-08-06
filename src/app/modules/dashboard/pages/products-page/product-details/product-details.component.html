@@ -1,0 +1,70 @@
+<section class="product-details" *ngIf="product">
+  <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+    <div class="product">
+      <h1 class="product-header header">Product</h1>
+      <div class="product-body">
+        <mat-form-field class="product-name">
+          <mat-label>Name</mat-label>
+          <input matInput type="text" formControlName="name" />
+          <button
+            *ngIf="product.name"
+            matSuffix
+            mat-icon-button
+            aria-label="Clear"
+            (click)="productForm.patchValue({ name: '' })"
+          >
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-form-field>
+        <mat-form-field class="product-price">
+          <mat-label>Price</mat-label>
+          <input matInput type="number" formControlName="price" />
+          <button
+            *ngIf="product.price"
+            matSuffix
+            mat-icon-button
+            aria-label="Clear"
+            (click)="productForm.patchValue({ price: '' })"
+          >
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-form-field>
+        <mat-form-field class="product-description">
+          <mat-label>Description</mat-label>
+          <textarea matInput formControlName="description"></textarea>
+          <button
+            *ngIf="product.description"
+            matSuffix
+            mat-icon-button
+            aria-label="Clear"
+            (click)="productForm.setValue({ description: '' })"
+          >
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-form-field>
+        <img class="product-image" [src]="product.image_url" alt="" />
+      </div>
+    </div>
+
+    <div class="discount">
+      <h1 class="discount-header header">Discount</h1>
+      <div class="discount-body">
+        <h2>{{ product.discount?.name }}</h2>
+        <p>{{ product.discount?.percentage }}</p>
+        <p>{{ product.discount?.active }}</p>
+      </div>
+    </div>
+
+    <div class="category">
+      <h1 class="category-header header">Categories</h1>
+      <div class="category-body">
+        <app-categories-chip
+          [chipSelectedCategories]="categories"
+          (chipSelectedCategoriesChange)="onCategoriesChange($event)"
+        ></app-categories-chip>
+      </div>
+    </div>
+
+    <button type="submit" mat-raised-button color="primary">Confirm</button>
+  </form>
+</section>

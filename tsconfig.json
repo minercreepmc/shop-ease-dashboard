@@ -5,8 +5,10 @@
       "@shared": ["./src/app/shared"],
       "@shared/*": ["./src/app/shared/*"],
       "@modules/*": ["./src/app/modules/*"],
-      "@core/*": ["./src/app/core/*"],
+      "@directives": ["./src/app/core/directives"],
+      "@directives/*": ["./src/app/core/directives/*"],
       "@protos/*": ["./protos/*"],
+      "@core/*": ["./src/app/core/*"],
       "@api": ["./api"],
       "@api/*": ["./api/*"]
     },

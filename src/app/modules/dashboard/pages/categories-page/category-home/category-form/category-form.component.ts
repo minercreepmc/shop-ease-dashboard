@@ -1,19 +1,33 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { faX } from '@fortawesome/free-solid-svg-icons';
+import {
+  FormBuilder,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 import {
   CategoryService,
   CreateCategoryHttpRequest,
 } from '@shared/services/category';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-category-form',
   templateUrl: './category-form.component.html',
   styleUrls: ['./category-form.component.scss'],
+  standalone: true,
+  imports: [
+    ReactiveFormsModule,
+    FormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+  ],
 })
 export class CategoryFormComponent implements OnInit {
   categoryForm: FormGroup;
-  faX = faX;
 
   ngOnInit() {
     this.categoryForm = this.fb.group({
@@ -34,6 +48,7 @@ export class CategoryFormComponent implements OnInit {
   }
 
   createCategory(dto: CreateCategoryHttpRequest) {
+    console.log(dto);
     this.categoryService.createCategory$(dto).subscribe();
   }
 

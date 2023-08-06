@@ -3,4 +3,11 @@ export class V1CategoryModel {
   name: string;
   description?: string;
   product_ids?: string[];
+  products?: {
+    id: string;
+    name: string;
+    price: number;
+    description?: string;
+    image_url?: string;
+  }[];
 }

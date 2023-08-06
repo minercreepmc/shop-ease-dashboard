@@ -1,0 +1,31 @@
+.product-details {
+  margin-top: 8rem;
+  .header {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 1em;
+  }
+}
+
+.product {
+  .product-body {
+    display: grid;
+    grid-gap: 1rem;
+    grid-template-areas:
+      "name price image"
+      "description description image";
+
+    .product-name {
+      grid-area: name;
+    }
+    .product-image {
+      grid-area: image;
+      background: white;
+      padding: 1em;
+      width: 100px;
+    }
+    .product-description {
+      grid-area: description;
+    }
+  }
+}

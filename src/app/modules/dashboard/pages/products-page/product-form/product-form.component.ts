@@ -72,9 +72,10 @@ export class ProductFormComponent implements OnInit {
 
   onSubmit() {
     const productDto = this.productForm.value;
-    console.log(productDto);
     productDto.price = Number(productDto.price);
-    productDto.image = productDto.image._files[0];
+    if (productDto.image) {
+      productDto.image = productDto.image._files[0];
+    }
     this.productService.createProduct$(productDto).subscribe({
       next: (response) => {
         this.toast.success(response.message || 'Product created successfully');

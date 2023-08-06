@@ -5,3 +5,6 @@ export interface PopulateDiscount {
 export interface PopulateDetails {
   populate_details?: boolean;
 }
+export interface PopulateProducts {
+  populate_products?: boolean;
+}

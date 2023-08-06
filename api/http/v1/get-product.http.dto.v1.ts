@@ -1,16 +1,12 @@
-import { PopulateDetails, PopulateDiscount } from './query';
+import { V1CategoryModel, V1DiscountModel } from './models';
+import { PopulateDetails } from './query';
 
-export class V1GetProductHttpQuery
-  implements PopulateDiscount, PopulateDetails
-{
+export class V1GetProductHttpQuery implements PopulateDetails {
   populate_details?: boolean;
-  populate_discount?: boolean;
 }
 export class V1GetProductHttpResponse {
-  discount_name: string;
-  discount_description?: string;
-  discount_percentage: number;
-  discount_active?: boolean;
+  discount?: V1DiscountModel;
+  categories?: V1CategoryModel[];
   name: string;
   price: number;
   description?: string;

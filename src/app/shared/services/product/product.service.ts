@@ -1,4 +1,8 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpErrorResponse,
+  HttpParams,
+} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { HttpCustomException } from '@shared/dtos';
 import { ToastrCustomService } from '@shared/libraries/toastr';
@@ -16,9 +20,13 @@ import { ProductModel } from './product.interface';
 import {
   CreateProductRequestDto,
   CreateProductResponseDto,
+  GetProductQueryDto,
+  GetProductResponseDto,
   GetProductsResponseDto,
   RemoveProductsRequestDto,
   RemoveProductsResponseDto,
+  UpdateProductRequestDto,
+  UpdateProductResponseDto,
 } from './product.service.dto';
 
 @Injectable()
@@ -27,6 +35,8 @@ export class ProductService {
   createUrl = v1ApiEndpoints.createProduct;
   removeUrl = v1ApiEndpoints.removeProducts;
   getAllUrl = v1ApiEndpoints.getProducts;
+  getUrl = v1ApiEndpoints.getProduct;
+  updateUrl = v1ApiEndpoints.updateProduct;
 
   readonly products = new BehaviorSubject<ProductModel[]>([]);
 
@@ -49,6 +59,16 @@ export class ProductService {
     return this.http
       .get<GetProductsResponseDto>(this.getAllUrl, {})
       .pipe(catchError(this.handleError));
+  }
+
+  getProduct$(id: string): Observable<GetProductResponseDto> {
+    const url = this.getUrl.replace(':id', id);
+    const query: GetProductQueryDto = {
+      populate_details: true,
+    };
+    return this.http.get<GetProductResponseDto>(url, {
+      params: query as HttpParams,
+    });
   }
 
   createProduct$(
@@ -96,6 +116,18 @@ export class ProductService {
 
       catchError(this.handleError)
     );
+  }
+
+  updateProduct$(
+    dto: UpdateProductRequestDto
+  ): Observable<UpdateProductResponseDto> {
+    const formData = createFormData({
+      dto,
+    });
+    const url = this.updateUrl.replace(':id', dto.id);
+
+    return this.http.put<UpdateProductResponseDto>(url, formData);
+
   }
 
   private handleError(error: HttpErrorResponse) {

@@ -59,7 +59,7 @@
       <h1 class="category-header header">Categories</h1>
       <div class="category-body">
         <app-categories-chip
-          [chipSelectedCategories]="categories"
+          [chipSelectedCategories]="categories || []"
           (chipSelectedCategoriesChange)="onCategoriesChange($event)"
         ></app-categories-chip>
       </div>

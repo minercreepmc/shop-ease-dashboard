@@ -6,7 +6,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { ActivatedRoute } from '@angular/router';
-import { ToastrCustomService } from '@shared/libraries/toastr';
+import {
+  ToastrCustomModule,
+  ToastrCustomService,
+} from '@shared/libraries/toastr';
 import {
   ProductModel,
   ProductService,
@@ -31,6 +34,7 @@ import { V1DiscountModel } from '@api/http';
     AsyncPipe,
     NgFor,
     CategoriesChipComponent,
+    ToastrCustomModule,
   ],
 })
 export class ProductDetailsComponent implements OnInit {

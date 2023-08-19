@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CategoryButtonComponent } from './category-button.component';
+import { DiscountsHomeComponent } from './discounts-home.component';
 
-describe('CategoryButtonComponent', () => {
-  let component: CategoryButtonComponent;
-  let fixture: ComponentFixture<CategoryButtonComponent>;
+describe('DiscountsHomeComponent', () => {
+  let component: DiscountsHomeComponent;
+  let fixture: ComponentFixture<DiscountsHomeComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CategoryButtonComponent ]
+      declarations: [ DiscountsHomeComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(CategoryButtonComponent);
+    fixture = TestBed.createComponent(DiscountsHomeComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

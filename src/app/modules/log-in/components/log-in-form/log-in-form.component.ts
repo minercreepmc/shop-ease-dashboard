@@ -1,20 +1,32 @@
+import { HttpClientModule } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { Router } from '@angular/router';
 import { HttpCustomException } from '@shared/dtos';
-import { AuthService } from '@shared/services/auth';
+import { AuthService, StorageService } from '@shared/services/auth';
 
 @Component({
   selector: 'app-log-in-form',
   templateUrl: './log-in-form.component.html',
   styleUrls: ['./log-in-form.component.scss'],
+  standalone: true,
+  imports: [ReactiveFormsModule, HttpClientModule],
+  providers: [AuthService, StorageService],
 })
 export class LogInFormComponent implements OnInit {
   loginForm!: FormGroup;
+  isLoginFailed = false;
+  isLoggedIn = false;
 
   constructor(
     private readonly formBuilder: FormBuilder,
     private readonly authService: AuthService,
+    private readonly storageSerivce: StorageService,
     private readonly router: Router
   ) {}
 
@@ -36,7 +48,10 @@ export class LogInFormComponent implements OnInit {
           password,
         })
         .subscribe({
-          next: () => {
+          next: (response) => {
+            this.storageSerivce.saveUser(response);
+            this.isLoginFailed = false;
+            this.isLoggedIn = true;
             this.router.navigate(['/dashboard']);
           },
           error: (error: HttpCustomException) => {
@@ -44,6 +59,7 @@ export class LogInFormComponent implements OnInit {
           },
           complete: () => {
             this.loginForm.reset();
+            window.location.reload();
           },
         });
     }

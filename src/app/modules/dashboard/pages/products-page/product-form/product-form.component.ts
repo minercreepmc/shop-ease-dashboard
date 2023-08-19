@@ -7,7 +7,10 @@ import {
 } from '@angular/forms';
 import { faX } from '@fortawesome/free-solid-svg-icons';
 import { HttpCustomException } from '@shared/dtos';
-import { ToastrCustomService } from '@shared/libraries/toastr';
+import {
+  ToastrCustomModule,
+  ToastrCustomService,
+} from '@shared/libraries/toastr';
 import { ProductService } from '@shared/services';
 import { CategoryModel, CategoryService } from '@shared/services/category';
 import { Observable } from 'rxjs';
@@ -41,6 +44,7 @@ export interface IProductFormErrors {
     MatIconModule,
     MatButtonModule,
     CommonModule,
+    ToastrCustomModule,
   ],
 })
 export class ProductFormComponent implements OnInit {
@@ -79,6 +83,7 @@ export class ProductFormComponent implements OnInit {
     this.productService.createProduct$(productDto).subscribe({
       next: (response) => {
         this.toast.success(response.message || 'Product created successfully');
+        this.productForm.reset();
       },
       error: (exception: HttpCustomException) => {
         throw exception;

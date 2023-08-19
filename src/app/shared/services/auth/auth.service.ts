@@ -1,26 +1,37 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { LogInRequestDto, LogInResponseDto } from './auth.service.interface';
+import {
+  LogInRequestDto,
+  LogInResponseDto,
+  UserModel,
+} from './auth.service.interface';
 import { HttpCustomException } from '@shared/dtos';
-import { catchError } from 'rxjs';
+import { catchError, Observable } from 'rxjs';
 import { v1ApiEndpoints } from '@api/http';
+import { devEnvironment } from '@env';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  // api gateway later
-  private readonly logInUrl = v1ApiEndpoints.logIn;
+  private readonly logInUrl = v1ApiEndpoints.logInAdmin;
   private readonly logOutUrl = v1ApiEndpoints.logOut;
+  private readonly getProfileUrl = v1ApiEndpoints.getProfile;
 
   constructor(private readonly http: HttpClient) {}
 
   logIn(dto: LogInRequestDto) {
-    return this.http.post<LogInResponseDto>(this.logInUrl, dto).pipe(
-      catchError((error) => {
-        throw new HttpCustomException(error);
+    return this.http
+      .post<LogInResponseDto>(this.logInUrl, dto, {
+        headers: {
+          'X-Api-Key': devEnvironment.apiKey,
+        },
       })
-    );
+      .pipe(
+        catchError((error) => {
+          throw new HttpCustomException(error);
+        })
+      );
   }
 
   logOut() {
@@ -31,8 +42,11 @@ export class AuthService {
     );
   }
 
-  isLoggedIn() {
-    // check cookie
-    return true;
+  getProfile$(): Observable<UserModel> {
+    return this.http.get<UserModel>(this.getProfileUrl, {}).pipe(
+      catchError((error) => {
+        throw new HttpCustomException(error);
+      })
+    );
   }
 }

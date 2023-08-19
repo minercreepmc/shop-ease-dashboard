@@ -9,6 +9,8 @@
       "@directives/*": ["./src/app/core/directives/*"],
       "@protos/*": ["./protos/*"],
       "@core/*": ["./src/app/core/*"],
+      "@env": ["./src/environments"],
+      "@env/*": ["./src/environments/*"],
       "@api": ["./api"],
       "@api/*": ["./api/*"]
     },

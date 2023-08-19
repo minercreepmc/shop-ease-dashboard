@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { AsyncPipe, NgIf } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {
   faUsers,
   faUserEdit,
@@ -8,14 +10,18 @@ import {
   faCircleInfo,
   faRightFromBracket,
 } from '@fortawesome/free-solid-svg-icons';
-import { AuthService } from '@shared/services/auth';
+import { AuthService, StorageService, UserModel } from '@shared/services/auth';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-user-dropdown',
   templateUrl: './user-dropdown.component.html',
   styleUrls: ['./user-dropdown.component.scss'],
+  standalone: true,
+  imports: [FontAwesomeModule, NgIf, AsyncPipe],
+  providers: [AuthService, StorageService],
 })
-export class UserDropdownComponent {
+export class UserDropdownComponent implements OnInit {
   faUsers = faUsers;
   faUserEdit = faUserEdit;
   faMail = faEnvelope;
@@ -24,10 +30,16 @@ export class UserDropdownComponent {
   faRightFromBracket = faRightFromBracket;
   isMenuOpen = false;
 
+  user$: Observable<UserModel>;
+
   constructor(
     private readonly authService: AuthService,
     private readonly router: Router
   ) {}
+
+  ngOnInit() {
+    this.user$ = this.authService.getProfile$();
+  }
 
   toggleMenu() {
     this.isMenuOpen = !this.isMenuOpen;

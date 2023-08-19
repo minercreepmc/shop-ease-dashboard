@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './dashboard.component';
 import { AnalyticPageComponent } from './pages/analytic-page/analytic-page.component';
-import { ProductsPageComponent } from './pages/products-page/products-page.component';
 
 const routes: Routes = [
   {
@@ -22,6 +21,13 @@ const routes: Routes = [
         loadChildren: () =>
           import('./pages/categories-page/categories-page.route').then(
             (m) => m.CategoriesPageRouteModule
+          ),
+      },
+      {
+        path: 'discounts',
+        loadChildren: () =>
+          import('./pages/discounts-page/discounts-page.route').then(
+            (m) => m.DiscountsPageRoutingModule
           ),
       },
     ],

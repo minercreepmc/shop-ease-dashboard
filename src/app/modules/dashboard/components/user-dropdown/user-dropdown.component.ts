@@ -34,6 +34,7 @@ export class UserDropdownComponent implements OnInit {
 
   constructor(
     private readonly authService: AuthService,
+    private readonly storageService: StorageService,
     private readonly router: Router
   ) {}
 
@@ -46,7 +47,16 @@ export class UserDropdownComponent implements OnInit {
   }
 
   signOut() {
-    this.authService.logOut();
-    this.router.navigate(['/']);
+    this.authService.logOut$().subscribe({
+      next: () => {
+        this.storageService.clean();
+      },
+      error: (error) => {
+        throw error;
+      },
+      complete: () => {
+        this.router.navigate(['/']);
+      },
+    });
   }
 }

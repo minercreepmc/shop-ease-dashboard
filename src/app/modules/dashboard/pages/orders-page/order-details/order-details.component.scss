@@ -1,0 +1,19 @@
+.order-details {
+  margin-top: 10rem;
+  .heading {
+    font-size: 4rem;
+    font-weight: bold;
+  }
+
+  b {
+    font-size: 2rem;
+    font-weight: bold;
+  }
+
+  fa-icon {
+    font-size: 2rem;
+    border: 1px solid black;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+}

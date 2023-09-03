@@ -1,0 +1,34 @@
+<form
+  [formGroup]="discountForm"
+  (ngSubmit)="onDiscountSubmit()"
+  class="discount-form"
+>
+  <h3>Add new discount</h3>
+
+  <mat-form-field class="form-group">
+    <mat-label>Name</mat-label>
+    <input matInput placeholder="Ex. Summer sale" formControlName="name" />
+  </mat-form-field>
+
+  <mat-form-field class="form-group">
+    <mat-label>Percentage</mat-label>
+    <textarea
+      matInput
+      placeholder="Ex. 10% off"
+      formControlName="percentage"
+    ></textarea>
+  </mat-form-field>
+
+  <mat-form-field class="form-group">
+    <mat-label>Description</mat-label>
+    <textarea
+      matInput
+      placeholder="Enter discount description"
+      formControlName="description"
+    ></textarea>
+  </mat-form-field>
+
+  <button mat-flat-button color="primary" class="button" type="submit">
+    Submit
+  </button>
+</form>

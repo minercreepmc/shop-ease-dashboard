@@ -8,6 +8,8 @@ import { AnalyticPageModule } from './pages/analytic-page/analytic-page.module';
 import { ProductsPageComponent } from './pages/products-page/products-page.component';
 import { CategoriesPageComponent } from './pages/categories-page/categories-page.component';
 import { DiscountsPageComponent } from './pages/discounts-page/discounts-page.component';
+import { UsersPageComponent } from './pages/users-page/users-page.component';
+import { OrdersPageComponent } from './pages/orders-page/orders-page.component';
 
 @NgModule({
   imports: [
@@ -21,6 +23,8 @@ import { DiscountsPageComponent } from './pages/discounts-page/discounts-page.co
     ReactiveFormsModule,
     DashboardComponent,
     FormsModule,
+    OrdersPageComponent,
+    UsersPageComponent,
   ],
 })
 export class DashboardModule {}

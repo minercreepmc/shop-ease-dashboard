@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
 import { DiscountsHomeComponent } from './discounts-home/discounts-home.component';
 
 @Component({
@@ -6,6 +7,6 @@ import { DiscountsHomeComponent } from './discounts-home/discounts-home.componen
   templateUrl: './discounts-page.component.html',
   styleUrls: ['./discounts-page.component.scss'],
   standalone: true,
-  imports: [DiscountsHomeComponent],
+  imports: [DiscountsHomeComponent, RouterOutlet],
 })
 export class DiscountsPageComponent {}

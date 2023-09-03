@@ -1,0 +1,19 @@
+<section class="order-details">
+  <h1 class="heading">Order</h1>
+  <div class="body">
+    <p><b>ID: </b> {{ order.id }}</p>
+    <p><b>User: </b> {{ order.user_id }}</p>
+    <p><b>Status: </b> {{ order.status }}</p>
+    <p><b>Total Price: </b> ${{ order.total_price }}</p>
+  </div>
+
+  <div class="actions">
+    <h1 class="heading">Action</h1>
+    <fa-icon
+      *ngIf="onShippingIconShow()"
+      [icon]="faShippingFast"
+      (click)="onShippingClick()"
+    ></fa-icon>
+    <fa-icon [icon]="faTimes" (click)="onCancelClick()"></fa-icon>
+  </div>
+</section>

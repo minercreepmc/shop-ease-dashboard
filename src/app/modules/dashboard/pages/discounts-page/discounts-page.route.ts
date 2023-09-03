@@ -7,6 +7,13 @@ const routes: Routes = [
     path: '',
     component: DiscountsHomeComponent,
   },
+  {
+    path: ':id',
+    loadComponent: () =>
+      import('./discount-details/discount-details.component').then(
+        (m) => m.DiscountDetailsComponent
+      ),
+  },
 ];
 
 @NgModule({

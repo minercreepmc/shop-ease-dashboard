@@ -1,20 +1,23 @@
 import { ErrorHandler, Injectable, Injector } from '@angular/core';
 import { HttpCustomException } from '@shared/dtos';
-import { toastDiToken, ToastPort } from '@shared/interfaces';
+import { ToastrCustomService } from '@shared/libraries/toastr';
 
 @Injectable()
 export class HttpCustomExceptionHandler implements ErrorHandler {
   constructor(private readonly injector: Injector) {}
 
   handleError(exceptions: any): void {
-    const toaster = this.injector.get<ToastPort>(toastDiToken);
+    const toast = this.injector.get<ToastrCustomService>(ToastrCustomService);
 
     if (HttpCustomException.isHttpException(exceptions)) {
       const customExceptions = exceptions as HttpCustomException;
-      customExceptions?.message?.forEach?.((m) => {
-        console.log(m.message);
-        toaster.error(m.message);
-      });
+      if (Array.isArray(customExceptions.message)) {
+        customExceptions.message.forEach?.((m) => {
+          toast.error(m.message);
+        });
+      } else {
+        toast.error(customExceptions.message);
+      }
     }
   }
 }

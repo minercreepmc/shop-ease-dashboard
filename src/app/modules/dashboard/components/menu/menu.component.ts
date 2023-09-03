@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {
   faBoxOpen,
   faList,
-  faPercent,
+  faUser,
+  faTag,
 } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -11,10 +13,11 @@ import {
   templateUrl: './menu.component.html',
   styleUrls: ['./menu.component.scss'],
   standalone: true,
-  imports: [FontAwesomeModule],
+  imports: [FontAwesomeModule, RouterLink, RouterLinkActive],
 })
 export class MenuComponent {
   faBoxOpen = faBoxOpen;
   faList = faList;
-  faPercent = faPercent;
+  faUser = faUser;
+  faTag = faTag;
 }

@@ -36,6 +36,7 @@ import { V1DiscountModel } from '@api/http';
     CategoriesChipComponent,
     ToastrCustomModule,
   ],
+  providers: [ProductService],
 })
 export class ProductDetailsComponent implements OnInit {
   constructor(

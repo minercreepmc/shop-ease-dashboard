@@ -14,6 +14,7 @@ import {
   httpInterceptorProviders,
 } from './core/interceptors';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrCustomModule } from '@shared/libraries/toastr';
 
 const exceptionHandlers: Provider[] = [
   {
@@ -34,6 +35,7 @@ const interceptors: Provider[] = [
 @NgModule({
   declarations: [AppComponent],
   imports: [
+    ToastrCustomModule,
     BrowserModule,
     AppRoutingModule,
     LogInModule,

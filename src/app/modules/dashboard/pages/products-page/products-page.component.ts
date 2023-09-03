@@ -21,6 +21,7 @@ import { ProductsTableComponent } from '@modules/dashboard/components/products-t
     MatButtonModule,
     ProductsTableComponent,
   ],
+  providers: [ProductService],
 })
 export class ProductsPageComponent implements OnInit {
   products$: Observable<ProductModel[]>;

@@ -7,10 +7,10 @@ export class V1UpdateDiscountHttpRequest {
 
 export class V1UpdateDiscountHttpResponse {
   id: string;
-  name?: string;
-  description?: string;
-  percentage?: number;
-  active?: boolean;
+  name: string;
+  description: string;
+  percentage: number;
+  active: boolean;
   message?: string;
 
   constructor(options: Omit<V1UpdateDiscountHttpResponse, 'message'>) {

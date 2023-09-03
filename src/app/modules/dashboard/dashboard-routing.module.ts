@@ -24,10 +24,24 @@ const routes: Routes = [
           ),
       },
       {
+        path: 'users',
+        loadChildren: () =>
+          import('./pages/users-page/users-page.route').then(
+            (m) => m.UsersPageRoutingModule
+          ),
+      },
+      {
         path: 'discounts',
         loadChildren: () =>
           import('./pages/discounts-page/discounts-page.route').then(
             (m) => m.DiscountsPageRoutingModule
+          ),
+      },
+      {
+        path: 'orders',
+        loadChildren: () =>
+          import('./pages/orders-page/orders-page.route').then(
+            (m) => m.OrdersPageRoutingModule
           ),
       },
     ],

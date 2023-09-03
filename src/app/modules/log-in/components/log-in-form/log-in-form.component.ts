@@ -54,9 +54,6 @@ export class LogInFormComponent implements OnInit {
             this.isLoggedIn = true;
             this.router.navigate(['/dashboard']);
           },
-          error: (error: HttpCustomException) => {
-            throw error;
-          },
           complete: () => {
             this.loginForm.reset();
             window.location.reload();

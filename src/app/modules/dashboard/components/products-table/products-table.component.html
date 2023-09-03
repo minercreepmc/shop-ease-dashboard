@@ -5,6 +5,7 @@
       <input
         [disabled]="!editMode"
         type="checkbox"
+        (click)="$event.stopPropagation()"
         (change)="onToggleCheckbox(product.id!, $event)"
       />
     </td>
@@ -30,6 +31,7 @@
       {{ product.price }}
     </td>
   </ng-container>
+
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr
     mat-row

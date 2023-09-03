@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faMinus, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { PrimaryButtonComponent } from '@shared/components/primary-button/primary-button.component';
 import { SecondaryButtonComponent } from '@shared/components/secondary-button/secondary-button.component';
@@ -15,6 +16,7 @@ import { ToggleButtonComponent } from '@shared/components/toggle-button/toggle-b
     SecondaryButtonComponent,
     CommonModule,
     ToggleButtonComponent,
+    FontAwesomeModule,
   ],
 })
 export class ProductButtonComponent {

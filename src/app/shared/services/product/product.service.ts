@@ -88,7 +88,6 @@ export class ProductService {
       tap((response: CreateProductResponseDto) => {
         const newProduct = response;
         this.products.next([...this.products.value, newProduct]);
-        this.toast.success(response.message || 'Product created successfully');
       }),
       catchError(this.handleError)
     );
@@ -127,7 +126,6 @@ export class ProductService {
     const url = this.updateUrl.replace(':id', dto.id);
 
     return this.http.put<UpdateProductResponseDto>(url, formData);
-
   }
 
   private handleError(error: HttpErrorResponse) {

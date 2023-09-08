@@ -52,7 +52,6 @@ export class CategoryHomeComponent implements OnInit {
     const dto: RemoveCategoriesHttpRequest = {
       ids: this.selectedCategoryIds,
     };
-    this.categoryService.removeCategories$(dto).subscribe();
     this.selectedCategoryIds = [];
     this.toggleSelectMode();
   }

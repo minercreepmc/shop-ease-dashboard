@@ -85,6 +85,7 @@
       ></app-products-table>
     </div>
 
+    <button mat-raised-button color="warn" (click)="removeCategory()">Delete</button>
     <button
       *ngIf="editMode && showConfirmButton"
       class="add-product"

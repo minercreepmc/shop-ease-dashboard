@@ -18,6 +18,7 @@ import {
   GetCategoriesHttpResponse,
   RemoveCategoriesHttpRequest,
   RemoveCategoriesHttpResponse,
+  RemoveCategoryHttpResponse,
   UpdateCategoryHttpRequest,
   UpdateCategoryHttpResponse,
 } from './category.interface';
@@ -29,7 +30,7 @@ export class CategoryService {
   private getAllUrl = v1ApiEndpoints.getCategories;
   private getCategoryUrl = v1ApiEndpoints.getCategory;
   private createUrl = v1ApiEndpoints.createCategory;
-  private removeUrl = v1ApiEndpoints.removeCategories;
+  private removeUrl = v1ApiEndpoints.removeCategory;
   private updateUrl = v1ApiEndpoints.updateCategory;
 
   private categories = new BehaviorSubject<CategoryModel[]>([]);
@@ -87,21 +88,15 @@ export class CategoryService {
     );
   }
 
-  removeCategories$(
-    dto: RemoveCategoriesHttpRequest
-  ): Observable<RemoveCategoriesHttpResponse> {
+  removeCategory$(id: string): Observable<RemoveCategoryHttpResponse> {
     return this.http
-      .post<RemoveCategoriesHttpResponse>(this.removeUrl, dto)
+      .delete<RemoveCategoryHttpResponse>(this.removeUrl.replace(':id', id))
       .pipe(
-        tap((response: RemoveCategoriesHttpResponse) => {
-          if (response) {
-            const { ids } = response;
-            this.categories.next(
-              this.categories.value.filter(
-                (category) => !ids.includes(category.id)
-              )
-            );
-          }
+        tap((response: RemoveCategoryHttpResponse) => {
+          const id = response.id;
+          this.categories.next(
+            this.categories.value.filter((category) => category.id !== id)
+          )
         }),
         catchError(this.handleError)
       );

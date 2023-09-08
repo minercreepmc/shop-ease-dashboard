@@ -7,6 +7,8 @@ import {
   V1GetCategoryHttpResponse,
   V1RemoveCategoriesHttpRequest,
   V1RemoveCategoriesHttpResponse,
+  V1RemoveCategoryHttpRequest,
+  V1RemoveCategoryHttpResponse,
   V1UpdateCategoryHttpRequest,
   V1UpdateCategoryHttpResponse,
 } from '@api/http';
@@ -21,6 +23,9 @@ export type GetCategoryHttpResponse = V1GetCategoryHttpResponse;
 
 export type RemoveCategoriesHttpRequest = V1RemoveCategoriesHttpRequest;
 export type RemoveCategoriesHttpResponse = V1RemoveCategoriesHttpResponse;
+
+export type RemoveCategoryHttpRequest = V1RemoveCategoryHttpRequest;
+export type RemoveCategoryHttpResponse = V1RemoveCategoryHttpResponse;
 
 export interface UpdateCategoryHttpRequest extends V1UpdateCategoryHttpRequest {
   id: string;

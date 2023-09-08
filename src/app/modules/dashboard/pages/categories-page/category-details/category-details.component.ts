@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ProductModel } from '@shared/services';
 import { CategoryModel, CategoryService } from '@shared/services/category';
 import { Observable } from 'rxjs';
@@ -51,8 +51,8 @@ export class CategoryDetailsComponent implements OnInit {
   showConfirmButton = false;
   originalCategory: CategoryModel;
   id: string;
-
   _editMode = false;
+
   @Input() set editMode(value: boolean) {
     const oldValue = this._editMode;
     this._editMode = value;
@@ -96,6 +96,14 @@ export class CategoryDetailsComponent implements OnInit {
         });
       },
     });
+  }
+
+  removeCategory() {
+    return this.categoryService.removeCategory$(this.id).subscribe({
+      next: () => {
+        this.router.navigate(['/categories']);
+      }
+    })
   }
 
   removeSelectedProducts() {
@@ -148,6 +156,7 @@ export class CategoryDetailsComponent implements OnInit {
     private readonly formBuilder: FormBuilder,
     private readonly categoryService: CategoryService,
     private readonly route: ActivatedRoute,
+    private readonly router: Router,
     private readonly toast: ToastrCustomService
   ) {}
 }

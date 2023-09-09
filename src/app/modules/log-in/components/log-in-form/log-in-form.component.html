@@ -1,15 +1,14 @@
 <section class="sign-in-form-section">
   <form class="sign-in-form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-    <h1>sign In</h1>
-
+    <h1>Đăng Nhập</h1>
     <div class="sign-in-form__inputs">
       <div class="sign-in-form__group">
-        <label for="username">Username</label>
+        <label for="username">Tên Đăng Nhập</label>
         <input formControlName="username" type="text" id="username" />
       </div>
 
       <div class="sign-in-form__group">
-        <label for="password">Password</label>
+        <label for="password">Mật Khẩu</label>
         <input formControlName="password" type="password" id="password" />
       </div>
       <button
@@ -17,7 +16,7 @@
         type="submit"
         [disabled]="!loginForm.valid"
       >
-        Login
+        Đăng Nhập
       </button>
     </div>
   </form>

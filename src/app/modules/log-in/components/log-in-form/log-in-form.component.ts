@@ -8,6 +8,10 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HttpCustomException } from '@shared/dtos';
+import {
+  ToastrCustomModule,
+  ToastrCustomService,
+} from '@shared/libraries/toastr';
 import { AuthService, StorageService } from '@shared/services/auth';
 
 @Component({
@@ -15,7 +19,7 @@ import { AuthService, StorageService } from '@shared/services/auth';
   templateUrl: './log-in-form.component.html',
   styleUrls: ['./log-in-form.component.scss'],
   standalone: true,
-  imports: [ReactiveFormsModule, HttpClientModule],
+  imports: [ReactiveFormsModule, HttpClientModule, ToastrCustomModule],
   providers: [AuthService, StorageService],
 })
 export class LogInFormComponent implements OnInit {
@@ -27,7 +31,8 @@ export class LogInFormComponent implements OnInit {
     private readonly formBuilder: FormBuilder,
     private readonly authService: AuthService,
     private readonly storageSerivce: StorageService,
-    private readonly router: Router
+    private readonly router: Router,
+    private readonly toast: ToastrCustomService,
   ) {}
 
   ngOnInit(): void {
@@ -52,7 +57,10 @@ export class LogInFormComponent implements OnInit {
             this.storageSerivce.saveUser(response);
             this.isLoginFailed = false;
             this.isLoggedIn = true;
-            this.router.navigate(['/dashboard']);
+            this.router.navigate(['/dashboard/products']);
+          },
+          error: (error: HttpCustomException) => {
+            this.toast.error('Sai tên đăng nhập hoặc mật khẩu');
           },
           complete: () => {
             this.loginForm.reset();

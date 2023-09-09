@@ -2,7 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 
 export interface HttpExceptionMessage {
   message: string;
-  code: number;
+  code: string;
 }
 
 export class HttpCustomException {

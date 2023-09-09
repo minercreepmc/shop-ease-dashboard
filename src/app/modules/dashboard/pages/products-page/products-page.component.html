@@ -1,9 +1,7 @@
 <section class="products-page" *ngIf="products$ | async as productList">
   <div class="button-group">
-    <mat-slide-toggle (click)="toggleAddForm()">Edit</mat-slide-toggle>
-    <button mat-flat-button color="warn" (click)="deleteProduct()">
-      Delete
-    </button>
+    <mat-slide-toggle (click)="toggleAddForm()">Chỉnh sữa</mat-slide-toggle>
+    <button mat-flat-button color="warn" (click)="deleteProduct()">Xóa</button>
   </div>
 
   <app-product-form *ngIf="productFormVisibility" class="product-form">

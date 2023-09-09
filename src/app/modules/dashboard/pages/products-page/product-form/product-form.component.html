@@ -3,22 +3,22 @@
     <h3>Add new product</h3>
 
     <mat-form-field class="form-field">
-      <mat-label>Product Name</mat-label>
+      <mat-label>Tên hàng</mat-label>
       <input matInput formControlName="name" />
     </mat-form-field>
 
     <mat-form-field class="form-field">
-      <mat-label>Product Price</mat-label>
+      <mat-label>Giá</mat-label>
       <input matInput type="number" formControlName="price" />
     </mat-form-field>
 
     <mat-form-field class="form-field">
-      <mat-label>Product Description</mat-label>
+      <mat-label>Mô tả hàng</mat-label>
       <textarea matInput formControlName="description"></textarea>
     </mat-form-field>
 
     <mat-form-field class="form-field">
-      <mat-label>Product Image</mat-label>
+      <mat-label>Hình</mat-label>
       <ngx-mat-file-input
         formControlName="image"
         placeholder="Image"
@@ -28,7 +28,7 @@
     </mat-form-field>
 
     <mat-form-field class="form-field">
-      <mat-label>Categories</mat-label>
+      <mat-label>Danh mục</mat-label>
       <mat-select multiple formControlName="categoryIds">
         <mat-option
           *ngFor="let category of categories$ | async"
@@ -47,6 +47,6 @@
     <!--   #productImage -->
     <!--   (change)="handleFileInput($event)" -->
     <!-- /> -->
-    <button mat-flat-button color="primary" class="button">Submit</button>
+    <button mat-flat-button color="primary" class="button">Tạo</button>
   </form>
 </div>

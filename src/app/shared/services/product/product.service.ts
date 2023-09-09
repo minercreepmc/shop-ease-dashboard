@@ -47,8 +47,8 @@ export class ProductService {
   loadProducts$(): Observable<GetProductsResponseDto> {
     const productGetting$ = this.getProducts$().pipe(
       tap((response: GetProductsResponseDto) =>
-        this.products.next(response.products)
-      )
+        this.products.next(response.products),
+      ),
     );
 
     return productGetting$;
@@ -72,7 +72,7 @@ export class ProductService {
   }
 
   createProduct$(
-    dto: CreateProductRequestDto
+    dto: CreateProductRequestDto,
   ): Observable<CreateProductResponseDto> {
     const formData = createFormData({
       dto,
@@ -80,7 +80,7 @@ export class ProductService {
 
     const response$ = this.http.post<CreateProductResponseDto>(
       this.createUrl,
-      formData
+      formData,
     );
 
     return response$.pipe(
@@ -89,7 +89,7 @@ export class ProductService {
         const newProduct = response;
         this.products.next([...this.products.value, newProduct]);
       }),
-      catchError(this.handleError)
+      catchError(this.handleError),
     );
   }
 
@@ -99,7 +99,7 @@ export class ProductService {
     };
     const productRemoving$ = this.http.post<RemoveProductsResponseDto>(
       this.removeUrl,
-      request
+      request,
     );
 
     return productRemoving$.pipe(
@@ -107,18 +107,18 @@ export class ProductService {
         const { ids: deletedIds } = response;
         this.products.next(
           this.products.value.filter(
-            (product) => !deletedIds.includes(product.id!)
-          )
+            (product) => !deletedIds.includes(product.id!),
+          ),
         );
         this.toast.success(response.message);
       }),
 
-      catchError(this.handleError)
+      catchError(this.handleError),
     );
   }
 
   updateProduct$(
-    dto: UpdateProductRequestDto
+    dto: UpdateProductRequestDto,
   ): Observable<UpdateProductResponseDto> {
     const formData = createFormData({
       dto,
@@ -134,6 +134,6 @@ export class ProductService {
 
   constructor(
     private readonly http: HttpClient,
-    private readonly toast: ToastrCustomService
+    private readonly toast: ToastrCustomService,
   ) {}
 }

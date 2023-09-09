@@ -21,6 +21,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MaterialFileInputModule } from 'ngx-material-file-input';
+import { ProductDomainExceptionCodes } from '@api/http/v1/exceptions';
 
 export interface IProductFormErrors {
   name: string;
@@ -86,7 +87,20 @@ export class ProductFormComponent implements OnInit {
         this.productForm.reset();
       },
       error: (exception: HttpCustomException) => {
-        throw exception;
+        console.log(exception);
+        exception.message.forEach((m) => {
+          if (m.code === ProductDomainExceptionCodes.NameDoesNotValid) {
+            this.toast.error('Tên không hợp lệ');
+          }
+
+          if (m.code === ProductDomainExceptionCodes.PriceDoesNotValid) {
+            this.toast.error('Giá không hợp lệ');
+          }
+
+          if (m.code === ProductDomainExceptionCodes.ImageDoesNotValid) {
+            this.toast.error('Sản phẩm đã tồn tại');
+          }
+        });
       },
       complete: () => {
         console.log('complete');
@@ -104,6 +118,6 @@ export class ProductFormComponent implements OnInit {
     private readonly productService: ProductService,
     private readonly categoryService: CategoryService,
     private readonly formBuilder: FormBuilder,
-    private readonly toast: ToastrCustomService
+    private readonly toast: ToastrCustomService,
   ) {}
 }

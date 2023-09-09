@@ -33,7 +33,7 @@ export class ProductsTableComponent {
     } else {
       // Remove the product's id from the selectedProducts array if it's checked off
       this.selectedProductIds = this.selectedProductIds.filter(
-        (id) => id !== productId
+        (id) => id !== productId,
       );
     }
     // Emit the updated selectedProductIds array to the parent component

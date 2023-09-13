@@ -97,7 +97,7 @@ export class ProductFormComponent implements OnInit {
             this.toast.error('Giá không hợp lệ');
           }
 
-          if (m.code === ProductDomainExceptionCodes.ImageDoesNotValid) {
+          if (m.code === ProductDomainExceptionCodes.AlreadyExist) {
             this.toast.error('Sản phẩm đã tồn tại');
           }
         });

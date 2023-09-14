@@ -20,7 +20,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
-import { MaterialFileInputModule } from 'ngx-material-file-input';
+//import { MaterialFileInputModule } from 'ngx-material-file-input';
 
 export interface IProductFormErrors {
   name: string;
@@ -40,7 +40,7 @@ export interface IProductFormErrors {
     MatSelectModule,
     FormsModule,
     ReactiveFormsModule,
-    MaterialFileInputModule,
+    //MaterialFileInputModule,
     MatIconModule,
     MatButtonModule,
     CommonModule,
@@ -104,6 +104,6 @@ export class ProductFormComponent implements OnInit {
     private readonly productService: ProductService,
     private readonly categoryService: CategoryService,
     private readonly formBuilder: FormBuilder,
-    private readonly toast: ToastrCustomService
+    private readonly toast: ToastrCustomService,
   ) {}
 }

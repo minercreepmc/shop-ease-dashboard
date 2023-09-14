@@ -1,5 +1,5 @@
 import { NgIf, NgFor, AsyncPipe } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -55,10 +55,6 @@ export class ProductDetailsComponent implements OnInit {
   discounts: V1DiscountModel[] = [];
   productForm: FormGroup;
   id: string;
-
-  get currentDiscountName() {
-    return this.currentDiscount.name;
-  }
 
   onCategoriesChange(newValue: CategoryModel[]) {
     this.categories = newValue;

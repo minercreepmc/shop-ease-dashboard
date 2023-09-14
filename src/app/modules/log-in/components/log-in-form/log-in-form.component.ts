@@ -8,6 +8,10 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HttpCustomException } from '@shared/dtos';
+import {
+  ToastrCustomModule,
+  ToastrCustomService,
+} from '@shared/libraries/toastr';
 import { AuthService, StorageService } from '@shared/services/auth';
 
 @Component({
@@ -15,7 +19,7 @@ import { AuthService, StorageService } from '@shared/services/auth';
   templateUrl: './log-in-form.component.html',
   styleUrls: ['./log-in-form.component.scss'],
   standalone: true,
-  imports: [ReactiveFormsModule, HttpClientModule],
+  imports: [ReactiveFormsModule, HttpClientModule, ToastrCustomModule],
   providers: [AuthService, StorageService],
 })
 export class LogInFormComponent implements OnInit {
@@ -27,7 +31,8 @@ export class LogInFormComponent implements OnInit {
     private readonly formBuilder: FormBuilder,
     private readonly authService: AuthService,
     private readonly storageSerivce: StorageService,
-    private readonly router: Router
+    private readonly toast: ToastrCustomService,
+    private readonly router: Router,
   ) {}
 
   ngOnInit(): void {
@@ -41,11 +46,13 @@ export class LogInFormComponent implements OnInit {
     if (this.loginForm.valid) {
       const username = this.loginForm.get('username')?.value;
       const password = this.loginForm.get('password')?.value;
+      const fullName = this.loginForm.get('fullName')?.value;
 
       this.authService
         .logIn({
           username,
           password,
+          fullName,
         })
         .subscribe({
           next: (response) => {
@@ -53,6 +60,13 @@ export class LogInFormComponent implements OnInit {
             this.isLoginFailed = false;
             this.isLoggedIn = true;
             this.router.navigate(['/dashboard']);
+          },
+          error: (error: HttpCustomException) => {
+            if (error.statusCode === 401) {
+              this.toast.error('Fail to login');
+            } else {
+              this.toast.error('Something went wrong');
+            }
           },
           complete: () => {
             this.loginForm.reset();

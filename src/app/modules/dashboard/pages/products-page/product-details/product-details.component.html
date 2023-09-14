@@ -48,11 +48,14 @@
 
     <div class="discount">
       <h1 class="discount-header header">Discount</h1>
-      <div class="discount-body">
-        <h2>{{ product.discount?.name }}</h2>
-        <p>{{ product.discount?.percentage }}</p>
-        <p>{{ product.discount?.active }}</p>
-      </div>
+      <mat-form-field>
+        <mat-label>Select an option</mat-label>
+        <mat-select [(value)]="currentDiscountName">
+          <mat-option *ngFor="let discount of discounts" [value]="discount.id">
+            {{ discount.name + " " + discount.percentage }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
     </div>
 
     <div class="category">

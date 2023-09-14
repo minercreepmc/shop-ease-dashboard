@@ -18,6 +18,8 @@ import {
 import { CategoriesChipComponent } from './categories-chip/categories-chip.component';
 import { CategoryModel } from '@shared/services/category';
 import { V1DiscountModel } from '@api/http';
+import { MatSelectModule } from '@angular/material/select';
+import { DiscountService } from '@shared/services/discount';
 
 @Component({
   selector: 'app-product-details',
@@ -30,6 +32,7 @@ import { V1DiscountModel } from '@api/http';
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
+    MatSelectModule,
     MatIconModule,
     AsyncPipe,
     NgFor,
@@ -41,18 +44,23 @@ import { V1DiscountModel } from '@api/http';
 export class ProductDetailsComponent implements OnInit {
   constructor(
     private readonly productService: ProductService,
+    private readonly discoutService: DiscountService,
     private readonly activatedRoute: ActivatedRoute,
     private readonly formBuilder: FormBuilder,
-    private readonly toast: ToastrCustomService
+    private readonly toast: ToastrCustomService,
   ) {}
   product: ProductModel;
   categories: CategoryModel[];
-  discount: V1DiscountModel;
+  currentDiscount: V1DiscountModel;
+  discounts: V1DiscountModel[] = [];
   productForm: FormGroup;
   id: string;
 
+  get currentDiscountName() {
+    return this.currentDiscount.name;
+  }
+
   onCategoriesChange(newValue: CategoryModel[]) {
-    console.log(newValue);
     this.categories = newValue;
     this.productForm.patchValue({
       categoryIds: newValue.map((category) => category.id),
@@ -76,7 +84,7 @@ export class ProductDetailsComponent implements OnInit {
         console.log(product);
         this.product = product;
         this.categories = product.categories as CategoryModel[];
-        this.discount = product.discount as V1DiscountModel;
+        this.currentDiscount = product.discount as V1DiscountModel;
         this.productForm.patchValue({
           id: product.id,
           name: product.name,
@@ -88,6 +96,11 @@ export class ProductDetailsComponent implements OnInit {
       },
       error: () => {
         this.toast.error('Product not found');
+      },
+    });
+    this.discoutService.getDiscounts$().subscribe({
+      next: (response) => {
+        this.discounts = response.discounts || [];
       },
     });
   }

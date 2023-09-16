@@ -50,7 +50,8 @@
       <h1 class="discount-header header">Discount</h1>
       <mat-form-field>
         <mat-label>Select an option</mat-label>
-        <mat-select [(value)]="currentDiscountName">
+        <mat-select formControlName="discountId">
+          <mat-option [value]="undefined">__</mat-option>
           <mat-option *ngFor="let discount of discounts" [value]="discount.id">
             {{ discount.name + " " + discount.percentage }}
           </mat-option>

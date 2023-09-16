@@ -3,6 +3,7 @@ import {
   V1CreateDiscountHttpResponse,
   V1DiscountModel,
   V1GetDiscountHttpQuery,
+  V1GetDiscountHttpResponse,
   V1GetDiscountsHttpQuery,
   V1GetDiscountsHttpResponse,
   V1UpdateDiscountHttpRequest,
@@ -16,6 +17,6 @@ export type UpdateDiscountHttpResponse = V1UpdateDiscountHttpResponse;
 export type GetDiscountsHttpQuery = V1GetDiscountsHttpQuery;
 export type GetDiscountsHttpResponse = V1GetDiscountsHttpResponse;
 export type GetDiscountHttpQuery = V1GetDiscountHttpQuery;
-export type GetDiscountHttpResponse = V1GetDiscountsHttpResponse;
+export type GetDiscountHttpResponse = V1GetDiscountHttpResponse;
 
 export type DiscountModel = V1DiscountModel;

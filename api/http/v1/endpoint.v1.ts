@@ -11,6 +11,7 @@ export const v1ApiEndpoints = {
   getDiscounts: `${prefix}/discount`,
   getDiscount: `${prefix}/discount/:id`,
   removeDiscounts: `${prefix}/discount/remove`,
+  removeDiscount: `${prefix}/discount/:id`,
   createCategory: `${prefix}/categories`,
   updateCategory: `${prefix}/categories/:id`,
   removeCategory: `${prefix}/categories/:id`,

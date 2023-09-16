@@ -10,6 +10,7 @@ export * from './remove-products.http.dto.v1';
 export * from './remove-discounts.http.dto.v1';
 export * from './remove-categories.http.dto.v1';
 export * from './remove-category.http.dto.v1';
+export * from './remove-discount.http.dto.v1';
 export * from './get-categories.http.dto.v1';
 export * from './get-category.http.dto.v1';
 export * from './get-product.http.dto.v1';

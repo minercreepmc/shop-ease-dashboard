@@ -27,6 +27,7 @@ export class DiscountService {
   private readonly updateDiscountUrl = v1ApiEndpoints.updateDiscount;
   private readonly getDiscountsUrl = v1ApiEndpoints.getDiscounts;
   private readonly getDiscountUrl = v1ApiEndpoints.getDiscount;
+  private readonly removeDiscountUrl = v1ApiEndpoints.removeDiscount;
 
   private discounts = new BehaviorSubject<DiscountModel[]>([]);
   get discounts$(): Observable<DiscountModel[]> {
@@ -39,39 +40,38 @@ export class DiscountService {
       .pipe(
         tap((response: CreateDiscountHttpResponse) => {
           const newDiscount = response;
-          this.discounts.next([...this.discounts.value, newDiscount]);
+          this.discounts.next([...this.discounts.value]);
         }),
-        catchError(this.handleError)
+        catchError(this.handleError),
       );
   }
 
-  updateDiscount$(dto: UpdateDiscountHttpRequest) {
-    return this.http
-      .put<UpdateDiscountHttpResponse>(this.updateDiscountUrl, dto)
-      .pipe(
-        tap((response: UpdateDiscountHttpResponse) => {
-          const updateDiscount: DiscountModel = {
-            ...response,
-          };
-          this.discounts.next(
-            this.discounts.value.map((category) => {
-              if (category.id === updateDiscount.id) {
-                return updateDiscount;
-              }
-              return category;
-            })
-          );
-        }),
-        catchError(this.handleError)
-      );
+  updateDiscount$(id: string, dto: UpdateDiscountHttpRequest) {
+    const url = this.updateDiscountUrl.replace(':id', id);
+    return this.http.put<UpdateDiscountHttpResponse>(url, dto).pipe(
+      tap((response: UpdateDiscountHttpResponse) => {
+        const updateDiscount: DiscountModel = {
+          ...response,
+        };
+        this.discounts.next(
+          this.discounts.value.map((category) => {
+            if (category.id === updateDiscount.id) {
+              return updateDiscount;
+            }
+            return category;
+          }),
+        );
+      }),
+      catchError(this.handleError),
+    );
   }
 
   loadDiscounts$(): Observable<GetDiscountsHttpResponse> {
     return this.getDiscounts$().pipe(
       tap((response: GetDiscountsHttpResponse) =>
-        this.discounts.next(response.discounts || [])
+        this.discounts.next(response.discounts || []),
       ),
-      catchError(this.handleError)
+      catchError(this.handleError),
     );
   }
 
@@ -89,6 +89,12 @@ export class DiscountService {
       .get<GetDiscountHttpResponse>(url, {
         params: dto as HttpParams,
       })
+      .pipe(catchError(this.handleError));
+  }
+
+  removeDiscount$(id: string) {
+    return this.http
+      .delete<void>(this.removeDiscountUrl.replace(':id', id))
       .pipe(catchError(this.handleError));
   }
 

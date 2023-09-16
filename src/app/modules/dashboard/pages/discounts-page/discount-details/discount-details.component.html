@@ -1,1 +1,120 @@
-<p id="test">Details work</p>
+<section class="discount-details" *ngIf="discount$ | async as discount">
+  <form [formGroup]="discountForm" (ngSubmit)="onSubmit()">
+    <div class="discount-details__header">
+      <div class="left">
+        <mat-form-field>
+          <mat-label>Name</mat-label>
+          <input
+            matInput
+            type="text"
+            formControlName="name"
+            [value]="this.discountForm.get('name')?.value"
+          />
+          <button
+            *ngIf="this.discountForm.get('name')?.value && editMode"
+            matSuffix
+            mat-icon-button
+            aria-label="Clear"
+            (click)="this.discountForm.get('name')?.setValue('')"
+          >
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Description</mat-label>
+          <textarea
+            matInput
+            type="text"
+            formControlName="description"
+            [value]="this.discountForm.get('description')?.value"
+          ></textarea>
+          <button
+            *ngIf="this.discountForm.get('description')?.value && editMode"
+            matSuffix
+            mat-icon-button
+            aria-label="Clear"
+            (click)="this.discountForm.get('description')?.setValue('')"
+          >
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Percentage</mat-label>
+          <input
+            matInput
+            type="number"
+            formControlName="percentage"
+            [value]="this.discountForm.get('percentage')?.value"
+          />
+          <button
+            *ngIf="this.discountForm.get('percentage')?.value && editMode"
+            matSuffix
+            mat-icon-button
+            aria-label="Clear"
+            (click)="this.discountForm.get('percentage')?.setValue('')"
+          >
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-form-field>
+      </div>
+      <div class="right">
+        <button
+          *ngIf="editMode && removingProductIds.length > 0"
+          mat-raised-button
+          color="primary"
+          (click)="redoRemovingProducts()"
+        >
+          Redo
+        </button>
+        <button
+          *ngIf="editMode && this.selectedProductIds.length > 0"
+          mat-raised-button
+          color="warn"
+          type="button"
+        >
+          Delete
+        </button>
+        <button
+          *ngIf="editMode && this.selectedProductIds.length > 0"
+          mat-raised-button
+          matTooltip="Remove selected products from this category"
+          aria-label="Button that displays a tooltip when focused or hovered over"
+          (click)="removeSelectedProducts()"
+          type="button"
+        >
+          Remove
+        </button>
+        <mat-slide-toggle [checked]="editMode" (toggleChange)="toggleEditMode()"
+          >Edit</mat-slide-toggle
+        >
+      </div>
+    </div>
+
+    <!-- <div -->
+    <!--   class="category-details__content product-table" -->
+    <!--   *ngIf="discount.products" -->
+    <!-- > -->
+    <!--   <app-products-table -->
+    <!--     [products]="discount.products" -->
+    <!--     [highlightIds]="removingProductIds" -->
+    <!--     (selectedProductIdsChange)="selectedProductsChange($event)" -->
+    <!--     [editMode]="editMode" -->
+    <!--   ></app-products-table> -->
+    <!-- </div> -->
+
+    <button mat-raised-button color="warn" (click)="removeDiscount()">
+      Delete
+    </button>
+    <button
+      *ngIf="editMode && showConfirmButton"
+      class="add-product"
+      mat-raised-button
+      color="primary"
+      type="submit"
+    >
+      Confirm
+    </button>
+  </form>
+</section>

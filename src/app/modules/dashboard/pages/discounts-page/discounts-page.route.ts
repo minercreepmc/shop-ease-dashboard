@@ -11,7 +11,7 @@ const routes: Routes = [
     path: ':id',
     loadComponent: () =>
       import('./discount-details/discount-details.component').then(
-        (m) => m.DiscountDetailsComponent
+        (m) => m.DiscountDetailsComponent,
       ),
   },
 ];

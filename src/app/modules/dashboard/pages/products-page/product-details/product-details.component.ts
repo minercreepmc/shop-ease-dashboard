@@ -1,6 +1,11 @@
 import { NgIf, NgFor, AsyncPipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
@@ -34,6 +39,7 @@ import { DiscountService } from '@shared/services/discount';
     MatButtonModule,
     MatSelectModule,
     MatIconModule,
+    FormsModule,
     AsyncPipe,
     NgFor,
     CategoriesChipComponent,
@@ -51,7 +57,6 @@ export class ProductDetailsComponent implements OnInit {
   ) {}
   product: ProductModel;
   categories: CategoryModel[];
-  currentDiscount: V1DiscountModel;
   discounts: V1DiscountModel[] = [];
   productForm: FormGroup;
   id: string;
@@ -80,7 +85,6 @@ export class ProductDetailsComponent implements OnInit {
         console.log(product);
         this.product = product;
         this.categories = product.categories as CategoryModel[];
-        this.currentDiscount = product.discount as V1DiscountModel;
         this.productForm.patchValue({
           id: product.id,
           name: product.name,
@@ -108,6 +112,7 @@ export class ProductDetailsComponent implements OnInit {
   }
 
   updateProduct(dto: UpdateProductRequestDto) {
+    console.log(dto);
     this.productService.updateProduct$(dto).subscribe({
       next: (response) => {
         this.product = {

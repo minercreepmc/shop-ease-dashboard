@@ -102,8 +102,8 @@ export class CategoryDetailsComponent implements OnInit {
     return this.categoryService.removeCategory$(this.id).subscribe({
       next: () => {
         this.router.navigate(['/categories']);
-      }
-    })
+      },
+    });
   }
 
   removeSelectedProducts() {
@@ -113,7 +113,7 @@ export class CategoryDetailsComponent implements OnInit {
 
     if (removeProductIds?.length && currentProductIds?.length) {
       const newProductIds = currentProductIds.filter(
-        (id) => !removeProductIds.includes(id)
+        (id) => !removeProductIds.includes(id),
       );
       this.categoryForm.get('productIds')?.setValue(newProductIds);
       this.removingProductIds = removeProductIds;
@@ -125,7 +125,6 @@ export class CategoryDetailsComponent implements OnInit {
     this.categoryForm
       .get('productIds')
       ?.setValue(this.originalCategory?.products?.map((product) => product.id));
-    console.log(this.categoryForm.get('productIds')?.value);
   }
 
   selectedProductsChange(products: string[]) {
@@ -157,6 +156,6 @@ export class CategoryDetailsComponent implements OnInit {
     private readonly categoryService: CategoryService,
     private readonly route: ActivatedRoute,
     private readonly router: Router,
-    private readonly toast: ToastrCustomService
+    private readonly toast: ToastrCustomService,
   ) {}
 }

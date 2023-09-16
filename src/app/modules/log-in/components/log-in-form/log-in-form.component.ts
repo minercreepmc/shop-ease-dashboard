@@ -63,9 +63,9 @@ export class LogInFormComponent implements OnInit {
           },
           error: (error: HttpCustomException) => {
             if (error.statusCode === 401) {
-              this.toast.error('Fail to login');
+              this.toast.error('Lỗi đăng nhập');
             } else {
-              this.toast.error('Something went wrong');
+              this.toast.error('Xin vui lòng thử lại sau');
             }
           },
           complete: () => {

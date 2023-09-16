@@ -13,35 +13,35 @@ const routes: Routes = [
         path: 'products',
         loadChildren: () =>
           import('./pages/products-page/products-page.route').then(
-            (m) => m.ProductsPageRouteModule
+            (m) => m.ProductsPageRouteModule,
           ),
       },
       {
         path: 'categories',
         loadChildren: () =>
           import('./pages/categories-page/categories-page.route').then(
-            (m) => m.CategoriesPageRouteModule
+            (m) => m.CategoriesPageRouteModule,
           ),
       },
       {
         path: 'users',
         loadChildren: () =>
           import('./pages/users-page/users-page.route').then(
-            (m) => m.UsersPageRoutingModule
+            (m) => m.UsersPageRoutingModule,
           ),
       },
       {
         path: 'discounts',
         loadChildren: () =>
           import('./pages/discounts-page/discounts-page.route').then(
-            (m) => m.DiscountsPageRoutingModule
+            (m) => m.DiscountsPageRoutingModule,
           ),
       },
       {
         path: 'orders',
         loadChildren: () =>
           import('./pages/orders-page/orders-page.route').then(
-            (m) => m.OrdersPageRoutingModule
+            (m) => m.OrdersPageRoutingModule,
           ),
       },
     ],

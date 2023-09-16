@@ -1,10 +1,10 @@
 <section class="product-details" *ngIf="product">
   <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
     <div class="product">
-      <h1 class="product-header header">Product</h1>
+      <h1 class="product-header header">Sản phẩm</h1>
       <div class="product-body">
         <mat-form-field class="product-name">
-          <mat-label>Name</mat-label>
+          <mat-label>Tên</mat-label>
           <input matInput type="text" formControlName="name" />
           <button
             *ngIf="product.name"
@@ -17,7 +17,7 @@
           </button>
         </mat-form-field>
         <mat-form-field class="product-price">
-          <mat-label>Price</mat-label>
+          <mat-label>Giá</mat-label>
           <input matInput type="number" formControlName="price" />
           <button
             *ngIf="product.price"
@@ -30,7 +30,7 @@
           </button>
         </mat-form-field>
         <mat-form-field class="product-description">
-          <mat-label>Description</mat-label>
+          <mat-label>Mô tả</mat-label>
           <textarea matInput formControlName="description"></textarea>
           <button
             *ngIf="product.description"
@@ -46,29 +46,29 @@
       </div>
     </div>
 
-    <div class="discount">
-      <h1 class="discount-header header">Discount</h1>
-      <mat-form-field>
-        <mat-label>Select an option</mat-label>
-        <mat-select formControlName="discountId">
-          <mat-option [value]="undefined">__</mat-option>
-          <mat-option *ngFor="let discount of discounts" [value]="discount.id">
-            {{ discount.name + " " + discount.percentage }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
+    <!-- <div class="discount"> -->
+    <!--   <h1 class="discount-header header">Giảm giá</h1> -->
+    <!--   <mat-form-field> -->
+    <!--     <mat-label>Chọn</mat-label> -->
+    <!--     <mat-select formControlName="discountId"> -->
+    <!--       <mat-option [value]="undefined">__</mat-option> -->
+    <!--       <mat-option *ngFor="let discount of discounts" [value]="discount.id"> -->
+    <!--         {{ discount.name + " " + discount.percentage }}% -->
+    <!--       </mat-option> -->
+    <!--     </mat-select> -->
+    <!--   </mat-form-field> -->
+    <!-- </div> -->
+    <!---->
+    <!-- <div class="category"> -->
+    <!--   <h1 class="category-header header">Danh mục</h1> -->
+    <!--   <div class="category-body"> -->
+    <!--     <app-categories-chip -->
+    <!--       [chipSelectedCategories]="categories || []" -->
+    <!--       (chipSelectedCategoriesChange)="onCategoriesChange($event)" -->
+    <!--     ></app-categories-chip> -->
+    <!--   </div> -->
+    <!-- </div> -->
 
-    <div class="category">
-      <h1 class="category-header header">Categories</h1>
-      <div class="category-body">
-        <app-categories-chip
-          [chipSelectedCategories]="categories || []"
-          (chipSelectedCategoriesChange)="onCategoriesChange($event)"
-        ></app-categories-chip>
-      </div>
-    </div>
-
-    <button type="submit" mat-raised-button color="primary">Confirm</button>
+    <button type="submit" mat-raised-button color="primary">Cập nhật</button>
   </form>
 </section>

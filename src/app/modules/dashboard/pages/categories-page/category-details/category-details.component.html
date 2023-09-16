@@ -3,7 +3,7 @@
     <div class="category-details__header">
       <div class="left">
         <mat-form-field>
-          <mat-label>Name</mat-label>
+          <mat-label>Tên</mat-label>
           <input
             matInput
             type="text"
@@ -22,7 +22,7 @@
         </mat-form-field>
 
         <mat-form-field>
-          <mat-label>Description</mat-label>
+          <mat-label>Mô tả</mat-label>
           <textarea
             matInput
             type="text"
@@ -68,7 +68,7 @@
           Remove
         </button>
         <mat-slide-toggle [checked]="editMode" (toggleChange)="toggleEditMode()"
-          >Edit</mat-slide-toggle
+          >Sửa</mat-slide-toggle
         >
       </div>
     </div>
@@ -85,7 +85,9 @@
       ></app-products-table>
     </div>
 
-    <button mat-raised-button color="warn" (click)="removeCategory()">Delete</button>
+    <button mat-raised-button color="warn" (click)="removeCategory()">
+      Xóa
+    </button>
     <button
       *ngIf="editMode && showConfirmButton"
       class="add-product"

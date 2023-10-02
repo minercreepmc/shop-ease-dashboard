@@ -7,10 +7,7 @@ import {
 } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import {
-  CategoryService,
-  CreateCategoryHttpRequest,
-} from '@shared/services/category';
+import { CategoryService, CreateCategoryDto } from '@shared/services/category';
 import { MatButtonModule } from '@angular/material/button';
 
 @Component({
@@ -47,13 +44,13 @@ export class CategoryFormComponent implements OnInit {
     this.categoryForm.reset();
   }
 
-  createCategory(dto: CreateCategoryHttpRequest) {
+  createCategory(dto: CreateCategoryDto) {
     console.log(dto);
     this.categoryService.createCategory$(dto).subscribe();
   }
 
   constructor(
     private readonly fb: FormBuilder,
-    private readonly categoryService: CategoryService
+    private readonly categoryService: CategoryService,
   ) {}
 }

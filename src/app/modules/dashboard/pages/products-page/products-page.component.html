@@ -1,4 +1,4 @@
-<section class="products-page" *ngIf="products$ | async as productList">
+<section class="products-page" *ngIf="products">
   <div class="button-group">
     <mat-slide-toggle (click)="toggleAddForm()">Edit</mat-slide-toggle>
     <button mat-flat-button color="warn" (click)="deleteProduct()">
@@ -10,7 +10,7 @@
   </app-product-form>
 
   <app-products-table
-    [products]="productList"
+    [products]="products"
     [editMode]="productFormVisibility"
     (selectedProductIdsChange)="onSelectedProductIdsChange($event)"
   ></app-products-table>

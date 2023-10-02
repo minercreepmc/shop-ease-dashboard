@@ -10,13 +10,7 @@ import { Observable, map } from 'rxjs';
   standalone: true,
   imports: [NgIf, NgFor, AsyncPipe],
 })
-export class UsersHomeComponent implements OnInit {
+export class UsersHomeComponent {
   constructor(private readonly authService: AuthService) {}
   $users: Observable<UserModel[]>;
-
-  ngOnInit() {
-    this.$users = this.authService
-      .getUsers$()
-      .pipe(map((users) => users.users));
-  }
 }

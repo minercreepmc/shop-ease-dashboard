@@ -16,7 +16,6 @@ export class V1CreateDiscountHttpResponse {
     this.id = options.id;
     this.name = options.name;
     this.description = options.description;
-    this.active = options.active;
     this.percentage = options.percentage;
     this.message = 'Discount created successfully.';
   }

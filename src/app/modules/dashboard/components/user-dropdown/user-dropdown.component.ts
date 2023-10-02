@@ -11,7 +11,6 @@ import {
   faRightFromBracket,
 } from '@fortawesome/free-solid-svg-icons';
 import { AuthService, StorageService, UserModel } from '@shared/services/auth';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-user-dropdown',
@@ -30,16 +29,20 @@ export class UserDropdownComponent implements OnInit {
   faRightFromBracket = faRightFromBracket;
   isMenuOpen = false;
 
-  user$: Observable<UserModel>;
+  user: UserModel | null = null;
 
   constructor(
     private readonly authService: AuthService,
     private readonly storageService: StorageService,
-    private readonly router: Router
+    private readonly router: Router,
   ) {}
 
   ngOnInit() {
-    this.user$ = this.authService.getProfile$();
+    this.authService.getProfile$().subscribe({
+      next: (response) => {
+        this.user = response;
+      },
+    });
   }
 
   toggleMenu() {

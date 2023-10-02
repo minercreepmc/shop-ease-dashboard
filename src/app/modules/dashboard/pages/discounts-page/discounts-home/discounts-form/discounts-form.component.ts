@@ -9,7 +9,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import {
-  CreateDiscountHttpRequest,
+  CreateDiscountRequest,
   DiscountService,
 } from '@shared/services/discount';
 
@@ -48,13 +48,13 @@ export class DiscountsFormComponent implements OnInit {
     this.discountForm.reset();
   }
 
-  createDiscount(dto: CreateDiscountHttpRequest) {
+  createDiscount(dto: CreateDiscountRequest) {
     console.log(dto);
     this.discountService.createDiscount$(dto).subscribe();
   }
 
   constructor(
     private readonly fb: FormBuilder,
-    private readonly discountService: DiscountService
+    private readonly discountService: DiscountService,
   ) {}
 }

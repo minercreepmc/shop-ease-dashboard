@@ -49,7 +49,7 @@ export interface IProductFormErrors {
 })
 export class ProductFormComponent implements OnInit {
   productForm: FormGroup;
-  categories$: Observable<CategoryModel[]>;
+  categories: CategoryModel[] = [];
   faX = faX;
 
   ngOnInit() {
@@ -60,8 +60,11 @@ export class ProductFormComponent implements OnInit {
       description: null,
       categoryIds: [],
     });
-    this.categoryService.loadCategories$().subscribe();
-    this.categories$ = this.categoryService.categories$;
+    this.categoryService.getCategories$().subscribe({
+      next: (categories) => {
+        this.categories = categories;
+      },
+    });
   }
 
   handleFileInput(event: Event) {

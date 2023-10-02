@@ -1,13 +1,9 @@
-import {
-  HttpClient,
-  HttpErrorResponse,
-  HttpParams,
-} from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { ApiApplication } from '@shared/constants/api.constant';
 import { HttpCustomException } from '@shared/dtos';
 import { ToastrCustomService } from '@shared/libraries/toastr';
 import { createFormData } from '@shared/utils';
-import { v1ApiEndpoints } from '@api/http';
 import {
   Observable,
   catchError,
@@ -20,7 +16,6 @@ import { ProductModel } from './product.interface';
 import {
   CreateProductRequestDto,
   CreateProductResponseDto,
-  GetProductQueryDto,
   GetProductResponseDto,
   GetProductsResponseDto,
   RemoveProductsRequestDto,
@@ -29,58 +24,49 @@ import {
   UpdateProductResponseDto,
 } from './product.service.dto';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class ProductService {
-  // TODO: setup proxy later;
-  createUrl = v1ApiEndpoints.createProduct;
-  removeUrl = v1ApiEndpoints.removeProducts;
-  getAllUrl = v1ApiEndpoints.getProducts;
-  getUrl = v1ApiEndpoints.getProduct;
-  updateUrl = v1ApiEndpoints.updateProduct;
-
   readonly products = new BehaviorSubject<ProductModel[]>([]);
 
   get products$(): Observable<ProductModel[]> {
-    return this.products.asObservable();
+    return this.products;
   }
 
-  loadProducts$(): Observable<GetProductsResponseDto> {
-    const productGetting$ = this.getProducts$().pipe(
-      tap((response: GetProductsResponseDto) =>
-        this.products.next(response.products)
-      )
-    );
-
-    return productGetting$;
-  }
-
-  getProducts$(): Observable<GetProductsResponseDto> {
+  getProducts$(): Observable<ProductModel[]> {
     // simulate server latency with 2 second delay
     return this.http
-      .get<GetProductsResponseDto>(this.getAllUrl, {})
+      .get<ProductModel[]>(
+        ApiApplication.PRODUCT.CONTROLLER + ApiApplication.PRODUCT.GET_ALL,
+        {},
+      )
       .pipe(catchError(this.handleError));
   }
 
+  setProducts$(products: ProductModel[]) {
+    this.products.next(products);
+  }
+
   getProduct$(id: string): Observable<GetProductResponseDto> {
-    const url = this.getUrl.replace(':id', id);
-    const query: GetProductQueryDto = {
-      populate_details: true,
-    };
-    return this.http.get<GetProductResponseDto>(url, {
-      params: query as HttpParams,
-    });
+    const url =
+      ApiApplication.PRODUCT.CONTROLLER +
+      ApiApplication.PRODUCT.GET_ONE.replace(':id', id);
+    return this.http
+      .get<GetProductResponseDto>(url)
+      .pipe(catchError(this.handleError));
   }
 
   createProduct$(
-    dto: CreateProductRequestDto
+    dto: CreateProductRequestDto,
   ): Observable<CreateProductResponseDto> {
     const formData = createFormData({
       dto,
     });
 
     const response$ = this.http.post<CreateProductResponseDto>(
-      this.createUrl,
-      formData
+      ApiApplication.PRODUCT.CONTROLLER + ApiApplication.PRODUCT.CREATE,
+      formData,
     );
 
     return response$.pipe(
@@ -89,7 +75,7 @@ export class ProductService {
         const newProduct = response;
         this.products.next([...this.products.value, newProduct]);
       }),
-      catchError(this.handleError)
+      catchError(this.handleError),
     );
   }
 
@@ -98,8 +84,8 @@ export class ProductService {
       ids,
     };
     const productRemoving$ = this.http.post<RemoveProductsResponseDto>(
-      this.removeUrl,
-      request
+      ApiApplication.PRODUCT.CONTROLLER + ApiApplication.PRODUCT.DELETE_MANY,
+      request,
     );
 
     return productRemoving$.pipe(
@@ -107,23 +93,25 @@ export class ProductService {
         const { ids: deletedIds } = response;
         this.products.next(
           this.products.value.filter(
-            (product) => !deletedIds.includes(product.id!)
-          )
+            (product) => !deletedIds.includes(product.id!),
+          ),
         );
         this.toast.success(response.message);
       }),
 
-      catchError(this.handleError)
+      catchError(this.handleError),
     );
   }
 
   updateProduct$(
-    dto: UpdateProductRequestDto
+    dto: UpdateProductRequestDto,
   ): Observable<UpdateProductResponseDto> {
     const formData = createFormData({
       dto,
     });
-    const url = this.updateUrl.replace(':id', dto.id);
+    const url =
+      ApiApplication.PRODUCT.CONTROLLER +
+      ApiApplication.PRODUCT.UPDATE.replace(':id', dto.id);
 
     return this.http.put<UpdateProductResponseDto>(url, formData);
   }
@@ -134,6 +122,6 @@ export class ProductService {
 
   constructor(
     private readonly http: HttpClient,
-    private readonly toast: ToastrCustomService
+    private readonly toast: ToastrCustomService,
   ) {}
 }

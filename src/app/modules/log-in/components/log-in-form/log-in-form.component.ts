@@ -49,7 +49,7 @@ export class LogInFormComponent implements OnInit {
       const fullName = this.loginForm.get('fullName')?.value;
 
       this.authService
-        .logIn({
+        .logIn$({
           username,
           password,
           fullName,

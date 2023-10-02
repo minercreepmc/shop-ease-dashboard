@@ -43,7 +43,7 @@ import { ToastrCustomService } from '@shared/libraries/toastr';
   ],
 })
 export class CategoryDetailsComponent implements OnInit {
-  category$: Observable<CategoryModel>;
+  category: CategoryModel;
   products$: Observable<ProductModel[]>;
   categoryForm: FormGroup;
   selectedProductIds: string[] = [];
@@ -78,14 +78,9 @@ export class CategoryDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.id = this.route.snapshot.params['id'];
-    this.category$ = this.categoryService.getCategoryWithProducts$(this.id);
-    this.categoryForm = this.formBuilder.group({
-      name: [{ value: '', disabled: true }],
-      description: [{ value: '', disabled: true }],
-      productIds: [],
-    });
-    this.category$.subscribe({
-      next: (category: CategoryModel) => {
+    this.categoryService.getCategory$(this.id).subscribe({
+      next: (category) => {
+        this.category = category;
         this.originalCategory = category;
         this.categoryForm.patchValue(category);
 
@@ -95,6 +90,11 @@ export class CategoryDetailsComponent implements OnInit {
           },
         });
       },
+    });
+    this.categoryForm = this.formBuilder.group({
+      name: [{ value: '', disabled: true }],
+      description: [{ value: '', disabled: true }],
+      productIds: [],
     });
   }
 
@@ -118,13 +118,6 @@ export class CategoryDetailsComponent implements OnInit {
       this.categoryForm.get('productIds')?.setValue(newProductIds);
       this.removingProductIds = removeProductIds;
     }
-  }
-
-  redoRemovingProducts() {
-    this.removingProductIds = [];
-    this.categoryForm
-      .get('productIds')
-      ?.setValue(this.originalCategory?.products?.map((product) => product.id));
   }
 
   selectedProductsChange(products: string[]) {

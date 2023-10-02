@@ -1,62 +1,38 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import {
-  GetUsersHttpResponse,
-  LogInRequestDto,
-  LogInResponseDto,
-  UserModel,
-} from './auth.service.interface';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { LogInRequestDto, UserModel } from './auth.service.interface';
 import { HttpCustomException } from '@shared/dtos';
-import { catchError, Observable } from 'rxjs';
-import { v1ApiEndpoints } from '@api/http';
-import { devEnvironment } from '@env/environment.dev';
+import { catchError, Observable, throwError } from 'rxjs';
+import { ApiApplication } from '@shared/constants/api.constant';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  private readonly logInUrl = v1ApiEndpoints.logInAdmin;
-  private readonly logOutUrl = v1ApiEndpoints.logOut;
-  private readonly getProfileUrl = v1ApiEndpoints.getProfile;
-  private readonly getUsersUrl = v1ApiEndpoints.getUsers;
-
   constructor(private readonly http: HttpClient) {}
 
-  logIn(dto: LogInRequestDto) {
+  logIn$(dto: LogInRequestDto) {
     return this.http
-      .post<LogInResponseDto>(this.logInUrl, dto, {
-        headers: {
-          'X-Api-Key': devEnvironment.apiKey,
-        },
-      })
-      .pipe(
-        catchError((error) => {
-          throw new HttpCustomException(error);
-        })
-      );
+      .post(ApiApplication.AUTH.CONTROLLER + ApiApplication.AUTH.LOGIN, dto)
+      .pipe(catchError(this.handleError));
   }
 
   logOut$() {
-    return this.http.post(this.logOutUrl, {}).pipe(
-      catchError((error) => {
-        throw new HttpCustomException(error);
-      })
-    );
+    return this.http
+      .post(ApiApplication.AUTH.CONTROLLER + ApiApplication.AUTH.LOGOUT, {})
+      .pipe(catchError(this.handleError));
   }
 
   getProfile$(): Observable<UserModel> {
-    return this.http.get<UserModel>(this.getProfileUrl, {}).pipe(
-      catchError((error) => {
-        throw new HttpCustomException(error);
-      })
-    );
+    return this.http
+      .get<UserModel>(
+        ApiApplication.AUTH.CONTROLLER + ApiApplication.AUTH.GET_PROFILE,
+        {},
+      )
+      .pipe(catchError(this.handleError));
   }
 
-  getUsers$(): Observable<GetUsersHttpResponse> {
-    return this.http.get<GetUsersHttpResponse>(this.getUsersUrl, {}).pipe(
-      catchError((error) => {
-        throw new HttpCustomException(error);
-      })
-    );
+  handleError(error: HttpErrorResponse) {
+    return throwError(() => new HttpCustomException(error));
   }
 }

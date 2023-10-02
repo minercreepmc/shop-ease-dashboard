@@ -3,8 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { HttpCustomException } from '@api/http';
 import {
-  CreateDiscountHttpRequest,
-  CreateDiscountHttpResponse,
+  CreateDiscountRequest,
+  CreateDiscountResponse,
   DiscountModel,
   DiscountService,
 } from '@shared/services/discount';
@@ -20,7 +20,11 @@ import { DiscountsFormComponent } from './discounts-form/discounts-form.componen
   imports: [NgIf, DiscountsFormComponent, DiscountListComponent, AsyncPipe],
 })
 export class DiscountsHomeComponent implements OnInit {
-  discounts$: Observable<DiscountModel[]>;
+  constructor(
+    private readonly formBuilder: FormBuilder,
+    private readonly discountService: DiscountService,
+  ) {}
+  discounts: DiscountModel[] = [];
   discountForm: FormGroup;
   selectedDiscountIds: string[] = [];
   isSelecting = false;
@@ -29,13 +33,16 @@ export class DiscountsHomeComponent implements OnInit {
     this.discountForm = this.formBuilder.group({
       name: '',
     });
-    this.discountService.loadDiscounts$().subscribe();
-    this.discounts$ = this.discountService.discounts$;
+    this.discountService.getDiscounts$().subscribe({
+      next: (response: DiscountModel[]) => {
+        this.discounts = response;
+      },
+    });
   }
 
-  createDiscount(dto: CreateDiscountHttpRequest) {
+  createDiscount(dto: CreateDiscountRequest) {
     this.discountService.createDiscount$(dto).subscribe({
-      next: (response: CreateDiscountHttpResponse) => {
+      next: (response: CreateDiscountResponse) => {
         console.log(response);
       },
       error: (exception: HttpCustomException) => {
@@ -80,9 +87,4 @@ export class DiscountsHomeComponent implements OnInit {
     const dto = this.discountForm.value;
     this.createDiscount(dto);
   }
-
-  constructor(
-    private readonly formBuilder: FormBuilder,
-    private readonly discountService: DiscountService
-  ) {}
 }

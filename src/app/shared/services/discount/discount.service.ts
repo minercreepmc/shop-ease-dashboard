@@ -1,21 +1,17 @@
 import {
   HttpClient,
   HttpErrorResponse,
-  HttpParams,
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HttpCustomException, v1ApiEndpoints } from '@api/http';
-import { BehaviorSubject, catchError, Observable, tap, throwError } from 'rxjs';
+import { HttpCustomException } from '@api/http';
+import { ApiApplication } from '@shared/constants/api.constant';
+import { BehaviorSubject, catchError, tap, throwError } from 'rxjs';
 import {
-  CreateDiscountHttpRequest,
-  CreateDiscountHttpResponse,
+  CreateDiscountRequest,
+  CreateDiscountResponse,
   DiscountModel,
-  GetDiscountHttpQuery,
-  GetDiscountHttpResponse,
-  GetDiscountsHttpQuery,
-  GetDiscountsHttpResponse,
-  UpdateDiscountHttpRequest,
   UpdateDiscountHttpResponse,
+  UpdateDiscountRequest,
 } from './discount.service.dto';
 
 @Injectable({
@@ -23,78 +19,62 @@ import {
 })
 export class DiscountService {
   constructor(private readonly http: HttpClient) {}
-  private readonly createDiscountUrl = v1ApiEndpoints.createDiscount;
-  private readonly updateDiscountUrl = v1ApiEndpoints.updateDiscount;
-  private readonly getDiscountsUrl = v1ApiEndpoints.getDiscounts;
-  private readonly getDiscountUrl = v1ApiEndpoints.getDiscount;
-  private readonly removeDiscountUrl = v1ApiEndpoints.removeDiscount;
-
   private discounts = new BehaviorSubject<DiscountModel[]>([]);
-  get discounts$(): Observable<DiscountModel[]> {
-    return this.discounts.asObservable();
+  get discounts$() {
+    return this.discounts;
   }
 
-  createDiscount$(dto: CreateDiscountHttpRequest) {
+  createDiscount$(dto: CreateDiscountRequest) {
     return this.http
-      .post<CreateDiscountHttpResponse>(this.createDiscountUrl, dto)
+      .post<CreateDiscountResponse>(ApiApplication.DISCOUNT.CREATE, dto)
       .pipe(
-        tap((response: CreateDiscountHttpResponse) => {
+        tap((response: CreateDiscountResponse) => {
           const newDiscount = response;
-          this.discounts.next([...this.discounts.value]);
+          this.discounts.next([...this.discounts.value, newDiscount]);
         }),
         catchError(this.handleError),
       );
   }
 
-  updateDiscount$(id: string, dto: UpdateDiscountHttpRequest) {
-    const url = this.updateDiscountUrl.replace(':id', id);
-    return this.http.put<UpdateDiscountHttpResponse>(url, dto).pipe(
-      tap((response: UpdateDiscountHttpResponse) => {
-        const updateDiscount: DiscountModel = {
-          ...response,
-        };
-        this.discounts.next(
-          this.discounts.value.map((category) => {
-            if (category.id === updateDiscount.id) {
-              return updateDiscount;
-            }
-            return category;
-          }),
-        );
-      }),
-      catchError(this.handleError),
-    );
-  }
-
-  loadDiscounts$(): Observable<GetDiscountsHttpResponse> {
-    return this.getDiscounts$().pipe(
-      tap((response: GetDiscountsHttpResponse) =>
-        this.discounts.next(response.discounts || []),
-      ),
-      catchError(this.handleError),
-    );
-  }
-
-  getDiscounts$(dto?: GetDiscountsHttpQuery) {
+  updateDiscount$(id: string, dto: UpdateDiscountRequest) {
     return this.http
-      .get<GetDiscountsHttpResponse>(this.getDiscountsUrl, {
-        params: dto as HttpParams,
-      })
+      .put<UpdateDiscountHttpResponse>(
+        ApiApplication.DISCOUNT.UPDATE.replace(':id', id),
+        dto,
+      )
+      .pipe(
+        tap((response: UpdateDiscountHttpResponse) => {
+          const updateDiscount: DiscountModel = {
+            ...response,
+          };
+          this.discounts.next(
+            this.discounts.value.map((category) => {
+              if (category.id === updateDiscount.id) {
+                return updateDiscount;
+              }
+              return category;
+            }),
+          );
+        }),
+        catchError(this.handleError),
+      );
+  }
+
+  getDiscounts$() {
+    return this.http
+      .get<DiscountModel[]>(ApiApplication.DISCOUNT.GET_ALL)
       .pipe(catchError(this.handleError));
   }
 
-  getDiscount$(id: string, dto?: GetDiscountHttpQuery) {
-    const url = this.getDiscountUrl.replace(':id', id);
+  getDiscount$(id: string) {
     return this.http
-      .get<GetDiscountHttpResponse>(url, {
-        params: dto as HttpParams,
-      })
+      .get<DiscountModel>(ApiApplication.DISCOUNT.GET_ONE.replace(':id', id))
       .pipe(catchError(this.handleError));
   }
 
   removeDiscount$(id: string) {
     return this.http
-      .delete<void>(this.removeDiscountUrl.replace(':id', id))
+      .delete<void>(ApiApplication.DISCOUNT.DELETE.replace(':id', id))
       .pipe(catchError(this.handleError));
   }
 

@@ -5,11 +5,10 @@ import { HttpCustomException } from '@api/http';
 import {
   CategoryModel,
   CategoryService,
-  CreateCategoryHttpRequest,
-  CreateCategoryHttpResponse,
-  RemoveCategoriesHttpRequest,
+  CreateCategoryDto,
+  CreateCategoryResponse,
+  DeleteCategoriesDto,
 } from '@shared/services/category';
-import { Observable } from 'rxjs';
 import { CategoryFormComponent } from './category-form/category-form.component';
 import { CategoryListComponent } from './category-list/category-list.component';
 
@@ -21,7 +20,7 @@ import { CategoryListComponent } from './category-list/category-list.component';
   imports: [CategoryFormComponent, CategoryListComponent, AsyncPipe, NgIf],
 })
 export class CategoryHomeComponent implements OnInit {
-  categories$: Observable<CategoryModel[]>;
+  categories: CategoryModel[] = [];
   categoryForm: FormGroup;
   selectedCategoryIds: string[] = [];
   isSelecting = false;
@@ -30,13 +29,19 @@ export class CategoryHomeComponent implements OnInit {
     this.categoryForm = this.formBuilder.group({
       name: '',
     });
-    this.categoryService.loadCategories$().subscribe();
-    this.categories$ = this.categoryService.categories$;
+    this.categoryService.getCategories$().subscribe({
+      next: (response: CategoryModel[]) => {
+        this.categoryService.setCategories$(response);
+      },
+    });
+    this.categoryService.categories$.subscribe((response) => {
+      this.categories = response;
+    });
   }
 
-  createCategory(dto: CreateCategoryHttpRequest) {
+  createCategory(dto: CreateCategoryDto) {
     this.categoryService.createCategory$(dto).subscribe({
-      next: (response: CreateCategoryHttpResponse) => {
+      next: (response: CreateCategoryResponse) => {
         console.log(response);
       },
       error: (exception: HttpCustomException) => {
@@ -49,7 +54,7 @@ export class CategoryHomeComponent implements OnInit {
   }
 
   removeCategories() {
-    const dto: RemoveCategoriesHttpRequest = {
+    const dto: DeleteCategoriesDto = {
       ids: this.selectedCategoryIds,
     };
     this.selectedCategoryIds = [];
@@ -88,6 +93,6 @@ export class CategoryHomeComponent implements OnInit {
 
   constructor(
     private readonly formBuilder: FormBuilder,
-    private readonly categoryService: CategoryService
+    private readonly categoryService: CategoryService,
   ) {}
 }

@@ -1,4 +1,4 @@
-<section class="category-details" *ngIf="category$ | async as category">
+<section class="category-details" *ngIf="category">
   <form [formGroup]="categoryForm" (ngSubmit)="onSubmit()">
     <div class="category-details__header">
       <div class="left">
@@ -41,14 +41,14 @@
         </mat-form-field>
       </div>
       <div class="right">
-        <button
-          *ngIf="editMode && removingProductIds.length > 0"
-          mat-raised-button
-          color="primary"
-          (click)="redoRemovingProducts()"
-        >
-          Redo
-        </button>
+        <!-- <button -->
+        <!--   *ngIf="editMode && removingProductIds.length > 0" -->
+        <!--   mat-raised-button -->
+        <!--   color="primary" -->
+        <!--   (click)="redoRemovingProducts()" -->
+        <!-- > -->
+        <!--   Redo -->
+        <!-- </button> -->
         <button
           *ngIf="editMode && this.selectedProductIds.length > 0"
           mat-raised-button
@@ -73,19 +73,21 @@
       </div>
     </div>
 
-    <div
-      class="category-details__content product-table"
-      *ngIf="category.products"
-    >
-      <app-products-table
-        [products]="category.products"
-        [highlightIds]="removingProductIds"
-        (selectedProductIdsChange)="selectedProductsChange($event)"
-        [editMode]="editMode"
-      ></app-products-table>
-    </div>
+    <!-- <div -->
+    <!--   class="category-details__content product-table" -->
+    <!--   *ngIf="category.products" -->
+    <!-- > -->
+    <!--   <app-products-table -->
+    <!--     [products]="category.products" -->
+    <!--     [highlightIds]="removingProductIds" -->
+    <!--     (selectedProductIdsChange)="selectedProductsChange($event)" -->
+    <!--     [editMode]="editMode" -->
+    <!--   ></app-products-table> -->
+    <!-- </div> -->
 
-    <button mat-raised-button color="warn" (click)="removeCategory()">Delete</button>
+    <button mat-raised-button color="warn" (click)="removeCategory()">
+      Delete
+    </button>
     <button
       *ngIf="editMode && showConfirmButton"
       class="add-product"

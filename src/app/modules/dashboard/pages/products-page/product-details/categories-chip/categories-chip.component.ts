@@ -62,8 +62,8 @@ export class CategoriesChipComponent implements OnInit {
 
   ngOnInit() {
     this.categoryService.getCategories$().subscribe({
-      next: (response) => {
-        this.allCategories = response.categories;
+      next: (categories) => {
+        this.allCategories = categories;
       },
       error: (error) => {
         console.log(error);
@@ -71,7 +71,7 @@ export class CategoriesChipComponent implements OnInit {
     });
     this.filteredCategories = this.categoryControl.valueChanges.pipe(
       startWith(null),
-      map((categoryName) => this.filterOnValueChange(categoryName))
+      map((categoryName) => this.filterOnValueChange(categoryName)),
     );
   }
 
@@ -130,7 +130,7 @@ export class CategoriesChipComponent implements OnInit {
     // get a starting point for the autocomplete list.
     //
     const allCategoriesLessSelected = this.allCategories.filter(
-      (category) => this.chipSelectedCategories.indexOf(category) < 0
+      (category) => this.chipSelectedCategories.indexOf(category) < 0,
     );
     if (categoryName) {
       result = this.filterCategory(allCategoriesLessSelected, categoryName);
@@ -142,12 +142,12 @@ export class CategoriesChipComponent implements OnInit {
 
   private filterCategory(
     categoryList: CategoryModel[],
-    categoryName: string
+    categoryName: string,
   ): string[] {
     let filteredCategoryList: CategoryModel[] = [];
     const filterValue = categoryName.toLowerCase();
     const categoriesMatchingCategoryName = categoryList.filter(
-      (category) => category.name.toLowerCase().indexOf(filterValue) === 0
+      (category) => category.name.toLowerCase().indexOf(filterValue) === 0,
     );
     if (
       categoriesMatchingCategoryName.length ||
@@ -176,7 +176,7 @@ export class CategoriesChipComponent implements OnInit {
 
   private selectCategoryByName(categoryName: string) {
     const foundCategory = this.allCategories.filter(
-      (category) => category.name == categoryName
+      (category) => category.name == categoryName,
     );
     if (foundCategory.length) {
       //

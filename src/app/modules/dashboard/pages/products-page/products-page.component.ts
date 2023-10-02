@@ -21,16 +21,19 @@ import { ProductsTableComponent } from '@modules/dashboard/components/products-t
     MatButtonModule,
     ProductsTableComponent,
   ],
-  providers: [ProductService],
 })
 export class ProductsPageComponent implements OnInit {
-  products$: Observable<ProductModel[]>;
+  products: ProductModel[] = [];
   selectedProductIds: string[];
   productFormVisibility = false;
 
   ngOnInit() {
-    this.productService.loadProducts$().subscribe();
-    this.products$ = this.productService.products$;
+    this.productService.getProducts$().subscribe({
+      next: (products) => {
+        this.productService.setProducts$(products);
+        this.products = products;
+      },
+    });
     this.selectedProductIds = [];
   }
 

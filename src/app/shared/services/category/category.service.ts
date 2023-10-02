@@ -1,131 +1,110 @@
-import {
-  HttpClient,
-  HttpErrorResponse,
-  HttpParams,
-} from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import {
-  v1ApiEndpoints,
-  V1GetCategoryHttpQuery,
-  V1GetCategoryHttpResponse,
-} from '@api/http';
+import { ApiApplication } from '@shared/constants/api.constant';
 import { HttpCustomException } from '@shared/dtos';
 import { BehaviorSubject, catchError, Observable, tap, throwError } from 'rxjs';
 import {
   CategoryModel,
-  CreateCategoryHttpRequest,
-  CreateCategoryHttpResponse,
-  GetCategoriesHttpResponse,
-  RemoveCategoriesHttpRequest,
-  RemoveCategoriesHttpResponse,
-  RemoveCategoryHttpResponse,
-  UpdateCategoryHttpRequest,
-  UpdateCategoryHttpResponse,
+  CreateCategoryDto,
+  CreateCategoryResponse,
+  DeleteCategoryResponse,
+  UpdateCategoryResponse,
 } from './category.interface';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CategoryService {
-  private getAllUrl = v1ApiEndpoints.getCategories;
-  private getCategoryUrl = v1ApiEndpoints.getCategory;
-  private createUrl = v1ApiEndpoints.createCategory;
-  private removeUrl = v1ApiEndpoints.removeCategory;
-  private updateUrl = v1ApiEndpoints.updateCategory;
-
+  constructor(private readonly http: HttpClient) {}
   private categories = new BehaviorSubject<CategoryModel[]>([]);
 
-  get categories$(): Observable<CategoryModel[]> {
-    return this.categories.asObservable();
+  get categories$() {
+    return this.categories;
   }
 
-  loadCategories$(): Observable<GetCategoriesHttpResponse> {
-    const categoryGetting$ = this.getCategories$().pipe(
-      tap((response: GetCategoriesHttpResponse) =>
-        this.categories.next(response.categories)
-      ),
-      catchError(this.handleError)
-    );
-
-    return categoryGetting$;
+  setCategories$(categories: CategoryModel[]) {
+    this.categories.next(categories);
   }
 
-  getCategories$(): Observable<GetCategoriesHttpResponse> {
+  getCategories$(): Observable<CategoryModel[]> {
     return this.http
-      .get<GetCategoriesHttpResponse>(this.getAllUrl, {})
+      .get<CategoryModel[]>(
+        ApiApplication.CATEGORY.CONTROLLER + ApiApplication.CATEGORY.GET_ALL,
+        {},
+      )
       .pipe(catchError(this.handleError));
   }
 
-  getCategory$(id: string): Observable<V1GetCategoryHttpResponse> {
-    const url = this.getCategoryUrl.replace(':id', id);
-
+  getCategory$(id: string): Observable<CategoryModel> {
     return this.http
-      .get<CategoryModel>(url, {})
+      .get<CategoryModel>(
+        ApiApplication.CATEGORY.CONTROLLER +
+          ApiApplication.CATEGORY.GET_ONE.replace(':id', id),
+        {},
+      )
       .pipe(catchError(this.handleError));
-  }
-
-  getCategoryWithProducts$(id: string): Observable<V1GetCategoryHttpResponse> {
-    const url = this.getCategoryUrl.replace(':id', id);
-
-    const query: V1GetCategoryHttpQuery = {
-      populate_products: true,
-    };
-
-    return this.http.get<V1GetCategoryHttpResponse>(url, {
-      params: query as HttpParams,
-    });
-  }
-
-  createCategory$(
-    dto: CreateCategoryHttpRequest
-  ): Observable<CreateCategoryHttpResponse> {
-    return this.http.post<CreateCategoryHttpResponse>(this.createUrl, dto).pipe(
-      tap((response: CreateCategoryHttpResponse) => {
-        const newCategory = response;
-        this.categories.next([...this.categories.value, newCategory]);
-      }),
-      catchError(this.handleError)
-    );
-  }
-
-  removeCategory$(id: string): Observable<RemoveCategoryHttpResponse> {
-    return this.http
-      .delete<RemoveCategoryHttpResponse>(this.removeUrl.replace(':id', id))
-      .pipe(
-        tap((response: RemoveCategoryHttpResponse) => {
-          const id = response.id;
-          this.categories.next(
-            this.categories.value.filter((category) => category.id !== id)
-          )
-        }),
-        catchError(this.handleError)
-      );
-  }
-
-  updateCategory$(
-    dto: UpdateCategoryHttpRequest
-  ): Observable<UpdateCategoryHttpResponse> {
-    const url = this.updateUrl.replace(':id', dto.id);
-    return this.http.put<UpdateCategoryHttpResponse>(url, dto).pipe(
-      tap((response: UpdateCategoryHttpResponse) => {
-        const updatedCategory: CategoryModel = {
-          ...response,
-        };
-        this.categories.next(
-          this.categories.value.map((category) => {
-            if (category.id === updatedCategory.id) {
-              return updatedCategory;
-            }
-            return category;
-          })
-        );
-      })
-    );
   }
 
   private handleError(error: HttpErrorResponse) {
     return throwError(() => new HttpCustomException(error));
   }
 
-  constructor(private readonly http: HttpClient) {}
+  createCategory$(dto: CreateCategoryDto): Observable<CreateCategoryResponse> {
+    return this.http
+      .post<CreateCategoryResponse>(
+        ApiApplication.CATEGORY.CONTROLLER + ApiApplication.CATEGORY.CREATE,
+        dto,
+      )
+      .pipe(
+        tap((response: CreateCategoryResponse) => {
+          const newCategory = response;
+          this.categories.next([...this.categories.value, newCategory]);
+        }),
+        catchError(this.handleError),
+      );
+  }
+
+  removeCategory$(id: string): Observable<DeleteCategoryResponse> {
+    return this.http
+      .delete<DeleteCategoryResponse>(
+        ApiApplication.CATEGORY.CONTROLLER +
+          ApiApplication.CATEGORY.DELETE.replace(':id', id),
+        {},
+      )
+      .pipe(
+        tap((response: DeleteCategoryResponse) => {
+          const id = response.id;
+          this.categories.next(
+            this.categories.value.filter((category) => category.id !== id),
+          );
+        }),
+        catchError(this.handleError),
+      );
+  }
+
+  updateCategory$(
+    dto: UpdateCategoryResponse,
+  ): Observable<UpdateCategoryResponse> {
+    return this.http
+      .put<UpdateCategoryResponse>(
+        ApiApplication.CATEGORY.CONTROLLER +
+          ApiApplication.CATEGORY.UPDATE.replace(':id', dto.id),
+        dto,
+      )
+      .pipe(
+        tap((response: UpdateCategoryResponse) => {
+          const updatedCategory: CategoryModel = {
+            ...response,
+          };
+          this.categories.next(
+            this.categories.value.map((category) => {
+              if (category.id === updatedCategory.id) {
+                return updatedCategory;
+              }
+              return category;
+            }),
+          );
+        }),
+      );
+  }
 }

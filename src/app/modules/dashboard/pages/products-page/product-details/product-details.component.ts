@@ -45,7 +45,6 @@ import { DiscountService } from '@shared/services/discount';
     CategoriesChipComponent,
     ToastrCustomModule,
   ],
-  providers: [ProductService],
 })
 export class ProductDetailsComponent implements OnInit {
   constructor(
@@ -99,8 +98,8 @@ export class ProductDetailsComponent implements OnInit {
       },
     });
     this.discoutService.getDiscounts$().subscribe({
-      next: (response) => {
-        this.discounts = response.discounts || [];
+      next: (discounts) => {
+        this.discounts = discounts || [];
       },
     });
   }

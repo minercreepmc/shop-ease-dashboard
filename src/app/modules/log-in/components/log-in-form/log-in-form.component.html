@@ -5,12 +5,22 @@
     <div class="sign-in-form__inputs">
       <div class="sign-in-form__group">
         <label for="username">Username</label>
-        <input [(ngModel)]="user.username" type="text" id="username" />
+        <input
+          [(ngModel)]="user.username"
+          type="text"
+          id="username"
+          name="username"
+        />
       </div>
 
       <div class="sign-in-form__group">
         <label for="password">Password</label>
-        <input [(ngModel)]="user.password" type="password" id="password" />
+        <input
+          [(ngModel)]="user.password"
+          type="password"
+          id="password"
+          name="password"
+        />
       </div>
       <button class="sign-in-form__button" type="submit">Login</button>
     </div>

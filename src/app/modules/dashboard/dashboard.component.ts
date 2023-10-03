@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
-import { StorageService } from '@shared/services/auth';
+import { StorageService } from '@service';
 import { MenuComponent } from './components/menu/menu.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
 
@@ -10,12 +10,11 @@ import { NavigationComponent } from './components/navigation/navigation.componen
   styleUrls: ['./dashboard.component.scss'],
   standalone: true,
   imports: [MenuComponent, NavigationComponent, RouterOutlet],
-  providers: [StorageService],
 })
 export class DashboardComponent implements OnInit {
   constructor(
     private readonly storageService: StorageService,
-    private readonly router: Router
+    private readonly router: Router,
   ) {}
   ngOnInit(): void {
     const isSignedIn = this.storageService.isLoggedIn();

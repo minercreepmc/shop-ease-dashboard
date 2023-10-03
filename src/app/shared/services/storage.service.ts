@@ -2,7 +2,9 @@ import { Injectable } from '@angular/core';
 
 const USER_KEY = 'auth-user';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class StorageService {
   clean(): void {
     window.sessionStorage.clear();

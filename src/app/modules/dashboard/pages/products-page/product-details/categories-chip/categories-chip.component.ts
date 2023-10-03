@@ -23,8 +23,10 @@ import {
   MatAutocompleteModule,
   MatAutocompleteSelectedEvent,
 } from '@angular/material/autocomplete';
-import { CategoryModel, CategoryService } from '@shared/services/category';
 import { v4 as uuid } from 'uuid';
+import { CategoryModel } from '@model';
+import { ActivatedRoute } from '@angular/router';
+import { CategoryService } from '@service';
 
 @Component({
   selector: 'app-categories-chip',
@@ -42,7 +44,10 @@ import { v4 as uuid } from 'uuid';
   ],
 })
 export class CategoriesChipComponent implements OnInit {
-  constructor(private readonly categoryService: CategoryService) {}
+  constructor(
+    private readonly categoryService: CategoryService,
+    private readonly route: ActivatedRoute,
+  ) {}
   public allCategories: CategoryModel[] = [];
   @Input() chipSelectedCategories: CategoryModel[] = [];
   @Output() chipSelectedCategoriesChange = new EventEmitter<CategoryModel[]>();
@@ -61,15 +66,8 @@ export class CategoriesChipComponent implements OnInit {
   @ViewChild('auto') matAutocomplete: MatAutocomplete;
 
   ngOnInit() {
-    this.categoryService.getCategories$().subscribe({
-      next: (categories) => {
-        this.allCategories = categories;
-      },
-      error: (error) => {
-        console.log(error);
-      },
-    });
-    this.filteredCategories = this.categoryControl.valueChanges.pipe(
+    this.allCategories = this.route.snapshot.data['categories'];
+    this.categoryControl.valueChanges.pipe(
       startWith(null),
       map((categoryName) => this.filterOnValueChange(categoryName)),
     );

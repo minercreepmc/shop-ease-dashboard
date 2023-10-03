@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { SharedModule } from '@shared/shared.module';
 import { UserDropdownComponent } from './components/user-dropdown/user-dropdown.component';
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { DashboardComponent } from './dashboard.component';
@@ -14,7 +13,6 @@ import { OrdersPageComponent } from './pages/orders-page/orders-page.component';
 @NgModule({
   imports: [
     UserDropdownComponent,
-    SharedModule,
     DashboardRoutingModule,
     ProductsPageComponent,
     AnalyticPageModule,

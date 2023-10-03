@@ -1,48 +1,47 @@
 <section class="product-details" *ngIf="product">
-  <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+  <form (ngSubmit)="onSubmit()">
     <div class="product">
       <h1 class="product-header header">Product</h1>
       <div class="product-body">
         <mat-form-field class="product-name">
           <mat-label>Name</mat-label>
-          <input matInput type="text" formControlName="name" />
+          <input matInput type="text" [(ngModel)]="updateProductDto.name" />
           <button
             *ngIf="product.name"
             matSuffix
             mat-icon-button
             aria-label="Clear"
-            (click)="productForm.patchValue({ name: '' })"
           >
             <mat-icon>close</mat-icon>
           </button>
         </mat-form-field>
         <mat-form-field class="product-price">
           <mat-label>Price</mat-label>
-          <input matInput type="number" formControlName="price" />
+          <input matInput type="number" [(ngModel)]="updateProductDto.price" />
           <button
-            *ngIf="product.price"
+            *ngIf="updateProductDto.price"
             matSuffix
             mat-icon-button
             aria-label="Clear"
-            (click)="productForm.patchValue({ price: '' })"
           >
             <mat-icon>close</mat-icon>
           </button>
         </mat-form-field>
         <mat-form-field class="product-description">
           <mat-label>Description</mat-label>
-          <textarea matInput formControlName="description"></textarea>
+          <textarea
+            matInput
+            [(ngModel)]="updateProductDto.description"
+          ></textarea>
           <button
-            *ngIf="product.description"
+            *ngIf="updateProductDto.description"
             matSuffix
             mat-icon-button
             aria-label="Clear"
-            (click)="productForm.setValue({ description: '' })"
           >
             <mat-icon>close</mat-icon>
           </button>
         </mat-form-field>
-        <img class="product-image" [src]="product.image_url" alt="" />
       </div>
     </div>
 
@@ -50,23 +49,13 @@
       <h1 class="discount-header header">Discount</h1>
       <mat-form-field>
         <mat-label>Select an option</mat-label>
-        <mat-select formControlName="discountId">
+        <mat-select [(ngModel)]="updateProductDto.discountId">
           <mat-option [value]="undefined">__</mat-option>
           <mat-option *ngFor="let discount of discounts" [value]="discount.id">
             {{ discount.name + " " + discount.percentage }}
           </mat-option>
         </mat-select>
       </mat-form-field>
-    </div>
-
-    <div class="category">
-      <h1 class="category-header header">Categories</h1>
-      <div class="category-body">
-        <app-categories-chip
-          [chipSelectedCategories]="categories || []"
-          (chipSelectedCategoriesChange)="onCategoriesChange($event)"
-        ></app-categories-chip>
-      </div>
     </div>
 
     <button type="submit" mat-raised-button color="primary">Confirm</button>

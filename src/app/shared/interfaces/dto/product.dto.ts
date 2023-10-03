@@ -6,7 +6,7 @@ export class CreateProductDto {
   categoryIds?: string[];
 }
 
-export class DeleteProducts {
+export class DeleteProductDtostos {
   ids: string[];
 }
 
@@ -14,7 +14,6 @@ export class UpdateProductDto {
   name: string;
   price: number;
   description?: string;
-  imageUrl?: string;
   discountId?: string;
   categoryIds?: string[];
   sold?: number;

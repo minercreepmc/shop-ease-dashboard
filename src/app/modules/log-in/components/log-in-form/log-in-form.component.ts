@@ -1,78 +1,54 @@
 import { HttpClientModule } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
-import {
-  FormBuilder,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { StorageService, AuthService } from '@service';
 import { HttpCustomException } from '@shared/dtos';
+import { LogInDto } from '@shared/interfaces/dto';
 import {
   ToastrCustomModule,
   ToastrCustomService,
 } from '@shared/libraries/toastr';
-import { AuthService, StorageService } from '@shared/services/auth';
 
 @Component({
   selector: 'app-log-in-form',
   templateUrl: './log-in-form.component.html',
   styleUrls: ['./log-in-form.component.scss'],
   standalone: true,
-  imports: [ReactiveFormsModule, HttpClientModule, ToastrCustomModule],
-  providers: [AuthService, StorageService],
+  imports: [FormsModule, HttpClientModule, ToastrCustomModule],
 })
-export class LogInFormComponent implements OnInit {
-  loginForm!: FormGroup;
-  isLoginFailed = false;
-  isLoggedIn = false;
+export class LogInFormComponent {
+  user: LogInDto = {
+    username: '',
+    password: '',
+  };
 
   constructor(
-    private readonly formBuilder: FormBuilder,
     private readonly authService: AuthService,
     private readonly storageSerivce: StorageService,
     private readonly toast: ToastrCustomService,
     private readonly router: Router,
   ) {}
 
-  ngOnInit(): void {
-    this.loginForm = this.formBuilder.group({
-      username: ['', [Validators.required]],
-      password: ['', [Validators.required]],
-    });
-  }
-
   onSubmit() {
-    if (this.loginForm.valid) {
-      const username = this.loginForm.get('username')?.value;
-      const password = this.loginForm.get('password')?.value;
-      const fullName = this.loginForm.get('fullName')?.value;
-
-      this.authService
-        .logIn$({
-          username,
-          password,
-          fullName,
-        })
-        .subscribe({
-          next: (response) => {
-            this.storageSerivce.saveUser(response);
-            this.isLoginFailed = false;
-            this.isLoggedIn = true;
-            this.router.navigate(['/dashboard']);
-          },
-          error: (error: HttpCustomException) => {
-            if (error.statusCode === 401) {
-              this.toast.error('Fail to login');
-            } else {
-              this.toast.error('Something went wrong');
-            }
-          },
-          complete: () => {
-            this.loginForm.reset();
-            window.location.reload();
-          },
-        });
-    }
+    const { username, password } = this.user;
+    this.authService
+      .logIn$({
+        username,
+        password,
+      })
+      .subscribe({
+        next: (response) => {
+          this.storageSerivce.saveUser(response);
+          this.router.navigate(['/dashboard']);
+        },
+        error: (error: HttpCustomException) => {
+          if (error.statusCode === 401) {
+            this.toast.error('Fail to login');
+          } else {
+            this.toast.error('Something went wrong');
+          }
+        },
+      });
   }
 }

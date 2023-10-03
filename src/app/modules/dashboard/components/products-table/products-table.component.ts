@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatTableModule } from '@angular/material/table';
-import { ProductModel } from '@shared/services';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
+import { ProductModel } from '@model';
 
 @Component({
   selector: 'app-products-table',
@@ -33,7 +33,7 @@ export class ProductsTableComponent {
     } else {
       // Remove the product's id from the selectedProducts array if it's checked off
       this.selectedProductIds = this.selectedProductIds.filter(
-        (id) => id !== productId
+        (id) => id !== productId,
       );
     }
     // Emit the updated selectedProductIds array to the parent component

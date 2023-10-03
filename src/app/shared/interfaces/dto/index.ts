@@ -10,3 +10,4 @@ export * from './shipping-fee.dto';
 export * from './shipping.dto';
 export * from './upload-file.dto';
 export * from './user.dto';
+export * from './order.dto';

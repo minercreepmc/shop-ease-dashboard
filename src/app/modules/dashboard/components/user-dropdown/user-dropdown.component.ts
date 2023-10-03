@@ -10,7 +10,8 @@ import {
   faCircleInfo,
   faRightFromBracket,
 } from '@fortawesome/free-solid-svg-icons';
-import { AuthService, StorageService, UserModel } from '@shared/services/auth';
+import { UserModel } from '@model';
+import { AuthService, StorageService } from '@service';
 
 @Component({
   selector: 'app-user-dropdown',
@@ -18,7 +19,6 @@ import { AuthService, StorageService, UserModel } from '@shared/services/auth';
   styleUrls: ['./user-dropdown.component.scss'],
   standalone: true,
   imports: [FontAwesomeModule, NgIf, AsyncPipe],
-  providers: [AuthService, StorageService],
 })
 export class UserDropdownComponent implements OnInit {
   faUsers = faUsers;

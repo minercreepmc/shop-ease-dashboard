@@ -1,13 +1,13 @@
-<form
-  [formGroup]="categoryForm"
-  (ngSubmit)="onCategorySubmit()"
-  class="category-form"
->
+<form (ngSubmit)="onCategorySubmit()" class="category-form">
   <h3>Add new category</h3>
 
   <mat-form-field class="form-group">
     <mat-label>Name</mat-label>
-    <input matInput placeholder="Ex. Dark Coffee" formControlName="name" />
+    <input
+      matInput
+      placeholder="Ex. Dark Coffee"
+      [(ngModel)]="createCategoryDto.name"
+    />
   </mat-form-field>
 
   <mat-form-field class="form-group">
@@ -15,7 +15,7 @@
     <textarea
       matInput
       placeholder="Enter category description"
-      formControlName="description"
+      [(ngModel)]="createCategoryDto.description"
     ></textarea>
   </mat-form-field>
 

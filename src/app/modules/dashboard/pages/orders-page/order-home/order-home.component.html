@@ -8,7 +8,7 @@
         <th>Total Price</th>
       </tr>
     </thead>
-    <tbody *ngIf="orders$ | async as orders">
+    <tbody>
       <tr routerLink="/orders/{{ order.id }}" *ngFor="let order of orders">
         <td>{{ order.id }}</td>
         <td>{{ order.status }}</td>

@@ -45,11 +45,11 @@ export class DiscountService {
       .pipe(
         tap((updateDiscount) => {
           this.discounts.next(
-            this.discounts.value.map((category) => {
-              if (category.id === updateDiscount.id) {
+            this.discounts.value.map((discount) => {
+              if (discount.id === updateDiscount.id) {
                 return updateDiscount;
               }
-              return category;
+              return discount;
             }),
           );
         }),
@@ -72,7 +72,7 @@ export class DiscountService {
     );
   }
 
-  removeDiscount$(id: string) {
+  deleteDiscount$(id: string) {
     return this.http.delete<DiscountModel>(
       ApiApplication.DISCOUNT.CONTROLLER +
         '/' +

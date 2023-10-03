@@ -1,37 +1,21 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import {
-  FormBuilder,
-  FormGroup,
-  FormsModule,
-  ReactiveFormsModule,
-} from '@angular/forms';
+import { Component, EventEmitter, Output } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { CategoryService, CreateCategoryDto } from '@shared/services/category';
 import { MatButtonModule } from '@angular/material/button';
+import { CreateCategoryDto } from '@dto';
+import { CategoryService } from '@service';
 
 @Component({
   selector: 'app-category-form',
   templateUrl: './category-form.component.html',
   styleUrls: ['./category-form.component.scss'],
   standalone: true,
-  imports: [
-    ReactiveFormsModule,
-    FormsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-  ],
+  imports: [FormsModule, MatFormFieldModule, MatInputModule, MatButtonModule],
 })
-export class CategoryFormComponent implements OnInit {
-  categoryForm: FormGroup;
-
-  ngOnInit() {
-    this.categoryForm = this.fb.group({
-      name: '',
-      description: '',
-    });
-  }
+export class CategoryFormComponent {
+  constructor(private readonly categoryService: CategoryService) {}
+  createCategoryDto: CreateCategoryDto;
 
   @Output() closeButtonClicked = new EventEmitter();
   onCloseButtonClicked() {
@@ -39,18 +23,6 @@ export class CategoryFormComponent implements OnInit {
   }
 
   onCategorySubmit() {
-    const dto = this.categoryForm.value;
-    this.createCategory(dto);
-    this.categoryForm.reset();
+    this.categoryService.createCategory$(this.createCategoryDto).subscribe();
   }
-
-  createCategory(dto: CreateCategoryDto) {
-    console.log(dto);
-    this.categoryService.createCategory$(dto).subscribe();
-  }
-
-  constructor(
-    private readonly fb: FormBuilder,
-    private readonly categoryService: CategoryService,
-  ) {}
 }

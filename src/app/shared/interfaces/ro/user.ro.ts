@@ -1,4 +1,4 @@
-import type { AddressModel } from '@v2/address/model';
+import { AddressModel } from '@model';
 
 export class UserRO {
   id: string;

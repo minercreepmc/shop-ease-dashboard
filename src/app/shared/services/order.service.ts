@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { ApiApplication } from '@constant';
 import { OrderRO } from '@ro';
 import { UpdateOrderDto } from '@dto';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { OrderModel } from '@model';
 
 @Injectable({
@@ -11,6 +11,15 @@ import { OrderModel } from '@model';
 })
 export class OrderService {
   constructor(private readonly http: HttpClient) {}
+  private orders = new BehaviorSubject<OrderRO[]>([]);
+  get orders$() {
+    return this.orders;
+  }
+
+  setOrders$(orders: OrderRO[]) {
+    this.orders.next(orders);
+  }
+
   getOrder$(id: string): Observable<OrderRO> {
     return this.http.get<OrderRO>(
       ApiApplication.ORDER.CONTROLLER +
@@ -33,6 +42,12 @@ export class OrderService {
         '/' +
         ApiApplication.ORDER.UPDATE.replace(':id', id),
       dto,
+    );
+  }
+
+  getOrders$(): Observable<OrderRO[]> {
+    return this.http.get<OrderRO[]>(
+      ApiApplication.ORDER.CONTROLLER + '/' + ApiApplication.ORDER.GET_ALL,
     );
   }
 }

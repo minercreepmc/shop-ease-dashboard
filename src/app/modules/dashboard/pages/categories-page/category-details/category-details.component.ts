@@ -1,8 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ProductModel } from '@shared/services';
-import { CategoryModel, CategoryService } from '@shared/services/category';
-import { Observable } from 'rxjs';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -11,14 +8,12 @@ import { ProductsTableComponent } from '@modules/dashboard/components/products-t
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import {
-  FormBuilder,
-  FormGroup,
-  FormsModule,
-  ReactiveFormsModule,
-} from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { ToastrCustomService } from '@shared/libraries/toastr';
+import { CategoryModel, ProductModel } from '@model';
+import { UpdateCategoryDto } from '@dto';
+import { CategoryService } from '@service';
 
 @Component({
   selector: 'app-category-details',
@@ -43,112 +38,40 @@ import { ToastrCustomService } from '@shared/libraries/toastr';
   ],
 })
 export class CategoryDetailsComponent implements OnInit {
+  constructor(
+    private readonly categoryService: CategoryService,
+    private readonly route: ActivatedRoute,
+    private readonly router: Router,
+    private readonly toast: ToastrCustomService,
+  ) {}
   category: CategoryModel;
-  products$: Observable<ProductModel[]>;
-  categoryForm: FormGroup;
-  selectedProductIds: string[] = [];
-  removingProductIds: string[] = [];
-  showConfirmButton = false;
-  originalCategory: CategoryModel;
+  products: ProductModel[];
+  updateCategoryDto: UpdateCategoryDto;
   id: string;
-  _editMode = false;
-
-  @Input() set editMode(value: boolean) {
-    const oldValue = this._editMode;
-    this._editMode = value;
-    this.onEditModeChange(oldValue, this._editMode);
-  }
-  get editMode(): boolean {
-    return this._editMode;
-  }
-  onEditModeChange(oldValue: boolean, newValue: boolean) {
-    if (newValue === false) {
-      this.categoryForm.patchValue(this.originalCategory);
-      this.categoryForm.disable();
-    }
-
-    if (newValue === true) {
-      this.categoryForm.enable();
-    }
-  }
-
-  toggleEditMode() {
-    this.editMode = !this.editMode;
-  }
 
   ngOnInit(): void {
-    this.id = this.route.snapshot.params['id'];
-    this.categoryService.getCategory$(this.id).subscribe({
-      next: (category) => {
-        this.category = category;
-        this.originalCategory = category;
-        this.categoryForm.patchValue(category);
-
-        this.categoryForm.valueChanges.subscribe({
-          next: () => {
-            this.showConfirmButton = true;
-          },
-        });
-      },
-    });
-    this.categoryForm = this.formBuilder.group({
-      name: [{ value: '', disabled: true }],
-      description: [{ value: '', disabled: true }],
-      productIds: [],
-    });
+    this.category = this.route.snapshot.data.category;
+    this.updateCategoryDto = this.route.snapshot.data.category;
   }
 
-  removeCategory() {
-    return this.categoryService.removeCategory$(this.id).subscribe({
+  deleteCategory() {
+    return this.categoryService.deleteCategory$(this.id).subscribe({
       next: () => {
         this.router.navigate(['/categories']);
       },
     });
   }
 
-  removeSelectedProducts() {
-    const removeProductIds = this.selectedProductIds;
-    const currentProductIds = this.categoryForm.get('productIds')
-      ?.value as string[];
-
-    if (removeProductIds?.length && currentProductIds?.length) {
-      const newProductIds = currentProductIds.filter(
-        (id) => !removeProductIds.includes(id),
-      );
-      this.categoryForm.get('productIds')?.setValue(newProductIds);
-      this.removingProductIds = removeProductIds;
-    }
-  }
-
-  selectedProductsChange(products: string[]) {
-    this.selectedProductIds = products;
-  }
-
   onSubmit() {
-    const formData = this.categoryForm.value;
-    const categoryUpdating$ = this.categoryService.updateCategory$({
-      id: this.id,
-      ...formData,
-    });
-
-    categoryUpdating$.subscribe({
-      next: () => {
-        this.editMode = false;
-        this.showConfirmButton = false;
-        this.categoryForm.disable();
-        this.toast.success('Category updated successfully');
-      },
-      error: (error) => {
-        this.toast.error(error.message);
-      },
-    });
+    this.categoryService
+      .updateCategory$(this.category.id, this.updateCategoryDto)
+      .subscribe({
+        next: () => {
+          this.toast.success('Category updated successfully');
+        },
+        error: (error) => {
+          this.toast.error(error.message);
+        },
+      });
   }
-
-  constructor(
-    private readonly formBuilder: FormBuilder,
-    private readonly categoryService: CategoryService,
-    private readonly route: ActivatedRoute,
-    private readonly router: Router,
-    private readonly toast: ToastrCustomService,
-  ) {}
 }

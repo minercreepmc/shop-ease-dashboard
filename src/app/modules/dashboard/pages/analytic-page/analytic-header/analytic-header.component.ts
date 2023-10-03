@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import {
   faCoffee,
@@ -11,6 +12,8 @@ import {
   selector: 'app-analytic-header',
   templateUrl: './analytic-header.component.html',
   styleUrls: ['./analytic-header.component.scss'],
+  standalone: true,
+  imports: [FontAwesomeModule],
 })
 export class AnalyticHeaderComponent {
   faUsers = faUsers;

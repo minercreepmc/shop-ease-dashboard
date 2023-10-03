@@ -1,41 +1,22 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import {
-  FormBuilder,
-  FormGroup,
-  FormsModule,
-  ReactiveFormsModule,
-} from '@angular/forms';
+import { Component, EventEmitter, Output } from '@angular/core';
+import { FormGroup, FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import {
-  CreateDiscountRequest,
-  DiscountService,
-} from '@shared/services/discount';
+import { CreateDiscountDto } from '@dto';
+import { DiscountService } from '@service';
 
 @Component({
   selector: 'app-discounts-form',
   templateUrl: './discounts-form.component.html',
   styleUrls: ['./discounts-form.component.scss'],
   standalone: true,
-  imports: [
-    ReactiveFormsModule,
-    FormsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-  ],
+  imports: [FormsModule, MatFormFieldModule, MatInputModule, MatButtonModule],
 })
-export class DiscountsFormComponent implements OnInit {
+export class DiscountsFormComponent {
+  constructor(private readonly discountService: DiscountService) {}
   discountForm: FormGroup;
-
-  ngOnInit() {
-    this.discountForm = this.fb.group({
-      name: '',
-      percentage: '',
-      description: '',
-    });
-  }
+  createDiscountDto: CreateDiscountDto;
 
   @Output() closeButtonClicked = new EventEmitter();
   onCloseButtonClicked() {
@@ -43,18 +24,6 @@ export class DiscountsFormComponent implements OnInit {
   }
 
   onDiscountSubmit() {
-    const dto = this.discountForm.value;
-    this.createDiscount(dto);
-    this.discountForm.reset();
+    this.discountService.createDiscount$(this.createDiscountDto).subscribe();
   }
-
-  createDiscount(dto: CreateDiscountRequest) {
-    console.log(dto);
-    this.discountService.createDiscount$(dto).subscribe();
-  }
-
-  constructor(
-    private readonly fb: FormBuilder,
-    private readonly discountService: DiscountService,
-  ) {}
 }

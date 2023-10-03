@@ -1,4 +1,4 @@
-import type { CartItemRO } from '@v2/cart-item/ro';
+import { CartItemRO } from '@ro';
 
 export class CartRO {
   id: string;

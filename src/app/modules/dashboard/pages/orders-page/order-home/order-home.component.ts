@@ -1,9 +1,7 @@
 import { AsyncPipe, NgFor, NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { RouterLink } from '@angular/router';
-import { OrderService } from '@shared/services/order';
-import { OrderModel } from '@shared/services/order/order.service.dto';
-import { Observable, map } from 'rxjs';
+import { ActivatedRoute, RouterLink } from '@angular/router';
+import { OrderRO } from '@ro';
 
 @Component({
   selector: 'app-order-home',
@@ -13,11 +11,11 @@ import { Observable, map } from 'rxjs';
   imports: [NgIf, NgFor, AsyncPipe, RouterLink],
 })
 export class OrderHomeComponent implements OnInit {
-  orders$: Observable<OrderModel[]>;
-  constructor(private readonly orderService: OrderService) {}
+  orders: OrderRO[] = [];
+  constructor(private readonly route: ActivatedRoute) {}
   ngOnInit() {
-    this.orders$ = this.orderService
-      .getOrders$()
-      .pipe(map((response) => response.orders));
+    this.route.data.subscribe((data) => {
+      this.orders = data.orders;
+    });
   }
 }

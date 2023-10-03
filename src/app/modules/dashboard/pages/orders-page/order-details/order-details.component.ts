@@ -1,15 +1,13 @@
 import { AsyncPipe, NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import {
-  OrderModel,
-  OrderService,
-  UpdateOrderHttpRequest,
-} from '@shared/services/order';
 import { faShippingFast, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { OrderStatusEnum } from '@api/http';
 import { ToastrCustomService } from '@shared/libraries/toastr';
+import { OrderService } from '@service';
+import { OrderRO } from '@ro';
+import { UpdateOrderDto } from '@dto';
 
 @Component({
   selector: 'app-order-details',
@@ -25,9 +23,9 @@ export class OrderDetailsComponent implements OnInit {
   constructor(
     private readonly orderService: OrderService,
     private readonly activateRoute: ActivatedRoute,
-    private readonly toast: ToastrCustomService
+    private readonly toast: ToastrCustomService,
   ) {}
-  order: OrderModel;
+  order: OrderRO;
 
   ngOnInit() {
     this.id = this.activateRoute.snapshot.paramMap.get('id')!;
@@ -43,7 +41,7 @@ export class OrderDetailsComponent implements OnInit {
   }
 
   onShippingClick() {
-    const dto: UpdateOrderHttpRequest = {
+    const dto: UpdateOrderDto = {
       status: OrderStatusEnum.SHIPPING,
     };
     this.orderService.updateOrder$(this.id, dto).subscribe({

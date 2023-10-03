@@ -4,15 +4,6 @@ import { AnalyticHeaderComponent } from './analytic-header/analytic-header.compo
 import { AnalyticPageComponent } from './analytic-page.component';
 
 @NgModule({
-  declarations: [
-    AnalyticBodyComponent,
-    AnalyticHeaderComponent,
-    AnalyticPageComponent,
-  ],
-  exports: [
-    AnalyticBodyComponent,
-    AnalyticHeaderComponent,
-    AnalyticPageComponent,
-  ],
+  imports: [AnalyticHeaderComponent, AnalyticBodyComponent, AnalyticPageComponent],
 })
 export class AnalyticPageModule {}

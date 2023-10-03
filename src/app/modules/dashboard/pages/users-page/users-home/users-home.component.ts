@@ -1,7 +1,7 @@
 import { AsyncPipe, NgFor, NgIf } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
-import { AuthService, UserModel } from '@shared/services/auth';
-import { Observable, map } from 'rxjs';
+import { Component } from '@angular/core';
+import { UserModel } from '@model';
+import { AuthService } from '@service';
 
 @Component({
   selector: 'app-users-home',
@@ -12,5 +12,5 @@ import { Observable, map } from 'rxjs';
 })
 export class UsersHomeComponent {
   constructor(private readonly authService: AuthService) {}
-  $users: Observable<UserModel[]>;
+  users: UserModel[] = [];
 }

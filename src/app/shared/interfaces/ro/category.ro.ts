@@ -1,4 +1,4 @@
-import { ProductIncludeDiscountRO } from '@v2/product/ro';
+import { ProductIncludeDiscountRO } from '@ro';
 
 export class CategoryRO {
   id: string;

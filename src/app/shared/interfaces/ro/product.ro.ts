@@ -1,4 +1,4 @@
-import type { CategoryModel } from '@v2/category/model';
+import type { CategoryModel } from '@model';
 
 export class ProductIncludeDiscountRO {
   id: string;

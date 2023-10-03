@@ -1,5 +1,3 @@
-import { OrderModel } from '../model';
-
 export class OrderRO {
   id: string;
   status: string;
@@ -23,6 +21,6 @@ export class OrderItemRO {
   category_name: string;
 }
 
-export class CreateOrderRO extends OrderModel {
-  items: string[];
+export class CreateOrderRO extends OrderRO {
+  itemIds: string[];
 }

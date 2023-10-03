@@ -1,14 +1,10 @@
 import { AsyncPipe, NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { HttpCustomException } from '@api/http';
-import {
-  CategoryModel,
-  CategoryService,
-  CreateCategoryDto,
-  CreateCategoryResponse,
-  DeleteCategoriesDto,
-} from '@shared/services/category';
+import { CreateCategoryDto } from '@dto';
+import { CategoryModel } from '@model';
+import { CategoryService } from '@service';
 import { CategoryFormComponent } from './category-form/category-form.component';
 import { CategoryListComponent } from './category-list/category-list.component';
 
@@ -20,29 +16,27 @@ import { CategoryListComponent } from './category-list/category-list.component';
   imports: [CategoryFormComponent, CategoryListComponent, AsyncPipe, NgIf],
 })
 export class CategoryHomeComponent implements OnInit {
+  constructor(
+    private readonly categoryService: CategoryService,
+    private readonly route: ActivatedRoute,
+  ) {}
   categories: CategoryModel[] = [];
-  categoryForm: FormGroup;
-  selectedCategoryIds: string[] = [];
-  isSelecting = false;
+  createCategoryDto: CreateCategoryDto;
 
   ngOnInit(): void {
-    this.categoryForm = this.formBuilder.group({
-      name: '',
-    });
-    this.categoryService.getCategories$().subscribe({
-      next: (response: CategoryModel[]) => {
-        this.categoryService.setCategories$(response);
-      },
-    });
-    this.categoryService.categories$.subscribe((response) => {
-      this.categories = response;
+    this.route.data.subscribe((data) => {
+      this.categories = data.categories;
     });
   }
 
-  createCategory(dto: CreateCategoryDto) {
-    this.categoryService.createCategory$(dto).subscribe({
-      next: (response: CreateCategoryResponse) => {
-        console.log(response);
+  onSubmit() {
+    this.createCategory();
+  }
+
+  createCategory() {
+    this.categoryService.createCategory$(this.createCategoryDto).subscribe({
+      next: () => {
+        console.log('next');
       },
       error: (exception: HttpCustomException) => {
         throw exception;
@@ -52,47 +46,4 @@ export class CategoryHomeComponent implements OnInit {
       },
     });
   }
-
-  removeCategories() {
-    const dto: DeleteCategoriesDto = {
-      ids: this.selectedCategoryIds,
-    };
-    this.selectedCategoryIds = [];
-    this.toggleSelectMode();
-  }
-
-  toggleSelection(event: MouseEvent, id: string) {
-    event.stopPropagation();
-    const index = this.selectedCategoryIds.indexOf(id);
-
-    if (index === -1) {
-      // Not currently selected, add to selection
-      this.selectedCategoryIds.push(id);
-    } else {
-      // Currently selected, remove from selection
-      this.selectedCategoryIds.splice(index, 1);
-    }
-  }
-
-  toggleSelectMode() {
-    this.isSelecting = !this.isSelecting;
-
-    if (this.isSelecting) {
-      this.selectedCategoryIds = [];
-    }
-  }
-
-  deselectAll() {
-    this.selectedCategoryIds = [];
-  }
-
-  onSubmit() {
-    const dto = this.categoryForm.value;
-    this.createCategory(dto);
-  }
-
-  constructor(
-    private readonly formBuilder: FormBuilder,
-    private readonly categoryService: CategoryService,
-  ) {}
 }

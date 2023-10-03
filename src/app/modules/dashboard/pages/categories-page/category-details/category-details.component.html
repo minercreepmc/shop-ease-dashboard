@@ -1,21 +1,16 @@
 <section class="category-details" *ngIf="category">
-  <form [formGroup]="categoryForm" (ngSubmit)="onSubmit()">
+  <form (ngSubmit)="onSubmit()">
     <div class="category-details__header">
       <div class="left">
         <mat-form-field>
           <mat-label>Name</mat-label>
-          <input
-            matInput
-            type="text"
-            formControlName="name"
-            [value]="this.categoryForm.get('name')?.value"
-          />
+          <input matInput type="text" [(ngModel)]="updateCategoryDto.name" />
           <button
-            *ngIf="this.categoryForm.get('name')?.value && editMode"
+            *ngIf="updateCategoryDto.name"
             matSuffix
             mat-icon-button
             aria-label="Clear"
-            (click)="this.categoryForm.get('name')?.setValue('')"
+            (click)="updateCategoryDto.name = ''"
           >
             <mat-icon>close</mat-icon>
           </button>
@@ -26,50 +21,18 @@
           <textarea
             matInput
             type="text"
-            formControlName="description"
-            [value]="this.categoryForm.get('description')?.value"
+            [(ngModel)]="updateCategoryDto.description"
           ></textarea>
           <button
-            *ngIf="this.categoryForm.get('description')?.value && editMode"
+            *ngIf="updateCategoryDto.description"
             matSuffix
             mat-icon-button
             aria-label="Clear"
-            (click)="this.categoryForm.get('description')?.setValue('')"
+            (click)="updateCategoryDto.description = ''"
           >
             <mat-icon>close</mat-icon>
           </button>
         </mat-form-field>
-      </div>
-      <div class="right">
-        <!-- <button -->
-        <!--   *ngIf="editMode && removingProductIds.length > 0" -->
-        <!--   mat-raised-button -->
-        <!--   color="primary" -->
-        <!--   (click)="redoRemovingProducts()" -->
-        <!-- > -->
-        <!--   Redo -->
-        <!-- </button> -->
-        <button
-          *ngIf="editMode && this.selectedProductIds.length > 0"
-          mat-raised-button
-          color="warn"
-          type="button"
-        >
-          Delete
-        </button>
-        <button
-          *ngIf="editMode && this.selectedProductIds.length > 0"
-          mat-raised-button
-          matTooltip="Remove selected products from this category"
-          aria-label="Button that displays a tooltip when focused or hovered over"
-          (click)="removeSelectedProducts()"
-          type="button"
-        >
-          Remove
-        </button>
-        <mat-slide-toggle [checked]="editMode" (toggleChange)="toggleEditMode()"
-          >Edit</mat-slide-toggle
-        >
       </div>
     </div>
 
@@ -85,16 +48,10 @@
     <!--   ></app-products-table> -->
     <!-- </div> -->
 
-    <button mat-raised-button color="warn" (click)="removeCategory()">
+    <button mat-raised-button color="warn" (click)="deleteCategory()">
       Delete
     </button>
-    <button
-      *ngIf="editMode && showConfirmButton"
-      class="add-product"
-      mat-raised-button
-      color="primary"
-      type="submit"
-    >
+    <button class="add-product" mat-raised-button color="primary" type="submit">
       Confirm
     </button>
   </form>

@@ -1,4 +1,4 @@
-import type { ProductRO } from '@v2/product/ro';
+import { ProductRO } from '@ro';
 
 export class DiscountRO {
   id: string;

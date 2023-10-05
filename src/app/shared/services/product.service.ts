@@ -10,6 +10,7 @@ import { Observable, BehaviorSubject, tap } from 'rxjs';
   providedIn: 'root',
 })
 export class ProductService {
+  constructor(private readonly http: HttpClient) {}
   readonly products = new BehaviorSubject<ProductModel[]>([]);
 
   get products$(): BehaviorSubject<ProductModel[]> {
@@ -47,6 +48,22 @@ export class ProductService {
     );
   }
 
+  deleteProduct$(id: string): Observable<ProductModel> {
+    return this.http
+      .delete<ProductModel>(
+        ApiApplication.PRODUCT.CONTROLLER +
+          '/' +
+          ApiApplication.PRODUCT.DELETE.replace(':id', id),
+      )
+      .pipe(
+        tap((response: ProductModel) => {
+          this.products.next(
+            this.products.value.filter((product) => product.id !== response.id),
+          );
+        }),
+      );
+  }
+
   deleteProducts$(ids: string[]): Observable<string[]> {
     const request: DeleteProductDtostos = {
       ids,
@@ -78,6 +95,4 @@ export class ProductService {
       dto,
     );
   }
-
-  constructor(private readonly http: HttpClient) {}
 }

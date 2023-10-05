@@ -4,6 +4,7 @@ export class CreateProductDto {
   description?: string;
   discountId?: string;
   categoryIds?: string[];
+  imageUrls: string[];
 }
 
 export class DeleteProductDtostos {

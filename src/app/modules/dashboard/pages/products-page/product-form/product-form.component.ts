@@ -15,13 +15,15 @@ import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { CategoryModel } from '@model';
 import { ActivatedRoute } from '@angular/router';
-import { CreateProductDto } from '@dto';
+import { CreateProductDto, UploadFilesDto } from '@dto';
 import {
   MatDialogModule,
   MatDialogRef,
   MAT_DIALOG_DATA,
 } from '@angular/material/dialog';
-//import { MaterialFileInputModule } from 'ngx-material-file-input';
+import { MaterialFileInputModule } from 'ngx-material-file-input';
+import { UploadService } from '@service/upload.service';
+import { mergeMap } from 'rxjs';
 
 export interface IProductFormErrors {
   name: string;
@@ -40,7 +42,7 @@ export interface IProductFormErrors {
     MatInputModule,
     MatSelectModule,
     FormsModule,
-    //MaterialFileInputModule,
+    MaterialFileInputModule,
     MatIconModule,
     MatButtonModule,
     CommonModule,
@@ -51,6 +53,7 @@ export interface IProductFormErrors {
 export class ProductFormComponent implements OnInit {
   constructor(
     private readonly productService: ProductService,
+    private readonly uploadService: UploadService,
     private readonly route: ActivatedRoute,
     private readonly toast: ToastrCustomService,
     private readonly dialogRef: MatDialogRef<ProductFormComponent>,
@@ -58,6 +61,7 @@ export class ProductFormComponent implements OnInit {
   ) {}
 
   createProduct = new CreateProductDto();
+  uploadImageDto = new UploadFilesDto();
   categories: CategoryModel[] = [];
   faX = faX;
 
@@ -85,7 +89,7 @@ export class ProductFormComponent implements OnInit {
     // if (productDto.image) {
     //   productDto.image = productDto.image._files[0];
     // }
-    this.productService.createProduct$(this.createProduct).subscribe({
+    this.publishImagesAndCreateProduct().subscribe({
       next: () => {
         this.toast.success('Product created successfully');
       },
@@ -94,8 +98,18 @@ export class ProductFormComponent implements OnInit {
       },
       complete: () => {
         console.log('complete');
+        this.dialogRef.close();
       },
     });
+  }
+
+  publishImagesAndCreateProduct() {
+    return this.uploadService.uploadMultiple(this.uploadImageDto).pipe(
+      mergeMap((imageUrls) => {
+        this.createProduct.imageUrls = imageUrls;
+        return this.productService.createProduct$(this.createProduct);
+      }),
+    );
   }
 
   @Output() closeButtonClicked = new EventEmitter();

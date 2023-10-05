@@ -2,9 +2,14 @@ import { Injectable, NgZone } from '@angular/core';
 import { ToastPort } from '@shared/interfaces';
 import { ToastrService } from 'ngx-toastr';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class ToastrCustomService implements ToastPort {
-  constructor(private readonly toastr: ToastrService, private zone: NgZone) {}
+  constructor(
+    private readonly toastr: ToastrService,
+    private zone: NgZone,
+  ) {}
 
   error(exception: string) {
     this.zone.run(() => {

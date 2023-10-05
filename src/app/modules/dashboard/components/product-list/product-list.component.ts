@@ -6,7 +6,14 @@ import { RouterLink } from '@angular/router';
 import { ProductModel } from '@model';
 import { ProductService } from '@service';
 import { ProductCardComponent } from '../product-card/product-card.component';
-import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatButtonModule } from '@angular/material/button';
+import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
+import {
+  ToastrCustomModule,
+  ToastrCustomService,
+} from '@shared/libraries/toastr';
+
 @Component({
   selector: 'app-product-list',
   templateUrl: './product-list.component.html',
@@ -19,11 +26,16 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     NgFor,
     RouterLink,
     MatCardModule,
-    FlexLayoutModule,
+    MatButtonModule,
+    ToastrCustomModule,
   ],
 })
 export class ProductListComponent implements OnInit {
-  constructor(private readonly productService: ProductService) {}
+  constructor(
+    private readonly productService: ProductService,
+    private readonly dialog: MatDialog,
+    private readonly toast: ToastrCustomService,
+  ) {}
   products: ProductModel[] = [];
 
   ngOnInit() {
@@ -31,6 +43,24 @@ export class ProductListComponent implements OnInit {
       next: (products) => {
         this.products = products;
       },
+    });
+  }
+
+  deleteProduct(id: string) {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '250px',
+      enterAnimationDuration: '100ms',
+      exitAnimationDuration: '100ms',
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.productService.deleteProduct$(id).subscribe({
+          next: () => {
+            this.toast.success('Delete product successfully');
+          },
+        });
+      }
     });
   }
 }

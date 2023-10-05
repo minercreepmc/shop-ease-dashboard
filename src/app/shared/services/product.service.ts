@@ -12,7 +12,7 @@ import { Observable, BehaviorSubject, tap } from 'rxjs';
 export class ProductService {
   readonly products = new BehaviorSubject<ProductModel[]>([]);
 
-  get products$(): Observable<ProductModel[]> {
+  get products$(): BehaviorSubject<ProductModel[]> {
     return this.products;
   }
 

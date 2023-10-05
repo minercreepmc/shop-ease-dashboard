@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgIf } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
-import { MatTableModule } from '@angular/material/table';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { ProductFormComponent } from './product-form/product-form.component';
-import { ProductsTableComponent } from '@modules/dashboard/components/products-table/products-table.component';
 import { ActivatedRoute } from '@angular/router';
 import { ProductService } from '@service';
-import { ProductModel } from '@model';
+import { ProductListComponent } from '@modules/dashboard/components/product-list/product-list.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { FormsModule } from '@angular/forms';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { ProductFormComponent } from './product-form/product-form.component';
 
 @Component({
   selector: 'app-products-page',
@@ -15,41 +16,30 @@ import { ProductModel } from '@model';
   styleUrls: ['./products-page.component.scss'],
   standalone: true,
   imports: [
-    MatTableModule,
     CommonModule,
-    ProductFormComponent,
-    MatSlideToggleModule,
     MatButtonModule,
-    ProductsTableComponent,
+    ProductListComponent,
+    MatFormFieldModule,
+    MatInputModule,
+    FormsModule,
+    NgIf,
+    MatDialogModule,
   ],
 })
-export class ProductsPageComponent implements OnInit {
+export class ProductsPageComponent {
   constructor(
     private readonly productService: ProductService,
     private readonly route: ActivatedRoute,
+    private readonly dialog: MatDialog,
   ) {}
-  products: ProductModel[] = [];
-  selectedProductIds: string[];
-  productFormVisibility = false;
 
-  ngOnInit() {
-    this.route.data.subscribe({
-      next: (data) => {
-        this.products = data.products;
-      },
+  openDialog() {
+    const dialogRef = this.dialog.open(ProductFormComponent, {
+      data: {},
     });
-    this.selectedProductIds = [];
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log('The dialog was closed');
+      console.log(result);
+    });
   }
-
-  onSelectedProductIdsChange(productIds: string[]) {
-    this.selectedProductIds = productIds;
-  }
-
-  deleteProduct() {
-    this.productService.deleteProducts$(this.selectedProductIds).subscribe();
-  }
-
-  toggleAddForm = () => {
-    this.productFormVisibility = !this.productFormVisibility;
-  };
 }

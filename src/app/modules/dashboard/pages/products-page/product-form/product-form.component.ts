@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { faX } from '@fortawesome/free-solid-svg-icons';
 import { HttpCustomException } from '@shared/dtos';
@@ -16,6 +16,11 @@ import { MatButtonModule } from '@angular/material/button';
 import { CategoryModel } from '@model';
 import { ActivatedRoute } from '@angular/router';
 import { CreateProductDto } from '@dto';
+import {
+  MatDialogModule,
+  MatDialogRef,
+  MAT_DIALOG_DATA,
+} from '@angular/material/dialog';
 //import { MaterialFileInputModule } from 'ngx-material-file-input';
 
 export interface IProductFormErrors {
@@ -40,16 +45,28 @@ export interface IProductFormErrors {
     MatButtonModule,
     CommonModule,
     ToastrCustomModule,
+    MatDialogModule,
   ],
 })
 export class ProductFormComponent implements OnInit {
-  product: CreateProductDto;
+  constructor(
+    private readonly productService: ProductService,
+    private readonly route: ActivatedRoute,
+    private readonly toast: ToastrCustomService,
+    private readonly dialogRef: MatDialogRef<ProductFormComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: CreateProductDto,
+  ) {}
+
+  createProduct = new CreateProductDto();
   categories: CategoryModel[] = [];
   faX = faX;
 
   ngOnInit() {
-    this.product = this.route.snapshot.data.product;
     this.categories = this.route.snapshot.data.categories;
+  }
+
+  onNoClick(): void {
+    this.dialogRef.close();
   }
 
   // handleFileInput(event: Event) {
@@ -68,7 +85,7 @@ export class ProductFormComponent implements OnInit {
     // if (productDto.image) {
     //   productDto.image = productDto.image._files[0];
     // }
-    this.productService.createProduct$(this.product).subscribe({
+    this.productService.createProduct$(this.createProduct).subscribe({
       next: () => {
         this.toast.success('Product created successfully');
       },
@@ -85,10 +102,4 @@ export class ProductFormComponent implements OnInit {
   onCloseButtonClicked() {
     this.closeButtonClicked.emit();
   }
-
-  constructor(
-    private readonly productService: ProductService,
-    private readonly route: ActivatedRoute,
-    private readonly toast: ToastrCustomService,
-  ) {}
 }

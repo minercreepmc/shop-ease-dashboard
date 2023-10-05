@@ -4,17 +4,26 @@
 
     <mat-form-field class="form-field">
       <mat-label>Product Name</mat-label>
-      <input matInput [(ngModel)]="product.name" />
+      <input matInput [(ngModel)]="createProduct.name" name="name" />
     </mat-form-field>
 
     <mat-form-field class="form-field">
       <mat-label>Product Price</mat-label>
-      <input matInput type="number" [(ngModel)]="product.price" />
+      <input
+        matInput
+        type="number"
+        [(ngModel)]="createProduct.price"
+        name="price"
+      />
     </mat-form-field>
 
     <mat-form-field class="form-field">
       <mat-label>Product Description</mat-label>
-      <textarea matInput [(ngModel)]="product.description"></textarea>
+      <textarea
+        matInput
+        [(ngModel)]="createProduct.description"
+        name="description"
+      ></textarea>
     </mat-form-field>
 
     <!-- <mat-form-field class="form-field"> -->
@@ -29,7 +38,11 @@
 
     <mat-form-field class="form-field">
       <mat-label>Categories</mat-label>
-      <mat-select multiple [(ngModel)]="product.categoryIds">
+      <mat-select
+        multiple
+        [(ngModel)]="createProduct.categoryIds"
+        name="categoryIds"
+      >
         <mat-option *ngFor="let category of categories" [value]="category.id">{{
           category.name
         }}</mat-option>
@@ -45,6 +58,14 @@
     <!--   #productImage -->
     <!--   (change)="handleFileInput($event)" -->
     <!-- /> -->
-    <button mat-flat-button color="primary" class="button">Submit</button>
+    <button
+      [mat-dialog-close]="createProduct"
+      cdkFocusInitial
+      mat-flat-button
+      color="primary"
+      class="button"
+    >
+      Submit
+    </button>
   </form>
 </div>

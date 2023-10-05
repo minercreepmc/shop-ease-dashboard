@@ -15,6 +15,6 @@ export class ProductsResolver implements Resolve<ProductModel[]> {
         this.productService.setProducts$(products);
       },
     });
-    return this.productService.products$;
+    return this.productService.products$.asObservable();
   }
 }

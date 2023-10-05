@@ -1,5 +1,5 @@
 export class UploadFilesDto {
-  files: Buffer[];
+  files: File[];
 }
 
 export class DestroyFileDto {

@@ -29,7 +29,8 @@
     <mat-form-field class="form-field">
       <mat-label>Product Image</mat-label>
       <ngx-mat-file-input
-        [(ngModel)]="uploadImageDto.files"
+        [(ngModel)]="fileInput"
+        name="files"
         placeholder="Images"
         multiple
       ></ngx-mat-file-input>

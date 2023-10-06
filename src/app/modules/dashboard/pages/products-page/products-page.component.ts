@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule, NgIf } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { ActivatedRoute } from '@angular/router';
@@ -10,6 +10,7 @@ import { FormsModule } from '@angular/forms';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { ProductFormComponent } from './product-form/product-form.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { GetAllProductWithImagesRO } from '@ro';
 
 @Component({
   selector: 'app-products-page',
@@ -28,12 +29,23 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     MatToolbarModule,
   ],
 })
-export class ProductsPageComponent {
+export class ProductsPageComponent implements OnInit {
   constructor(
     private readonly productService: ProductService,
     private readonly route: ActivatedRoute,
     private readonly dialog: MatDialog,
   ) {}
+
+  products: GetAllProductWithImagesRO[];
+
+  ngOnInit(): void {
+    this.productService.products$.subscribe({
+      next: (products) => {
+        console.log(products);
+        this.products = products;
+      },
+    });
+  }
 
   openDialog() {
     const dialogRef = this.dialog.open(ProductFormComponent, {

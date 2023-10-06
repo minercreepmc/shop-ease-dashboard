@@ -1,5 +1,5 @@
 import { AsyncPipe, NgFor } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { RouterLink } from '@angular/router';
@@ -13,6 +13,7 @@ import {
   ToastrCustomModule,
   ToastrCustomService,
 } from '@shared/libraries/toastr';
+import { GetAllProductWithImagesRO } from '@ro';
 
 @Component({
   selector: 'app-product-list',
@@ -30,21 +31,13 @@ import {
     ToastrCustomModule,
   ],
 })
-export class ProductListComponent implements OnInit {
+export class ProductListComponent {
   constructor(
     private readonly productService: ProductService,
     private readonly dialog: MatDialog,
     private readonly toast: ToastrCustomService,
   ) {}
-  products: ProductModel[] = [];
-
-  ngOnInit() {
-    this.productService.products$.subscribe({
-      next: (products) => {
-        this.products = products;
-      },
-    });
-  }
+  @Input() products: GetAllProductWithImagesRO[] = [];
 
   deleteProduct(id: string) {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {

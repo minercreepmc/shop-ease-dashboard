@@ -3,7 +3,11 @@ import { Injectable } from '@angular/core';
 import { ApiApplication } from '@constant';
 import { CreateProductDto, DeleteProductDtostos, UpdateProductDto } from '@dto';
 import { ProductModel } from '@model';
-import { CreateProductRO, ProductRO, UpdateProductRO } from '@ro';
+import {
+  CreateProductRO,
+  GetAllProductWithImagesRO,
+  UpdateProductRO,
+} from '@ro';
 import { Observable, BehaviorSubject, tap } from 'rxjs';
 
 @Injectable({
@@ -23,12 +27,21 @@ export class ProductService {
     );
   }
 
+  getProductsWithImages$(): Observable<GetAllProductWithImagesRO[]> {
+    return this.http.post<GetAllProductWithImagesRO[]>(
+      ApiApplication.PRODUCT.CONTROLLER +
+        '/' +
+        ApiApplication.PRODUCT.GET_ALL_WITH_IMAGES,
+      {},
+    );
+  }
+
   setProducts$(products: ProductModel[]) {
     this.products.next(products);
   }
 
-  getProduct$(id: string): Observable<ProductRO> {
-    return this.http.get<ProductRO>(
+  getProduct$(id: string): Observable<ProductModel> {
+    return this.http.get<ProductModel>(
       ApiApplication.PRODUCT.CONTROLLER +
         '/' +
         ApiApplication.PRODUCT.GET_ONE.replace(':id', id),

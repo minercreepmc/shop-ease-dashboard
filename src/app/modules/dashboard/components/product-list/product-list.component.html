@@ -7,7 +7,8 @@
     <br />
     <img
       mat-card-image
-      src="https://material.angular.io/assets/img/examples/shiba2.jpg"
+      [src]="product?.image_urls?.[0] || 'assets/default-image.webp'"
+      alt="Product Image"
     />
     <mat-card-content>
       <br />

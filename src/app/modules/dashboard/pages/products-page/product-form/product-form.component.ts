@@ -21,9 +21,11 @@ import {
   MatDialogRef,
   MAT_DIALOG_DATA,
 } from '@angular/material/dialog';
-import { MaterialFileInputModule } from 'ngx-material-file-input';
+import { FileInput, MaterialFileInputModule } from 'ngx-material-file-input';
 import { UploadService } from '@service/upload.service';
-import { mergeMap } from 'rxjs';
+import { concatMap, map } from 'rxjs';
+import { ProductImageService } from '@service/product-image.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 export interface IProductFormErrors {
   name: string;
@@ -53,6 +55,7 @@ export interface IProductFormErrors {
 export class ProductFormComponent implements OnInit {
   constructor(
     private readonly productService: ProductService,
+    private readonly productImageService: ProductImageService,
     private readonly uploadService: UploadService,
     private readonly route: ActivatedRoute,
     private readonly toast: ToastrCustomService,
@@ -60,6 +63,7 @@ export class ProductFormComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: CreateProductDto,
   ) {}
 
+  fileInput: FileInput;
   createProduct = new CreateProductDto();
   uploadImageDto = new UploadFilesDto();
   categories: CategoryModel[] = [];
@@ -84,17 +88,18 @@ export class ProductFormComponent implements OnInit {
   // }
 
   onSubmit() {
-    // const productDto = this.productForm.value;
-    // productDto.price = Number(productDto.price);
-    // if (productDto.image) {
-    //   productDto.image = productDto.image._files[0];
-    // }
-    this.publishImagesAndCreateProduct().subscribe({
+    if (this.fileInput) {
+      this.uploadImageDto.files = this.fileInput.files;
+    }
+    this.createProductAndPublishImages().subscribe({
       next: () => {
         this.toast.success('Product created successfully');
       },
-      error: (exception: HttpCustomException) => {
-        throw exception;
+      error: (e: HttpErrorResponse) => {
+        e.error.message.forEach((m: any) => {
+            this.toast.error(m.error);
+        });
+        console.log(e);
       },
       complete: () => {
         console.log('complete');
@@ -103,11 +108,27 @@ export class ProductFormComponent implements OnInit {
     });
   }
 
-  publishImagesAndCreateProduct() {
-    return this.uploadService.uploadMultiple(this.uploadImageDto).pipe(
-      mergeMap((imageUrls) => {
-        this.createProduct.imageUrls = imageUrls;
-        return this.productService.createProduct$(this.createProduct);
+  createProductAndPublishImages() {
+    // return this.uploadService.uploadMultiple(this.uploadImageDto).pipe(
+    //   mergeMap((imageUrls) => {
+    //     this.createProduct.imageUrls = imageUrls;
+    //     return this.productService.createProduct$(this.createProduct);
+    //   }),
+    // );
+
+    return this.productService.createProduct$(this.createProduct).pipe(
+      concatMap((product) => {
+        return this.uploadService
+          .uploadMultiple(this.uploadImageDto)
+          .pipe(map((imageUrls) => ({ product, imageUrls })));
+      }),
+      concatMap(({ product, imageUrls }) => {
+        return this.productImageService
+          .addImages$({
+            productId: product.id,
+            urls: imageUrls,
+          })
+          .pipe(map(() => ({ product, imageUrls })));
       }),
     );
   }

@@ -28,9 +28,9 @@ export class CreateProductRO {
   name: string;
   description: string;
   price: number;
-  discount_id: string;
-  category_ids: string[];
-  image_urls: string[];
+  discount_id?: string;
+  category_ids?: string[];
+  image_urls?: string[];
 }
 
 export class UpdateProductRO {
@@ -51,4 +51,13 @@ export class GetAllProductRO {
   discount_name: string;
   discount_percentage: number;
   categories: CategoryModel[];
+}
+
+export class GetAllProductWithImagesRO {
+  id: string;
+  name: string;
+  description: string;
+  price: number;
+  discount_id?: string;
+  image_urls?: string[];
 }

@@ -4,15 +4,18 @@ import {
   CategoriesResolver,
   DiscountsResolver,
   ProductResolver,
-  ProductsResolver,
 } from '@shared/resolver';
+import { ProductWithImagesResolver } from '@shared/resolver/product-with-images.resolver';
 import { ProductsPageComponent } from './products-page.component';
 
 const routes: Routes = [
   {
     path: '',
     component: ProductsPageComponent,
-    resolve: { products: ProductsResolver, categories: CategoriesResolver },
+    resolve: {
+      products: ProductWithImagesResolver,
+      categories: CategoriesResolver,
+    },
   },
   {
     path: ':id',

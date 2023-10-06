@@ -10,9 +10,14 @@ export class UploadService {
   constructor(private readonly http: HttpClient) {}
 
   uploadMultiple(dto: UploadFilesDto) {
-    return this.http.post<string[]>(
-      ApiApplication.UPLOAD.CONTROLLER + '/' + ApiApplication.UPLOAD.UPLOAD,
-      dto,
-    );
+    const { files } = dto;
+
+    console.log(files);
+    const formData = new FormData();
+    for (let i = 0; i < files.length; i++) {
+      formData.append(`files[${i}]`, files[i]);
+    }
+    console.log(formData.get('files'));
+    return this.http.post<string[]>(ApiApplication.UPLOAD.CONTROLLER, formData);
   }
 }

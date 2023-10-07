@@ -1,9 +1,8 @@
 import { AsyncPipe, NgFor } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { RouterLink } from '@angular/router';
-import { ProductModel } from '@model';
 import { ProductService } from '@service';
 import { ProductCardComponent } from '../product-card/product-card.component';
 import { MatButtonModule } from '@angular/material/button';

@@ -1,63 +1,33 @@
-<section class="product-details" *ngIf="product">
-  <form (ngSubmit)="onSubmit()">
-    <div class="product">
-      <h1 class="product-header header">Product</h1>
-      <div class="product-body">
-        <mat-form-field class="product-name">
-          <mat-label>Name</mat-label>
-          <input matInput type="text" [(ngModel)]="updateProductDto.name" />
-          <button
-            *ngIf="product.name"
-            matSuffix
-            mat-icon-button
-            aria-label="Clear"
-          >
-            <mat-icon>close</mat-icon>
-          </button>
-        </mat-form-field>
-        <mat-form-field class="product-price">
-          <mat-label>Price</mat-label>
-          <input matInput type="number" [(ngModel)]="updateProductDto.price" />
-          <button
-            *ngIf="updateProductDto.price"
-            matSuffix
-            mat-icon-button
-            aria-label="Clear"
-          >
-            <mat-icon>close</mat-icon>
-          </button>
-        </mat-form-field>
-        <mat-form-field class="product-description">
-          <mat-label>Description</mat-label>
-          <textarea
-            matInput
-            [(ngModel)]="updateProductDto.description"
-          ></textarea>
-          <button
-            *ngIf="updateProductDto.description"
-            matSuffix
-            mat-icon-button
-            aria-label="Clear"
-          >
-            <mat-icon>close</mat-icon>
-          </button>
-        </mat-form-field>
-      </div>
-    </div>
+<section class="container">
+  <mat-toolbar color="primary" class="header">Product Details</mat-toolbar>
 
-    <div class="discount">
-      <h1 class="discount-header header">Discount</h1>
-      <mat-form-field>
-        <mat-label>Select an option</mat-label>
-        <mat-select [(ngModel)]="updateProductDto.discountId">
-          <mat-option [value]="undefined">__</mat-option>
-          <mat-option *ngFor="let discount of discounts" [value]="discount.id">
-            {{ discount.name + " " + discount.percentage }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
+  <form class="product-form" (ngSubmit)="onSubmit()">
+    <h3>Update product</h3>
 
-    <button type="submit" mat-raised-button color="primary">Confirm</button>
+    <mat-form-field class="form-field">
+      <mat-label>Product Name</mat-label>
+      <input matInput [(ngModel)]="updateProductDto.name" name="name" />
+    </mat-form-field>
+
+    <mat-form-field class="form-field">
+      <mat-label>Product Price</mat-label>
+      <input
+        matInput
+        type="number"
+        [(ngModel)]="updateProductDto.price"
+        name="price"
+      />
+    </mat-form-field>
+
+    <mat-form-field class="form-field">
+      <mat-label>Product Description</mat-label>
+      <textarea
+        matInput
+        [(ngModel)]="updateProductDto.description"
+        name="description"
+      ></textarea>
+    </mat-form-field>
+
+    <button mat-raised-button color="primary">Update</button>
   </form>
 </section>

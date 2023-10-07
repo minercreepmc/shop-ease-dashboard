@@ -15,7 +15,9 @@
       <p>{{ product.description }}</p>
     </mat-card-content>
     <mat-card-actions>
-      <button mat-button>EDIT</button>
+      <button mat-button routerLink="/dashboard/products/{{ product.id }}">
+        EDIT
+      </button>
       <button mat-button color="warn" (click)="deleteProduct(product.id)">
         DELETE
       </button>

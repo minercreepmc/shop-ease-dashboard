@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { faX } from '@fortawesome/free-solid-svg-icons';
-import { HttpCustomException } from '@shared/dtos';
 import {
   ToastrCustomModule,
   ToastrCustomService,
@@ -97,7 +96,7 @@ export class ProductFormComponent implements OnInit {
       },
       error: (e: HttpErrorResponse) => {
         e.error.message.forEach((m: any) => {
-            this.toast.error(m.error);
+          this.toast.error(m.error);
         });
         console.log(e);
       },

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule, NgIf } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
-import { ActivatedRoute } from '@angular/router';
 import { ProductService } from '@service';
 import { ProductListComponent } from '@modules/dashboard/components/product-list/product-list.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -32,7 +31,6 @@ import { GetAllProductWithImagesRO } from '@ro';
 export class ProductsPageComponent implements OnInit {
   constructor(
     private readonly productService: ProductService,
-    private readonly route: ActivatedRoute,
     private readonly dialog: MatDialog,
   ) {}
 

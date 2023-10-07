@@ -6,6 +6,7 @@ import { ProductModel } from '@model';
 import {
   CreateProductRO,
   GetAllProductWithImagesRO,
+  ProductRO,
   UpdateProductRO,
 } from '@ro';
 import { Observable, BehaviorSubject, tap } from 'rxjs';
@@ -40,8 +41,8 @@ export class ProductService {
     this.products.next(products);
   }
 
-  getProduct$(id: string): Observable<ProductModel> {
-    return this.http.get<ProductModel>(
+  getProduct$(id: string): Observable<ProductRO> {
+    return this.http.get<ProductRO>(
       ApiApplication.PRODUCT.CONTROLLER +
         '/' +
         ApiApplication.PRODUCT.GET_ONE.replace(':id', id),

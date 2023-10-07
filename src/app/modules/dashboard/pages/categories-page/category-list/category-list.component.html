@@ -1,10 +1,10 @@
-<mat-list class="category-list">
+<mat-list class="responsive-grid">
   <mat-list-item
     routerLink="./{{ category.id }}"
     *ngFor="let category of categories"
   >
     <mat-icon matListItemIcon>folder</mat-icon>
     <div matListItemTitle>{{ category.name }}</div>
-    <div matListItemLine>12</div>
+    <div matListItemLine>{{ category.product_count || 0 }}</div>
   </mat-list-item>
 </mat-list>

@@ -1,13 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CategoriesResolver, CategoryResolver } from '@shared/resolver';
-import { CategoryHomeComponent } from './category-home/category-home.component';
+import { CategoryResolver } from '@shared/resolver';
+import { CategoriesIncludeCountResolver } from '@shared/resolver/categories-include-count.resolver';
+import { CategoriesPageComponent } from './categories-page.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: CategoryHomeComponent,
-    resolve: { categories: CategoriesResolver },
+    component: CategoriesPageComponent,
+    resolve: { categories: CategoriesIncludeCountResolver },
   },
   {
     path: ':id',

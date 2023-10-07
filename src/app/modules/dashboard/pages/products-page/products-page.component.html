@@ -1,22 +1,7 @@
 <section class="products-page">
-  <!-- <div class="button-group"> -->
-  <!--   <mat-slide-toggle (click)="toggleAddForm()">Edit</mat-slide-toggle> -->
-  <!--   <button mat-flat-button color="warn" (click)="deleteProduct()"> -->
-  <!--     Delete -->
-  <!--   </button> -->
-  <!-- </div> -->
   <mat-toolbar color="primary" class="header">Product List</mat-toolbar>
   <button class="add-product" mat-raised-button (click)="openDialog()">
     Add Product
   </button>
-
-  <!-- <app-product-form *ngIf="productFormVisibility" class="product-form"> -->
-  <!-- </app-product-form> -->
-
   <app-product-list [products]="products"></app-product-list>
-  <!-- <app-products-table -->
-  <!--   [products]="products" -->
-  <!--   [editMode]="productFormVisibility" -->
-  <!--   (selectedProductIdsChange)="onSelectedProductIdsChange($event)" -->
-  <!-- ></app-products-table> -->
 </section>

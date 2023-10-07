@@ -1,9 +1,8 @@
-.category-list {
+.responsive-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 1rem;
 }
-
 mat-list-item {
   cursor: pointer;
 }

@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { ApiApplication } from '@constant';
 import { CreateCategoryDto, UpdateCategoryDto } from '@dto';
 import { CategoryModel } from '@model';
+import { CategoryIncludeProductCountRO } from '@ro';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 
 @Injectable({
@@ -10,13 +11,13 @@ import { BehaviorSubject, Observable, tap } from 'rxjs';
 })
 export class CategoryService {
   constructor(private readonly http: HttpClient) {}
-  private categories = new BehaviorSubject<CategoryModel[]>([]);
+  private categories = new BehaviorSubject<any[]>([]);
 
   get categories$() {
     return this.categories;
   }
 
-  setCategories$(categories: CategoryModel[]) {
+  setCategories$(categories: any[]) {
     this.categories.next(categories);
   }
 
@@ -25,6 +26,15 @@ export class CategoryService {
       ApiApplication.CATEGORY.CONTROLLER +
         '/' +
         ApiApplication.CATEGORY.GET_ALL,
+      {},
+    );
+  }
+
+  getCategoriesWithCount$(): Observable<CategoryIncludeProductCountRO[]> {
+    return this.http.post<CategoryIncludeProductCountRO[]>(
+      ApiApplication.CATEGORY.CONTROLLER +
+        '/' +
+        ApiApplication.CATEGORY.GET_ALL_WITH_PRODUCT_COUNT,
       {},
     );
   }

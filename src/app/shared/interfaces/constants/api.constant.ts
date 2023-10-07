@@ -58,6 +58,7 @@ export const ApiApplication = {
     UPDATE: ':id',
     DELETE: ':id',
     GET_ALL: '',
+    GET_ALL_WITH_PRODUCT_COUNT: 'get-all-with-product-count',
     GET_ONE: ':id',
   },
   DISCOUNT: {

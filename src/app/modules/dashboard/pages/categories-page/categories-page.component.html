@@ -1,3 +1,7 @@
 <section class="categories-page">
-  <router-outlet></router-outlet>
+  <mat-toolbar color="primary" class="header">Category List</mat-toolbar>
+  <button type="add-category" mat-raised-button (click)="openDialog()">
+    Add Category
+  </button>
+  <app-category-list></app-category-list>
 </section>

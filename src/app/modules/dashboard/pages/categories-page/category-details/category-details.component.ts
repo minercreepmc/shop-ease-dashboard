@@ -1,19 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
-import { MatCardModule } from '@angular/material/card';
-import { MatTooltipModule } from '@angular/material/tooltip';
-import { AsyncPipe, NgClass, NgFor, NgIf } from '@angular/common';
-import { ProductsTableComponent } from '@modules/dashboard/components/products-table/products-table.component';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatIconModule } from '@angular/material/icon';
+import { FormsModule } from '@angular/forms';
 import { ToastrCustomService } from '@shared/libraries/toastr';
 import { CategoryModel, ProductModel } from '@model';
 import { UpdateCategoryDto } from '@dto';
 import { CategoryService } from '@service';
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 @Component({
   selector: 'app-category-details',
@@ -21,28 +16,19 @@ import { CategoryService } from '@service';
   styleUrls: ['./category-details.component.scss'],
   standalone: true,
   imports: [
-    MatCardModule,
-    MatButtonModule,
-    NgIf,
-    NgFor,
-    NgClass,
-    AsyncPipe,
-    ProductsTableComponent,
-    MatTooltipModule,
-    MatSlideToggleModule,
+    MatToolbarModule,
     MatFormFieldModule,
-    MatInputModule,
     FormsModule,
-    MatIconModule,
-    ReactiveFormsModule,
+    MatInputModule,
+    MatButtonModule,
   ],
 })
 export class CategoryDetailsComponent implements OnInit {
   constructor(
-    private readonly categoryService: CategoryService,
-    private readonly route: ActivatedRoute,
-    private readonly router: Router,
-    private readonly toast: ToastrCustomService,
+    private categoryService: CategoryService,
+    private route: ActivatedRoute,
+    private router: Router,
+    private toast: ToastrCustomService,
   ) {}
   category: CategoryModel;
   products: ProductModel[];
@@ -70,7 +56,10 @@ export class CategoryDetailsComponent implements OnInit {
           this.toast.success('Category updated successfully');
         },
         error: (error) => {
-          this.toast.error(error.message);
+          error.error.message.forEach((m: any) => {
+            this.toast.error(m.error);
+          });
+          console.log(error);
         },
       });
   }

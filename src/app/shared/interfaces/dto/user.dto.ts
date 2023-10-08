@@ -27,6 +27,8 @@ export class CreateUserDto {
   password: string;
   fullName?: string;
   role: string;
+  email?: string;
+  phone?: string;
 }
 
 export class UpdateUserDto {

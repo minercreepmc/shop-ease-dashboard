@@ -1,11 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { UsersHomeComponent } from './users-home/users-home.component';
+import { StaffsResolver } from '@shared/resolver/staffs.resolver';
+import { UsersPageComponent } from './users-page.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: UsersHomeComponent,
+    component: UsersPageComponent,
+    resolve: { staffs: StaffsResolver },
   },
 ];
 

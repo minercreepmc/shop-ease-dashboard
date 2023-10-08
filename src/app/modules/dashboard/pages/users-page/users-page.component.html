@@ -1,1 +1,5 @@
-<p>users-page works!</p>
+<section class="section">
+  <mat-toolbar color="primary" class="header">User Management</mat-toolbar>
+  <button mat-raised-button (click)="openDialog()">Add Staff</button>
+  <app-user-list [users]="staffs"></app-user-list>
+</section>

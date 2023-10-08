@@ -11,10 +11,10 @@ export class CategoriesResolver implements Resolve<CategoryModel[]> {
   constructor(private readonly categoryService: CategoryService) {}
   resolve(): Observable<CategoryModel[]> {
     this.categoryService.getCategories$().subscribe({
-      next: (categorieses) => {
-        this.categoryService.setCategories$(categorieses);
+      next: (categories) => {
+        this.categoryService.setCategories$(categories);
       },
     });
-    return this.categoryService.categories$;
+    return this.categoryService.categories$.asObservable();
   }
 }

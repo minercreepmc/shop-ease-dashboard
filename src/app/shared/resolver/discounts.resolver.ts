@@ -15,6 +15,6 @@ export class DiscountsResolver implements Resolve<DiscountModel[]> {
         this.discountService.setDiscounts$(discounts);
       },
     });
-    return this.discountService.discounts$;
+    return this.discountService.discounts$.asObservable();
   }
 }

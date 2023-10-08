@@ -3,19 +3,20 @@ import { Injectable } from '@angular/core';
 import { ApiApplication } from '@constant';
 import { CreateDiscountDto, UpdateDiscountDto } from '@dto';
 import { DiscountModel } from '@model';
-import { BehaviorSubject, tap } from 'rxjs';
+import { DiscountIncludeProductCountRO } from '@ro';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DiscountService {
   constructor(private readonly http: HttpClient) {}
-  private discounts = new BehaviorSubject<DiscountModel[]>([]);
+  private discounts = new BehaviorSubject<any[]>([]);
   get discounts$() {
     return this.discounts;
   }
 
-  setDiscounts$(discounts: DiscountModel[]) {
+  setDiscounts$(discounts: any[]) {
     this.discounts.next(discounts);
   }
 
@@ -54,6 +55,17 @@ export class DiscountService {
           );
         }),
       );
+  }
+
+  getDiscountsIncludeProductCount$(): Observable<
+    DiscountIncludeProductCountRO[]
+  > {
+    return this.http.post<DiscountIncludeProductCountRO[]>(
+      ApiApplication.DISCOUNT.CONTROLLER +
+        '/' +
+        ApiApplication.DISCOUNT.GET_ALL_WITH_PRODUCT_COUNT,
+      {},
+    );
   }
 
   getDiscounts$() {

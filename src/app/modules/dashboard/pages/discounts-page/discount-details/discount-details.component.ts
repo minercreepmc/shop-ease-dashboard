@@ -1,18 +1,14 @@
-import { AsyncPipe, NgClass, NgFor, NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { MatTooltipModule } from '@angular/material/tooltip';
-import { ActivatedRoute, Router } from '@angular/router';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { ActivatedRoute } from '@angular/router';
 import { UpdateDiscountDto } from '@dto';
-import { DiscountModel } from '@model';
-import { ProductsTableComponent } from '@modules/dashboard/components/products-table/products-table.component';
+import { DiscountRO } from '@ro';
 import { DiscountService } from '@service';
-import { ToastrCustomModule } from '@shared/libraries/toastr';
+import { ToastrCustomService } from '@shared/libraries/toastr';
 
 @Component({
   selector: 'app-discount-details',
@@ -20,30 +16,21 @@ import { ToastrCustomModule } from '@shared/libraries/toastr';
   styleUrls: ['./discount-details.component.scss'],
   standalone: true,
   imports: [
-    MatButtonModule,
-    NgIf,
-    NgFor,
-    NgClass,
-    AsyncPipe,
-    ProductsTableComponent,
-    MatTooltipModule,
-    MatSlideToggleModule,
-    MatFormFieldModule,
-    MatInputModule,
+    MatToolbarModule,
     FormsModule,
-    MatIconModule,
-    ToastrCustomModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatButtonModule,
   ],
 })
 export class DiscountDetailsComponent implements OnInit {
   constructor(
-    private readonly route: ActivatedRoute,
-    private readonly router: Router,
-    private readonly discountService: DiscountService,
+    private route: ActivatedRoute,
+    private discountService: DiscountService,
+    private toast: ToastrCustomService,
   ) {}
-  discountForm: FormGroup;
-  updateDiscountDto: UpdateDiscountDto;
-  discount: DiscountModel;
+  updateDiscountDto = new UpdateDiscountDto();
+  discount: DiscountRO;
 
   ngOnInit(): void {
     this.route.data.subscribe((data) => {
@@ -51,21 +38,31 @@ export class DiscountDetailsComponent implements OnInit {
     });
   }
 
+  onNameChange($event: any) {
+    this.updateDiscountDto.name = $event.target.value;
+  }
+
+  onDescriptionChange($event: any) {
+    this.updateDiscountDto.description = $event.target.value;
+  }
+
+  onPercentageChange($event: any) {
+    this.updateDiscountDto.percentage = $event.target.value;
+  }
+
   onSubmit() {
     this.discountService
       .updateDiscount$(this.discount.id, this.updateDiscountDto)
       .subscribe({
         next: () => {
-          this.router.navigate(['/discounts']);
+          this.toast.success('Update success');
+        },
+        error: (e) => {
+          e.error.message.forEach((m: any) => {
+            this.toast.error(m.error);
+          });
+          console.log(e);
         },
       });
-  }
-
-  deleteDiscount() {
-    return this.discountService.deleteDiscount$(this.discount.id).subscribe({
-      next: () => {
-        this.router.navigate(['/discounts']);
-      },
-    });
   }
 }

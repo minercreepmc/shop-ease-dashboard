@@ -15,6 +15,7 @@ const routes: Routes = [
     resolve: {
       products: ProductWithImagesResolver,
       categories: CategoriesResolver,
+      discounts: DiscountsResolver,
     },
   },
   {

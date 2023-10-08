@@ -1,10 +1,12 @@
-<mat-list class="discount-list">
+<mat-list class="responsive-grid">
   <mat-list-item
     routerLink="/dashboard/discounts/{{ discount.id }}"
     *ngFor="let discount of discounts"
   >
     <mat-icon matListItemIcon>folder</mat-icon>
-    <div matListItemTitle>{{ discount.name }}</div>
-    <div matListItemLine>12</div>
+    <div matListItemTitle>
+      {{ discount.name }} (-{{ discount.percentage }}%)
+    </div>
+    <div matListItemLine>{{ discount.product_count || 0 }}</div>
   </mat-list-item>
 </mat-list>

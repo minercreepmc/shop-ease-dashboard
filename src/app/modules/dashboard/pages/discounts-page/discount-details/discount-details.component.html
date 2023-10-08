@@ -1,76 +1,39 @@
-<section class="discount-details">
-  <form (ngSubmit)="onSubmit()">
-    <div class="discount-details__header">
-      <div class="left">
-        <mat-form-field>
-          <mat-label>Name</mat-label>
-          <input matInput type="text" [(ngModel)]="updateDiscountDto.name" />
-          <button
-            *ngIf="updateDiscountDto.name"
-            matSuffix
-            mat-icon-button
-            aria-label="Clear"
-            (click)="updateDiscountDto.name = ''"
-          >
-            <mat-icon>close</mat-icon>
-          </button>
-        </mat-form-field>
+<section class="section discount-details">
+  <mat-toolbar color="primary" class="header">Category List</mat-toolbar>
 
-        <mat-form-field>
-          <mat-label>Description</mat-label>
-          <textarea
-            matInput
-            type="text"
-            [(ngModel)]="updateDiscountDto.description"
-          ></textarea>
-          <button
-            *ngIf="updateDiscountDto.description"
-            matSuffix
-            mat-icon-button
-            aria-label="Clear"
-            (click)="updateDiscountDto.description = ''"
-          >
-            <mat-icon>close</mat-icon>
-          </button>
-        </mat-form-field>
+  <form class="form" (ngSubmit)="onSubmit()">
+    <h3 class="title">Update discount</h3>
+    <mat-form-field class="form-field">
+      <mat-label>Discount Name</mat-label>
+      <input
+        matInput
+        [value]="discount.name"
+        (change)="onNameChange($event)"
+        name="name"
+      />
+    </mat-form-field>
 
-        <mat-form-field>
-          <mat-label>Percentage</mat-label>
-          <input
-            matInput
-            type="number"
-            [(ngModel)]="updateDiscountDto.percentage"
-          />
-          <button
-            *ngIf="updateDiscountDto.percentage"
-            matSuffix
-            mat-icon-button
-            aria-label="Clear"
-            (click)="updateDiscountDto.percentage = 0"
-          >
-            <mat-icon>close</mat-icon>
-          </button>
-        </mat-form-field>
-      </div>
-    </div>
+    <mat-form-field class="form-field">
+      <mat-label>Discount Percentage</mat-label>
+      <input
+        matInput
+        type="number"
+        [value]="discount.percentage"
+        (change)="onPercentageChange($event)"
+        name="percentage"
+      />
+    </mat-form-field>
 
-    <!-- <div -->
-    <!--   class="category-details__content product-table" -->
-    <!--   *ngIf="discount.products" -->
-    <!-- > -->
-    <!--   <app-products-table -->
-    <!--     [products]="discount.products" -->
-    <!--     [highlightIds]="removingProductIds" -->
-    <!--     (selectedProductIdsChange)="selectedProductsChange($event)" -->
-    <!--     [editMode]="editMode" -->
-    <!--   ></app-products-table> -->
-    <!-- </div> -->
+    <mat-form-field class="form-field">
+      <mat-label>Discount Description</mat-label>
+      <textarea
+        matInput
+        [value]="discount.description"
+        (change)="onDescriptionChange($event)"
+        name="description"
+      ></textarea>
+    </mat-form-field>
 
-    <button mat-raised-button color="warn" (click)="deleteDiscount()">
-      Delete
-    </button>
-    <button class="add-product" mat-raised-button color="primary" type="submit">
-      Confirm
-    </button>
+    <button mat-raised-button color="primary">Update</button>
   </form>
 </section>

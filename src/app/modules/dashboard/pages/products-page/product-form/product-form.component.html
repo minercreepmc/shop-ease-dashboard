@@ -4,7 +4,7 @@
 
     <mat-form-field class="form-field">
       <mat-label>Product Name</mat-label>
-      <input matInput [(ngModel)]="createProduct.name" name="name" />
+      <input matInput [(ngModel)]="createProductDto.name" name="name" />
     </mat-form-field>
 
     <mat-form-field class="form-field">
@@ -12,7 +12,7 @@
       <input
         matInput
         type="number"
-        [(ngModel)]="createProduct.price"
+        [(ngModel)]="createProductDto.price"
         name="price"
       />
     </mat-form-field>
@@ -21,7 +21,7 @@
       <mat-label>Product Description</mat-label>
       <textarea
         matInput
-        [(ngModel)]="createProduct.description"
+        [(ngModel)]="createProductDto.description"
         name="description"
       ></textarea>
     </mat-form-field>
@@ -42,12 +42,21 @@
       <mat-label>Categories</mat-label>
       <mat-select
         multiple
-        [(ngModel)]="createProduct.categoryIds"
+        [(ngModel)]="createProductDto.categoryIds"
         name="categoryIds"
       >
         <mat-option *ngFor="let category of categories" [value]="category.id">{{
           category.name
         }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="form-field">
+      <mat-label>Discount</mat-label>
+      <mat-select [(ngModel)]="createProductDto.discountId">
+        <mat-option *ngFor="let discount of discounts" [value]="discount.id"
+          >{{ discount.name }} (-{{ discount.percentage }}%)</mat-option
+        >
       </mat-select>
     </mat-form-field>
 

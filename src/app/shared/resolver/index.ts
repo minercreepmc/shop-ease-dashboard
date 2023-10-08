@@ -7,3 +7,5 @@ export * from './discount.resolver';
 export * from './orders.resolver';
 export * from './staffs.resolver';
 export * from './user.resolver';
+export * from './discounts-include-product-count.resolver';
+export * from './categories-include-count.resolver';

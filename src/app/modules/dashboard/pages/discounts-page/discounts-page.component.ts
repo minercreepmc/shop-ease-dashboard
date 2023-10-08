@@ -4,13 +4,19 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterOutlet } from '@angular/router';
 import { DiscountFormComponent } from './discount-form/discount-form.component';
+import { DiscountListComponent } from './discount-list/discount-list.component';
 
 @Component({
   selector: 'app-discounts-page',
   templateUrl: './discounts-page.component.html',
   styleUrls: ['./discounts-page.component.scss'],
   standalone: true,
-  imports: [RouterOutlet, MatToolbarModule, MatButtonModule],
+  imports: [
+    RouterOutlet,
+    MatToolbarModule,
+    MatButtonModule,
+    DiscountListComponent,
+  ],
 })
 export class DiscountsPageComponent {
   constructor(private dialog: MatDialog) {}

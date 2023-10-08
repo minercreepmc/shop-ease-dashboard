@@ -5,14 +5,14 @@ import {
   ToastrCustomModule,
   ToastrCustomService,
 } from '@shared/libraries/toastr';
-import { ProductService } from '@service';
+import { CategoryService, DiscountService, ProductService } from '@service';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
-import { CategoryModel } from '@model';
+import { CategoryModel, DiscountModel } from '@model';
 import { ActivatedRoute } from '@angular/router';
 import { CreateProductDto, UploadFilesDto } from '@dto';
 import {
@@ -53,23 +53,34 @@ export interface IProductFormErrors {
 })
 export class ProductFormComponent implements OnInit {
   constructor(
-    private readonly productService: ProductService,
-    private readonly productImageService: ProductImageService,
-    private readonly uploadService: UploadService,
-    private readonly route: ActivatedRoute,
-    private readonly toast: ToastrCustomService,
-    private readonly dialogRef: MatDialogRef<ProductFormComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: CreateProductDto,
+    private productService: ProductService,
+    private productImageService: ProductImageService,
+    private categoryService: CategoryService,
+    private discountService: DiscountService,
+    private uploadService: UploadService,
+    private route: ActivatedRoute,
+    private toast: ToastrCustomService,
+    private dialogRef: MatDialogRef<ProductFormComponent>,
   ) {}
 
   fileInput: FileInput;
-  createProduct = new CreateProductDto();
+  createProductDto = new CreateProductDto();
   uploadImageDto = new UploadFilesDto();
   categories: CategoryModel[] = [];
+  discounts: DiscountModel[] = [];
   faX = faX;
 
   ngOnInit() {
-    this.categories = this.route.snapshot.data.categories;
+    this.categoryService.categories$.subscribe({
+      next: (categories) => {
+        this.categories = categories;
+      },
+    });
+    this.discountService.discounts$.subscribe({
+      next: (discounts) => {
+        this.discounts = discounts;
+      },
+    });
   }
 
   onNoClick(): void {
@@ -93,6 +104,7 @@ export class ProductFormComponent implements OnInit {
     this.createProductAndPublishImages().subscribe({
       next: () => {
         this.toast.success('Product created successfully');
+        this.dialogRef.close();
       },
       error: (e: HttpErrorResponse) => {
         e.error.message.forEach((m: any) => {
@@ -102,7 +114,6 @@ export class ProductFormComponent implements OnInit {
       },
       complete: () => {
         console.log('complete');
-        this.dialogRef.close();
       },
     });
   }
@@ -115,7 +126,7 @@ export class ProductFormComponent implements OnInit {
     //   }),
     // );
 
-    return this.productService.createProduct$(this.createProduct).pipe(
+    return this.productService.createProduct$(this.createProductDto).pipe(
       concatMap((product) => {
         return this.uploadService
           .uploadMultiple(this.uploadImageDto)

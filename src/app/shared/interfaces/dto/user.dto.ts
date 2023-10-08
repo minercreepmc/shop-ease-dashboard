@@ -34,4 +34,6 @@ export class CreateUserDto {
 export class UpdateUserDto {
   password?: string;
   fullName?: string;
+  phone?: string;
+  email?: string;
 }

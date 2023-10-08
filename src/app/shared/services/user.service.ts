@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ApiApplication } from '@constant';
-import { CreateStaffDto } from '@dto';
+import { CreateStaffDto, UpdateUserDto } from '@dto';
 import { UserModel } from '@model';
 import { UserRO } from '@ro';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
@@ -30,8 +30,26 @@ export class UserService {
       );
   }
 
+  updateUser$(id: string, dto: UpdateUserDto): Observable<UserModel> {
+    return this.http.put<UserModel>(
+      ApiApplication.USER.CONTROLLER +
+        '/' +
+        ApiApplication.USER.UPDATE.replace(':id', id),
+      dto,
+    );
+  }
+
   setUsers$(users: any[]) {
     this.users.next(users);
+  }
+
+  getUser$(id: string) {
+    return this.http.get<UserRO>(
+      ApiApplication.USER.CONTROLLER +
+        '/' +
+        ApiApplication.USER.GET_ONE.replace(':id', id),
+      {},
+    );
   }
 
   getAllStaffs$(): Observable<UserRO[]> {

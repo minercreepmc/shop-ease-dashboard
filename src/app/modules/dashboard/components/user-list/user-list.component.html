@@ -14,14 +14,13 @@
         <img src="assets/1.webp" alt="" />
         <div class="people-de">
           <h5>{{ user.username }}</h5>
-        <p>{{ user.full_name }}</p>
-
+          <p>{{ user.full_name }}</p>
         </div>
       </td>
 
       <td class="people-des">
         <h5>{{ user.phone }}</h5>
-          <p>{{ user.email }}</p>
+        <p>{{ user.email }}</p>
       </td>
 
       <td class="role">
@@ -29,7 +28,7 @@
       </td>
 
       <td class="edit">
-        <a href="#">Edit</a>
+        <a routerLink="/dashboard/users/{{ user.id }}">Edit</a>
       </td>
     </tr>
   </tbody>

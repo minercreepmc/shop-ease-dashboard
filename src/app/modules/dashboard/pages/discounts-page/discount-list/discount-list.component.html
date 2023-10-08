@@ -1,6 +1,6 @@
 <mat-list class="discount-list">
   <mat-list-item
-    routerLink="./{{ discount.id }}"
+    routerLink="/dashboard/discounts/{{ discount.id }}"
     *ngFor="let discount of discounts"
   >
     <mat-icon matListItemIcon>folder</mat-icon>

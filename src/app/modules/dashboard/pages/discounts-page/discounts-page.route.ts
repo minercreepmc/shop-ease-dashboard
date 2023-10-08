@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DiscountResolver, DiscountsResolver } from '@shared/resolver';
-import { DiscountsHomeComponent } from './discounts-home/discounts-home.component';
+import { DiscountsPageComponent } from './discounts-page.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: DiscountsHomeComponent,
+    component: DiscountsPageComponent,
     resolve: { discounts: DiscountsResolver },
   },
   {

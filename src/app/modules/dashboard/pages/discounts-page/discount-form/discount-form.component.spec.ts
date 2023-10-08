@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DiscountsHomeComponent } from './discounts-home.component';
+import { DiscountFormComponent } from './discount-form.component';
 
-describe('DiscountsHomeComponent', () => {
-  let component: DiscountsHomeComponent;
-  let fixture: ComponentFixture<DiscountsHomeComponent>;
+describe('DiscountFormComponent', () => {
+  let component: DiscountFormComponent;
+  let fixture: ComponentFixture<DiscountFormComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DiscountsHomeComponent ]
+      declarations: [ DiscountFormComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(DiscountsHomeComponent);
+    fixture = TestBed.createComponent(DiscountFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

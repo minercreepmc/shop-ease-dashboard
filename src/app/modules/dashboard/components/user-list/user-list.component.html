@@ -23,7 +23,7 @@
         <p>{{ user.email }}</p>
       </td>
 
-      <td class="role">
+      <td [ngClass]="user.role.toLowerCase()" class="role">
         <p>{{ user.role }}</p>
       </td>
 

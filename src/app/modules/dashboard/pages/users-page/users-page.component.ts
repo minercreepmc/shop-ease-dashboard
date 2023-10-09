@@ -20,13 +20,12 @@ export class UsersPageComponent implements OnInit {
     private dialog: MatDialog,
   ) {}
 
-  staffs: UserRO[];
+  users: UserRO[];
 
   ngOnInit(): void {
     this.userService.users$.subscribe({
       next: (users) => {
-        this.staffs = users;
-        console.log(users);
+        this.users = users;
       },
     });
   }

@@ -1,13 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { UserResolver, StaffsResolver } from '@shared/resolver';
+import { UserResolver } from '@shared/resolver';
+import { UsersResolver } from '@shared/resolver/users.resolver';
 import { UsersPageComponent } from './users-page.component';
 
 const routes: Routes = [
   {
     path: '',
     component: UsersPageComponent,
-    resolve: { staffs: StaffsResolver },
+    resolve: { users: UsersResolver },
   },
   {
     path: ':id',

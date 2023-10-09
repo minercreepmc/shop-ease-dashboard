@@ -52,6 +52,13 @@ export class UserService {
     );
   }
 
+  getUsers$() {
+    return this.http.get<UserModel[]>(
+      ApiApplication.USER.CONTROLLER + '/' + ApiApplication.USER.GET_ALL_USER,
+      {},
+    );
+  }
+
   getAllStaffs$(): Observable<UserRO[]> {
     return this.http.post<UserRO[]>(
       ApiApplication.USER.CONTROLLER + '/' + ApiApplication.USER.GET_ALL_STAFF,

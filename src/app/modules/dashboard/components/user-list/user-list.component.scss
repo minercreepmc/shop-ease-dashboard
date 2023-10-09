@@ -47,10 +47,18 @@ table {
   }
 
   .role p {
-    background: #d7fada;
     padding: 2px 10px;
     display: inline-block;
     border-radius: 40px;
+  }
+
+  .staff.role p {
+    background: #d7fada;
+    color: #2b2b2b;
+  }
+
+  .admin.role p {
+    background: #ffcccb;
     color: #2b2b2b;
   }
 

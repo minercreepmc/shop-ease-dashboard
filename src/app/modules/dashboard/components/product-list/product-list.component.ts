@@ -1,4 +1,4 @@
-import { AsyncPipe, NgFor } from '@angular/common';
+import { AsyncPipe, DecimalPipe, NgFor } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatGridListModule } from '@angular/material/grid-list';
@@ -13,6 +13,7 @@ import {
   ToastrCustomService,
 } from '@shared/libraries/toastr';
 import { GetAllProductWithImagesRO } from '@ro';
+import { numberFormat } from '@constant';
 
 @Component({
   selector: 'app-product-list',
@@ -28,6 +29,7 @@ import { GetAllProductWithImagesRO } from '@ro';
     MatCardModule,
     MatButtonModule,
     ToastrCustomModule,
+    DecimalPipe,
   ],
 })
 export class ProductListComponent {
@@ -37,6 +39,8 @@ export class ProductListComponent {
     private readonly toast: ToastrCustomService,
   ) {}
   @Input() products: GetAllProductWithImagesRO[] = [];
+
+  numberFormat = numberFormat;
 
   deleteProduct(id: string) {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {

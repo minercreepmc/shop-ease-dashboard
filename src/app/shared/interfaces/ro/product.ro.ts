@@ -53,7 +53,7 @@ export class GetAllProductRO {
   categories: CategoryModel[];
 }
 
-export class GetAllProductWithImagesRO {
+export class ProductWithImagesRO {
   id: string;
   name: string;
   description: string;

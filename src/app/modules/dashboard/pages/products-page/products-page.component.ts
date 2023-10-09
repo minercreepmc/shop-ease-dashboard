@@ -9,7 +9,7 @@ import { FormsModule } from '@angular/forms';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { ProductFormComponent } from './product-form/product-form.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { GetAllProductWithImagesRO } from '@ro';
+import { ProductWithImagesRO } from '@ro';
 
 @Component({
   selector: 'app-products-page',
@@ -34,7 +34,7 @@ export class ProductsPageComponent implements OnInit {
     private readonly dialog: MatDialog,
   ) {}
 
-  products: GetAllProductWithImagesRO[];
+  products: ProductWithImagesRO[];
 
   ngOnInit(): void {
     this.productService.products$.subscribe({

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Resolve } from '@angular/router';
-import { GetAllProductWithImagesRO } from '@ro';
+import { ProductWithImagesRO } from '@ro';
 import { ProductService } from '@service';
 import { Observable } from 'rxjs';
 
@@ -8,10 +8,10 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class ProductWithImagesResolver
-  implements Resolve<GetAllProductWithImagesRO[]>
+  implements Resolve<ProductWithImagesRO[]>
 {
   constructor(private readonly productService: ProductService) {}
-  resolve(): Observable<GetAllProductWithImagesRO[]> {
+  resolve(): Observable<ProductWithImagesRO[]> {
     this.productService.getProductsWithImages$().subscribe({
       next: (products) => {
         this.productService.setProducts$(products);

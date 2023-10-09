@@ -5,7 +5,7 @@ import { CreateProductDto, DeleteProductDtostos, UpdateProductDto } from '@dto';
 import { ProductModel } from '@model';
 import {
   CreateProductRO,
-  GetAllProductWithImagesRO,
+  ProductWithImagesRO,
   ProductRO,
   UpdateProductRO,
 } from '@ro';
@@ -28,8 +28,8 @@ export class ProductService {
     );
   }
 
-  getProductsWithImages$(): Observable<GetAllProductWithImagesRO[]> {
-    return this.http.post<GetAllProductWithImagesRO[]>(
+  getProductsWithImages$(): Observable<ProductWithImagesRO[]> {
+    return this.http.post<ProductWithImagesRO[]>(
       ApiApplication.PRODUCT.CONTROLLER +
         '/' +
         ApiApplication.PRODUCT.GET_ALL_WITH_IMAGES,

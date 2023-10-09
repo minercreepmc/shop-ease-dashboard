@@ -9,6 +9,8 @@ import { CategoryModel, ProductModel } from '@model';
 import { UpdateCategoryDto } from '@dto';
 import { CategoryService } from '@service';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { ProductListComponent } from '@modules/dashboard/components/product-list/product-list.component';
+import { CategoryRO } from '@ro';
 
 @Component({
   selector: 'app-category-details',
@@ -21,6 +23,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     FormsModule,
     MatInputModule,
     MatButtonModule,
+    ProductListComponent,
   ],
 })
 export class CategoryDetailsComponent implements OnInit {
@@ -30,7 +33,7 @@ export class CategoryDetailsComponent implements OnInit {
     private router: Router,
     private toast: ToastrCustomService,
   ) {}
-  category: CategoryModel;
+  category: CategoryRO;
   products: ProductModel[];
   updateCategoryDto: UpdateCategoryDto;
   id: string;

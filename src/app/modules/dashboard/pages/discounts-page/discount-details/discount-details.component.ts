@@ -6,6 +6,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { ActivatedRoute } from '@angular/router';
 import { UpdateDiscountDto } from '@dto';
+import { ProductListComponent } from '@modules/dashboard/components/product-list/product-list.component';
 import { DiscountRO } from '@ro';
 import { DiscountService } from '@service';
 import { ToastrCustomService } from '@shared/libraries/toastr';
@@ -21,6 +22,7 @@ import { ToastrCustomService } from '@shared/libraries/toastr';
     MatInputModule,
     MatFormFieldModule,
     MatButtonModule,
+    ProductListComponent,
   ],
 })
 export class DiscountDetailsComponent implements OnInit {

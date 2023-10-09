@@ -12,7 +12,7 @@ import {
   ToastrCustomModule,
   ToastrCustomService,
 } from '@shared/libraries/toastr';
-import { GetAllProductWithImagesRO } from '@ro';
+import { ProductWithImagesRO } from '@ro';
 import { numberFormat } from '@constant';
 
 @Component({
@@ -38,7 +38,7 @@ export class ProductListComponent {
     private readonly dialog: MatDialog,
     private readonly toast: ToastrCustomService,
   ) {}
-  @Input() products: GetAllProductWithImagesRO[] = [];
+  @Input() products: ProductWithImagesRO[];
 
   numberFormat = numberFormat;
 

@@ -1,0 +1,12 @@
+<mat-list class="responsive-grid">
+  <mat-list-item
+    routerLink="/dashboard/shipping-fee/{{ fee.id }}"
+    *ngFor="let fee of fees"
+  >
+    <mat-icon matListItemIcon>folder</mat-icon>
+    <div matListItemTitle>
+      {{ fee.name }}
+    </div>
+    <div matListItemLine>{{ fee.fee | number: numberFormat }} VND</div>
+  </mat-list-item>
+</mat-list>

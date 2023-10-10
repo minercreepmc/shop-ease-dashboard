@@ -58,7 +58,6 @@ export class ProductFormComponent implements OnInit {
     private categoryService: CategoryService,
     private discountService: DiscountService,
     private uploadService: UploadService,
-    private route: ActivatedRoute,
     private toast: ToastrCustomService,
     private dialogRef: MatDialogRef<ProductFormComponent>,
   ) {}

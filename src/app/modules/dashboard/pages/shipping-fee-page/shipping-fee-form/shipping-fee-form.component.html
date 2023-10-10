@@ -1,0 +1,28 @@
+<form (ngSubmit)="onSubmit()" class="form">
+  <h3 class="title">Add new shipping fee</h3>
+
+  <mat-form-field class="form-field">
+    <mat-label>Name</mat-label>
+    <input
+      matInput
+      placeholder="Ex. Fast"
+      [(ngModel)]="createShippingFeeDto.name"
+      name="name"
+    />
+  </mat-form-field>
+
+  <mat-form-field class="form-field">
+    <mat-label>Fee</mat-label>
+    <input
+      matInput
+      placeholder="Enter shipping fee"
+      type="number"
+      [(ngModel)]="createShippingFeeDto.fee"
+      name="fee"
+    />
+  </mat-form-field>
+
+  <button mat-flat-button color="primary" class="button" type="submit">
+    Submit
+  </button>
+</form>

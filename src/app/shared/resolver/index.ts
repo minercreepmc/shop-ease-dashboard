@@ -10,3 +10,5 @@ export * from './user.resolver';
 export * from './discounts-include-product-count.resolver';
 export * from './profile.resolver';
 export * from './categories-include-count.resolver';
+export * from './shipping-fee.resolver';
+export * from './shipping-fees.resolver';

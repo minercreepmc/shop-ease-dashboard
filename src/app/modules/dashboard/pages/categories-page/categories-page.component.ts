@@ -1,3 +1,4 @@
+import { NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
@@ -12,7 +13,7 @@ import { CategoryListComponent } from './category-list/category-list.component';
   templateUrl: './categories-page.component.html',
   styleUrls: ['./categories-page.component.scss'],
   standalone: true,
-  imports: [MatToolbarModule, CategoryListComponent, MatButtonModule],
+  imports: [MatToolbarModule, CategoryListComponent, MatButtonModule, NgIf],
 })
 export class CategoriesPageComponent implements OnInit {
   constructor(

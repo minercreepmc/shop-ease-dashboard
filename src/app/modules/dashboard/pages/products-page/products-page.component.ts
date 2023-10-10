@@ -10,6 +10,9 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { ProductFormComponent } from './product-form/product-form.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { ProductWithImagesRO } from '@ro';
+import { ActivatedRoute } from '@angular/router';
+import { UserModel } from '@model';
+import { UserRole } from '@constant';
 
 @Component({
   selector: 'app-products-page',
@@ -30,19 +33,27 @@ import { ProductWithImagesRO } from '@ro';
 })
 export class ProductsPageComponent implements OnInit {
   constructor(
-    private readonly productService: ProductService,
-    private readonly dialog: MatDialog,
+    private productService: ProductService,
+    private dialog: MatDialog,
+    private route: ActivatedRoute,
   ) {}
 
   products: ProductWithImagesRO[];
+  userRole: string;
 
   ngOnInit(): void {
     this.productService.products$.subscribe({
       next: (products) => {
-        console.log(products);
         this.products = products;
       },
     });
+    this.route.data.subscribe((data) => {
+      this.userRole = data.profile.role;
+    });
+  }
+
+  isAdmin() {
+    return this.userRole === UserRole.ADMIN;
   }
 
   openDialog() {

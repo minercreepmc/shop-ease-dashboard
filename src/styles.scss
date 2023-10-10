@@ -535,3 +535,8 @@ body {
 .section {
   margin-top: 7rem;
 }
+
+a.disabled {
+  pointer-events: none;
+  cursor: default;
+}

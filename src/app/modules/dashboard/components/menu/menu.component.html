@@ -15,7 +15,7 @@
       <a>Categories</a>
     </li>
 
-    <li routerLink="users" routerLinkActive="active">
+    <li *ngIf="isAdmin()" routerLink="users" routerLinkActive="active">
       <fa-icon [icon]="faUser"></fa-icon>
       <a>Users</a>
     </li>
@@ -25,9 +25,26 @@
       <a>Discounts</a>
     </li>
 
-    <li routerLink="orders" routerLinkActive="active">
-      <fa-icon [icon]="faList"></fa-icon>
-      <a>Orders</a>
-    </li>
+    <div *ngIf="isStaff()">
+      <li routerLink="shipping-fee" routerLinkActive="active">
+        <fa-icon [icon]="faList"></fa-icon>
+        <a>Shipping Fee</a>
+      </li>
+
+      <li routerLink="shipping" routerLinkActive="active">
+        <fa-icon [icon]="faList"></fa-icon>
+        <a>Shipping</a>
+      </li>
+
+      <li routerLink="orders" routerLinkActive="active">
+        <fa-icon [icon]="faList"></fa-icon>
+        <a>Orders</a>
+      </li>
+
+      <li routerLink="shipper" routerLinkActive="active">
+        <fa-icon [icon]="faList"></fa-icon>
+        <a>Shippers</a>
+      </li>
+    </div>
   </div>
 </section>

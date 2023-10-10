@@ -4,13 +4,17 @@ import {
   DiscountResolver,
   DiscountsIncludeProductCountResolver,
 } from '@shared/resolver';
+import { ProfileResolver } from '@shared/resolver';
 import { DiscountsPageComponent } from './discounts-page.component';
 
 const routes: Routes = [
   {
     path: '',
     component: DiscountsPageComponent,
-    resolve: { discounts: DiscountsIncludeProductCountResolver },
+    resolve: {
+      discounts: DiscountsIncludeProductCountResolver,
+      profile: ProfileResolver,
+    },
   },
   {
     path: ':id',

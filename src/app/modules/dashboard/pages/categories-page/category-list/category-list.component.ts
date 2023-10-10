@@ -2,7 +2,8 @@ import { NgFor, NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
+import { UserRole } from '@constant';
 import { CategoryIncludeProductCountRO } from '@ro';
 import { CategoryService } from '@service';
 
@@ -14,8 +15,12 @@ import { CategoryService } from '@service';
   imports: [RouterLink, NgIf, MatListModule, NgFor, MatIconModule],
 })
 export class CategoryListComponent implements OnInit {
-  constructor(private categoryService: CategoryService) {}
+  constructor(
+    private categoryService: CategoryService,
+    private route: ActivatedRoute,
+  ) {}
   categories: CategoryIncludeProductCountRO[];
+  role: string;
 
   ngOnInit(): void {
     this.categoryService.categories$.subscribe({
@@ -23,5 +28,12 @@ export class CategoryListComponent implements OnInit {
         this.categories = categories;
       },
     });
+    this.route.data.subscribe((data) => {
+      this.role = data.profile.role;
+    });
+  }
+
+  isAdmin() {
+    return this.role === UserRole.ADMIN;
   }
 }

@@ -1,21 +1,21 @@
-import { HttpClientModule } from '@angular/common/http';
+import {
+  HttpClientModule,
+  HttpErrorResponse,
+  HttpStatusCode,
+} from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { StorageService, AuthService } from '@service';
-import { HttpCustomException } from '@shared/dtos';
+import { AuthService } from '@service';
 import { LogInDto } from '@shared/interfaces/dto';
-import {
-  ToastrCustomModule,
-  ToastrCustomService,
-} from '@shared/libraries/toastr';
+import { ToastrCustomService } from '@shared/libraries/toastr';
 
 @Component({
   selector: 'app-log-in-form',
   templateUrl: './log-in-form.component.html',
   styleUrls: ['./log-in-form.component.scss'],
   standalone: true,
-  imports: [FormsModule, HttpClientModule, ToastrCustomModule],
+  imports: [FormsModule, HttpClientModule],
 })
 export class LogInFormComponent {
   user: LogInDto = {
@@ -24,27 +24,27 @@ export class LogInFormComponent {
   };
 
   constructor(
-    private readonly authService: AuthService,
-    private readonly storageSerivce: StorageService,
-    private readonly toast: ToastrCustomService,
-    private readonly router: Router,
+    private authService: AuthService,
+    private toast: ToastrCustomService,
+    private router: Router,
   ) {}
 
   onSubmit() {
     const { username, password } = this.user;
     this.authService
-      .logIn$({
+      .logInDashboard$({
         username,
         password,
       })
       .subscribe({
-        next: (response) => {
-          this.storageSerivce.saveUser(response);
+        next: () => {
           this.router.navigate(['/dashboard']);
         },
-        error: (error: HttpCustomException) => {
-          if (error.statusCode === 401) {
+        error: (error: HttpErrorResponse) => {
+          if (error.status === HttpStatusCode.Unauthorized) {
             this.toast.error('Fail to login');
+          } else if (error.status === HttpStatusCode.Forbidden) {
+            this.toast.error('You are not allow to do this');
           } else {
             this.toast.error('Something went wrong');
           }

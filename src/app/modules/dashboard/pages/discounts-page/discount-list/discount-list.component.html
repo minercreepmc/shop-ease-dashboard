@@ -1,6 +1,6 @@
 <mat-list class="responsive-grid">
   <mat-list-item
-    routerLink="/dashboard/discounts/{{ discount.id }}"
+    [routerLink]="isAdmin() ? '/dashboard/discounts/' + discount.id : null"
     *ngFor="let discount of discounts"
   >
     <mat-icon matListItemIcon>folder</mat-icon>

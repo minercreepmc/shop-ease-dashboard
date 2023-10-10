@@ -16,7 +16,7 @@
       <br />
       <p>{{ product.description }}</p>
     </mat-card-content>
-    <mat-card-actions>
+    <mat-card-actions *ngIf="isAdmin()">
       <button mat-button routerLink="/dashboard/products/{{ product.id }}">
         EDIT
       </button>

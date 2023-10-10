@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LogInPageComponent } from '@modules/log-in/pages/sign-in-page/log-in-page.component';
+import { AuthGuard } from '@shared/guards/auth.guard';
 
 const routes: Routes = [
   {
@@ -10,9 +11,10 @@ const routes: Routes = [
   },
   {
     path: 'dashboard',
+    canActivate: [AuthGuard],
     loadChildren: () =>
       import('./modules/dashboard/dashboard.module').then(
-        (m) => m.DashboardModule
+        (m) => m.DashboardModule,
       ),
   },
 ];

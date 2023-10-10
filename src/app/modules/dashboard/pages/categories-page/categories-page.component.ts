@@ -1,7 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { ActivatedRoute } from '@angular/router';
+import { UserRole } from '@constant';
 import { CategoryFormComponent } from './category-form/category-form.component';
 import { CategoryListComponent } from './category-list/category-list.component';
 
@@ -12,8 +14,23 @@ import { CategoryListComponent } from './category-list/category-list.component';
   standalone: true,
   imports: [MatToolbarModule, CategoryListComponent, MatButtonModule],
 })
-export class CategoriesPageComponent {
-  constructor(private dialog: MatDialog) {}
+export class CategoriesPageComponent implements OnInit {
+  constructor(
+    private dialog: MatDialog,
+    private route: ActivatedRoute,
+  ) {}
+
+  role: string;
+
+  ngOnInit(): void {
+    this.route.data.subscribe((data) => {
+      this.role = data.profile.role;
+    });
+  }
+
+  isAdmin() {
+    return this.role === UserRole.ADMIN;
+  }
 
   openDialog() {
     const dialogRef = this.dialog.open(CategoryFormComponent, {

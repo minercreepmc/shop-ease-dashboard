@@ -4,7 +4,9 @@
   </div>
 
   <div class="menu" [class.active]="isMenuOpen" *ngIf="user">
-    <h3>{{ user.full_name }} <br /><span>Website Developer</span></h3>
+    <h3>
+      {{ user.full_name }} <br /><span>{{ user.role }}</span>
+    </h3>
 
     <ul>
       <li>

@@ -1,8 +1,8 @@
-import { AsyncPipe, DecimalPipe, NgFor } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { AsyncPipe, DecimalPipe, NgFor, NgIf } from '@angular/common';
+import { Component, Input, OnInit } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatGridListModule } from '@angular/material/grid-list';
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { ProductService } from '@service';
 import { ProductCardComponent } from '../product-card/product-card.component';
 import { MatButtonModule } from '@angular/material/button';
@@ -13,7 +13,7 @@ import {
   ToastrCustomService,
 } from '@shared/libraries/toastr';
 import { ProductWithImagesRO } from '@ro';
-import { numberFormat } from '@constant';
+import { numberFormat, UserRole } from '@constant';
 
 @Component({
   selector: 'app-product-list',
@@ -25,6 +25,7 @@ import { numberFormat } from '@constant';
     ProductCardComponent,
     AsyncPipe,
     NgFor,
+    NgIf,
     RouterLink,
     MatCardModule,
     MatButtonModule,
@@ -32,15 +33,27 @@ import { numberFormat } from '@constant';
     DecimalPipe,
   ],
 })
-export class ProductListComponent {
+export class ProductListComponent implements OnInit {
   constructor(
-    private readonly productService: ProductService,
-    private readonly dialog: MatDialog,
-    private readonly toast: ToastrCustomService,
+    private productService: ProductService,
+    private dialog: MatDialog,
+    private route: ActivatedRoute,
+    private toast: ToastrCustomService,
   ) {}
   @Input() products: ProductWithImagesRO[];
+  role: string;
 
   numberFormat = numberFormat;
+
+  ngOnInit(): void {
+    this.route.data.subscribe((data) => {
+      this.role = data.profile.role;
+    });
+  }
+
+  isAdmin() {
+    return this.role === UserRole.ADMIN;
+  }
 
   deleteProduct(id: string) {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {

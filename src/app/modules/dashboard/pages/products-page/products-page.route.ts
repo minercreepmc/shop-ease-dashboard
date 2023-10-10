@@ -6,6 +6,7 @@ import {
   ProductResolver,
 } from '@shared/resolver';
 import { ProductWithImagesResolver } from '@shared/resolver/product-with-images.resolver';
+import { ProfileResolver } from '@shared/resolver/profile.resolver';
 import { ProductsPageComponent } from './products-page.component';
 
 const routes: Routes = [
@@ -16,6 +17,7 @@ const routes: Routes = [
       products: ProductWithImagesResolver,
       categories: CategoriesResolver,
       discounts: DiscountsResolver,
+      profile: ProfileResolver,
     },
   },
   {

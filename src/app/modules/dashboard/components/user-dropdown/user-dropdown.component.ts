@@ -1,6 +1,6 @@
 import { AsyncPipe, NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {
   faUsers,
@@ -32,16 +32,15 @@ export class UserDropdownComponent implements OnInit {
   user: UserModel | null = null;
 
   constructor(
-    private readonly authService: AuthService,
-    private readonly storageService: StorageService,
-    private readonly router: Router,
+    private storageService: StorageService,
+    private authService: AuthService,
+    private route: ActivatedRoute,
+    private router: Router,
   ) {}
 
   ngOnInit() {
-    this.authService.getProfile$().subscribe({
-      next: (response) => {
-        this.user = response;
-      },
+    this.route.data.subscribe((data) => {
+      this.user = data.profile;
     });
   }
 

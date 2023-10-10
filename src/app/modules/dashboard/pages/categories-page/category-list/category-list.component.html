@@ -1,6 +1,6 @@
 <mat-list class="responsive-grid">
   <mat-list-item
-    routerLink="./{{ category.id }}"
+    [routerLink]="isAdmin() ? '/dashboard/categories/' + category.id : null"
     *ngFor="let category of categories"
   >
     <mat-icon matListItemIcon>folder</mat-icon>

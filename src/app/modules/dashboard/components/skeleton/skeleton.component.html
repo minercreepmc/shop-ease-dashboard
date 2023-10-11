@@ -1,0 +1,7 @@
+<section class="section">
+  <mat-toolbar color="primary" class="header">Category List</mat-toolbar>
+  <button *ngIf="dialogComponent" mat-raised-button (click)="openDialog()">
+    Add Category
+  </button>
+  <ng-content></ng-content>
+</section>

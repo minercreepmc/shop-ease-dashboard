@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { OrdersResolver } from '@shared/resolver/orders.resolver';
-import { OrderHomeComponent } from './order-home/order-home.component';
+import { OrdersPageComponent } from './orders-page.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: OrderHomeComponent,
+    component: OrdersPageComponent,
     resolve: { orders: OrdersResolver },
   },
   {

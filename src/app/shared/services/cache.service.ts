@@ -154,7 +154,7 @@ class SessionStorageWrapper implements StorageWrapper {
     this.zone.runOutsideAngular(() => {
       clearTimeout(this.timerID);
 
-      this.timerID = setTimeout(() => {
+      this.timerID = window.setTimeout(() => {
         this.timerID = 0;
         callback();
       }, this.debounceDuration);

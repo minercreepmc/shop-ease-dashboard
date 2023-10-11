@@ -5,33 +5,31 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { UserModel } from '@model';
 import { UserListComponent } from '@modules/dashboard/components/user-list/user-list.component';
 import { UserService } from '@service';
-import { UserFormComponent } from './user-form/user-form.component';
+import { ShipperFormComponent } from './shipper-form/shipper-form.component';
 
 @Component({
-  selector: 'app-users-page',
-  templateUrl: './users-page.component.html',
-  styleUrls: ['./users-page.component.scss'],
+  selector: 'app-shipper-page',
+  templateUrl: './shipper-page.component.html',
+  styleUrls: ['./shipper-page.component.scss'],
   standalone: true,
-  imports: [MatToolbarModule, UserListComponent, MatButtonModule],
+  imports: [MatToolbarModule, MatButtonModule, UserListComponent],
 })
-export class UsersPageComponent implements OnInit {
+export class ShipperPageComponent implements OnInit {
   constructor(
     private userService: UserService,
     private dialog: MatDialog,
   ) {}
-
-  users: UserModel[];
-
+  shippers: UserModel[] = [];
   ngOnInit(): void {
     this.userService.users$.subscribe({
-      next: (users) => {
-        this.users = users;
+      next: (shippers) => {
+        this.shippers = shippers;
       },
     });
   }
 
   openDialog() {
-    const dialogRef = this.dialog.open(UserFormComponent, {
+    const dialogRef = this.dialog.open(ShipperFormComponent, {
       data: {},
     });
     dialogRef.afterClosed().subscribe((result) => {

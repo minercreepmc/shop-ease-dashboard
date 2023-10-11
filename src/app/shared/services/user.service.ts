@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ApiApplication } from '@constant';
-import { CreateStaffDto, UpdateUserDto } from '@dto';
+import { CreateShipperDto, CreateStaffDto, UpdateUserDto } from '@dto';
 import { UserModel } from '@model';
 import { UserRO } from '@ro';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
@@ -21,6 +21,21 @@ export class UserService {
     return this.http
       .post<UserModel>(
         ApiApplication.USER.CONTROLLER + '/' + ApiApplication.USER.CREATE_STAFF,
+        dto,
+      )
+      .pipe(
+        tap((user) => {
+          this.users.next([...this.users.value, user]);
+        }),
+      );
+  }
+
+  createShipper$(dto: CreateShipperDto): Observable<UserModel> {
+    return this.http
+      .post<UserModel>(
+        ApiApplication.USER.CONTROLLER +
+          '/' +
+          ApiApplication.USER.CREATE_SHIPPER,
         dto,
       )
       .pipe(

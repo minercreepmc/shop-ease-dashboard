@@ -1,7 +1,7 @@
 import { NgClass, NgFor } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { UserRO } from '@ro';
+import { UserModel } from '@model';
 
 @Component({
   selector: 'app-user-list',
@@ -11,5 +11,7 @@ import { UserRO } from '@ro';
   imports: [NgFor, RouterLink, NgClass],
 })
 export class UserListComponent {
-  @Input() users: UserRO[] = [];
+  @Input() users: UserModel[] = [];
+
+  @Input() detailRoute = 'users';
 }

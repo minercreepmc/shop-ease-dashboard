@@ -14,6 +14,7 @@ export class CreateShipperDto {
   username: string;
   password: string;
   fullName?: string;
+  phone?: string;
 }
 
 export class CreateAdminDto {

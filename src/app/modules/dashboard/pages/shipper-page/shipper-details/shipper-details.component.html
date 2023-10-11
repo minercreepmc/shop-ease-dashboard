@@ -1,0 +1,55 @@
+<section class="section">
+  <mat-toolbar color="primary" class="header">User Details</mat-toolbar>
+
+  <form class="form" (ngSubmit)="onSubmit()">
+    <h3 class="title">Update user</h3>
+
+    <mat-form-field class="form-field">
+      <mat-label>Username</mat-label>
+      <input disabled matInput [(ngModel)]="user.username" name="username" />
+    </mat-form-field>
+
+    <mat-form-field class="form-field">
+      <mat-label>Email</mat-label>
+      <input
+        matInput
+        type="email"
+        [(ngModel)]="updateUserDto.email"
+        name="email"
+      />
+    </mat-form-field>
+
+    <mat-form-field class="form-field">
+      <mat-label>Phone</mat-label>
+      <input matInput [(ngModel)]="updateUserDto.phone" name="phone" />
+      <mat-icon matSuffix>phone</mat-icon>
+    </mat-form-field>
+
+    <mat-form-field class="form-field">
+      <mat-label>Enter new full name</mat-label>
+      <input matInput [(ngModel)]="updateUserDto.fullName" name="full_name" />
+    </mat-form-field>
+
+    <mat-form-field class="form-field">
+      <mat-label>Enter new password</mat-label>
+      <input
+        [(ngModel)]="updateUserDto.password"
+        name="password"
+        matInput
+        [type]="hide ? 'password' : 'text'"
+      />
+      <button
+        type="button"
+        mat-icon-button
+        matSuffix
+        (click)="hide = !hide"
+        [attr.aria-label]="'Hide password'"
+        [attr.aria-pressed]="hide"
+      >
+        <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+      </button>
+    </mat-form-field>
+
+    <button mat-flat-button color="primary" class="button">Submit</button>
+  </form>
+</section>

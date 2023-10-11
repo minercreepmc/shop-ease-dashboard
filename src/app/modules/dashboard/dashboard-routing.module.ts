@@ -53,6 +53,13 @@ const routes: Routes = [
             (m) => m.ShippingFeeRoutingModule,
           ),
       },
+      {
+        path: 'shipper',
+        loadChildren: () =>
+          import('./pages/shipper-page/shipper-page.route').then(
+            (m) => m.ShipperPageRoutingModule,
+          ),
+      },
     ],
   },
 ];

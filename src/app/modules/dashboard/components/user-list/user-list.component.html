@@ -28,7 +28,7 @@
       </td>
 
       <td class="edit">
-        <a routerLink="/dashboard/users/{{ user.id }}">Edit</a>
+        <a [routerLink]="'/dashboard/' + detailRoute + '/' + user.id">Edit</a>
       </td>
     </tr>
   </tbody>

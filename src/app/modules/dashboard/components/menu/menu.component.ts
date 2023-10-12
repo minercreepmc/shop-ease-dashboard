@@ -9,7 +9,6 @@ import {
   faUser,
   faTag,
 } from '@fortawesome/free-solid-svg-icons';
-import { AuthService } from '@service';
 
 @Component({
   selector: 'app-menu',
@@ -38,5 +37,9 @@ export class MenuComponent implements OnInit {
 
   isStaff() {
     return this.role === UserRole.STAFF;
+  }
+
+  isShipper() {
+    return this.role === UserRole.SHIPPER;
   }
 }

@@ -60,6 +60,13 @@ const routes: Routes = [
             (m) => m.ShipperPageRoutingModule,
           ),
       },
+      {
+        path: 'shipping',
+        loadChildren: () =>
+          import('./pages/shipping-page/shipping-page.route').then(
+            (m) => m.ShippingRoutingModule,
+          ),
+      },
     ],
   },
 ];

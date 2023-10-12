@@ -82,7 +82,7 @@ export class UserService {
   }
 
   getAllShippers$(): Observable<UserRO[]> {
-    return this.http.post<UserRO[]>(
+    return this.http.get<UserRO[]>(
       ApiApplication.USER.CONTROLLER +
         '/' +
         ApiApplication.USER.GET_ALL_SHIPPER,

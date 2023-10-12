@@ -23,6 +23,7 @@ export class ShipperPageComponent implements OnInit {
   ngOnInit(): void {
     this.userService.users$.subscribe({
       next: (shippers) => {
+        console.log(shippers);
         this.shippers = shippers;
       },
     });

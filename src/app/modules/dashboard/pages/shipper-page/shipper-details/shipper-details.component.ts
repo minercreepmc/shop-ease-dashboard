@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
@@ -21,6 +22,7 @@ import { ToastrCustomService } from '@shared/libraries/toastr';
     MatFormFieldModule,
     MatInputModule,
     MatIconModule,
+    MatButtonModule,
   ],
 })
 export class ShipperDetailsComponent implements OnInit {

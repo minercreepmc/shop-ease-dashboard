@@ -1,0 +1,14 @@
+<app-white-form
+  [dto]="createShippingDto"
+  [title]="'Create Shipping'"
+  [submitFn]="createShipping"
+>
+  <mat-form-field class="form-field">
+    <mat-label>Shipper</mat-label>
+    <mat-select [(ngModel)]="createShippingDto.shipperId">
+      <mat-option *ngFor="let shipper of shippers" [value]="shipper.id">{{
+        shipper.full_name
+      }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+</app-white-form>

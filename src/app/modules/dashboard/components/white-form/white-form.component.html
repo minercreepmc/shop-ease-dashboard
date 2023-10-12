@@ -1,0 +1,7 @@
+<div class="form">
+  <form (ngSubmit)="onSubmit()" (valueChanges)="saveToTemporaryStorage()">
+    <h3 class="title">{{ title }}</h3>
+    <ng-content></ng-content>
+    <button mat-flat-button color="primary" class="button">Submit</button>
+  </form>
+</div>

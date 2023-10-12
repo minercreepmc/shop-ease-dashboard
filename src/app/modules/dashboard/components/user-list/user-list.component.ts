@@ -12,6 +12,5 @@ import { UserModel } from '@model';
 })
 export class UserListComponent {
   @Input() users: UserModel[] = [];
-
   @Input() detailRoute = 'users';
 }

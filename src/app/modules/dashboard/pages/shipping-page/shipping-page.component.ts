@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
 import { MatDialog } from '@angular/material/dialog';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { UserModel } from '@model';
@@ -8,7 +10,7 @@ import { UserModel } from '@model';
   templateUrl: './shipping-page.component.html',
   styleUrls: ['./shipping-page.component.scss'],
   standalone: true,
-  imports: [MatToolbarModule],
+  imports: [MatToolbarModule, MatCardModule, MatButtonModule],
 })
 export class ShippingPageComponent {
   constructor(private dialog: MatDialog) {}

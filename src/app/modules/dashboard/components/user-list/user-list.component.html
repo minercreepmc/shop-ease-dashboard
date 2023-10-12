@@ -1,35 +1,11 @@
-<table width="100%" class="board">
-  <thead>
-    <tr>
-      <td>Name</td>
-      <td>Info</td>
-      <td>Role</td>
-      <td></td>
-    </tr>
-  </thead>
-
-  <tbody>
-    <tr *ngFor="let user of users">
-      <td class="people">
-        <img src="assets/1.webp" alt="" />
-        <div class="people-de">
-          <h5>{{ user.username }}</h5>
-          <p>{{ user.full_name }}</p>
-        </div>
-      </td>
-
-      <td class="people-des">
-        <h5>{{ user.phone }}</h5>
-        <p>{{ user.email }}</p>
-      </td>
-
-      <td [ngClass]="user.role.toLowerCase()" class="role">
-        <p>{{ user.role }}</p>
-      </td>
-
-      <td class="edit">
-        <a [routerLink]="'/dashboard/' + detailRoute + '/' + user.id">Edit</a>
-      </td>
-    </tr>
-  </tbody>
-</table>
+<div class="columns">
+  <div class="column col-12">
+    <ngx-table
+      [configuration]="configuration"
+      [data]="users"
+      [columns]="columns"
+      (event)="eventEmitted($event)"
+    >
+    </ngx-table>
+  </div>
+</div>

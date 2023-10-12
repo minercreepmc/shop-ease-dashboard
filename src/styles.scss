@@ -488,6 +488,17 @@ body {
 // regular style toast
 @import "ngx-toastr/toastr";
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&display=swap");
+@import "../node_modules/ngx-easy-table/style.scss";
+
+table {
+  font-family: "Montserrat", sans-serif;
+  background: white;
+}
+
+th {
+  font-weight: bold;
+}
 
 body {
   width: 100%;

@@ -5,6 +5,7 @@
   </div>
 
   <div class="menu__items">
+    <div *ngIf="!isShipper()">
     <li routerLink="products" routerLinkActive="active">
       <fa-icon [icon]="faBoxOpen"></fa-icon>
       <a>Products</a>
@@ -25,15 +26,11 @@
       <a>Discounts</a>
     </li>
 
+    </div>
     <div *ngIf="isStaff()">
       <li routerLink="shipping-fee" routerLinkActive="active">
         <fa-icon [icon]="faList"></fa-icon>
         <a>Shipping Fee</a>
-      </li>
-
-      <li routerLink="shipping" routerLinkActive="active">
-        <fa-icon [icon]="faList"></fa-icon>
-        <a>Shipping</a>
       </li>
 
       <li routerLink="orders" routerLinkActive="active">
@@ -44,6 +41,13 @@
       <li routerLink="shipper" routerLinkActive="active">
         <fa-icon [icon]="faList"></fa-icon>
         <a>Shippers</a>
+      </li>
+    </div>
+
+    <div *ngIf="isShipper()">
+      <li routerLink="shipping" routerLinkActive="active">
+        <fa-icon [icon]="faList"></fa-icon>
+        <a>Shipping</a>
       </li>
     </div>
   </div>

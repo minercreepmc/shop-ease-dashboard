@@ -1,70 +1,11 @@
-<table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
-  <!-- Position Column -->
-  <ng-container matColumnDef="member_name">
-    <th
-      mat-header-cell
-      *matHeaderCellDef
-      mat-sort-header
-      sortActionDescription="Sort by name"
+<div class="columns">
+  <div class="column col-12">
+    <ngx-table
+      [configuration]="configuration"
+      [data]="orders"
+      [columns]="columns"
+      (event)="eventEmitted($event)"
     >
-      Member
-    </th>
-    <td mat-cell *matCellDef="let element">{{ element.member_name }}</td>
-  </ng-container>
-
-  <!-- Name Column -->
-  <ng-container matColumnDef="member_phone">
-    <th
-      mat-header-cell
-      *matHeaderCellDef
-      mat-sort-header
-      sortActionDescription="Sort by phone"
-    >
-      Phone
-    </th>
-    <td mat-cell *matCellDef="let element">{{ element.phone }}</td>
-  </ng-container>
-
-  <!-- Symbol Column -->
-  <ng-container matColumnDef="total_price">
-    <th
-      mat-header-cell
-      *matHeaderCellDef
-      mat-sort-header
-      sortActionDescription="Sort by total"
-    >
-      Total
-    </th>
-    <td mat-cell *matCellDef="let element">
-      {{ element.total_price | number: numberFormat }} VND
-    </td>
-  </ng-container>
-
-  <ng-container matColumnDef="status">
-    <th
-      mat-header-cell
-      *matHeaderCellDef
-      mat-sort-header
-      sortActionDescription="Sort by status"
-    >
-      Status
-    </th>
-    <td mat-cell *matCellDef="let element">{{ element.status }}</td>
-  </ng-container>
-
-  <ng-container matColumnDef="action">
-    <th mat-header-cell *matHeaderCellDef>Action</th>
-    <td mat-cell *matCellDef="let element">
-      <button
-        mat-raised-button
-        color="primary"
-        (click)="openDialog(element.id)"
-      >
-        Assign
-      </button>
-    </td>
-  </ng-container>
-
-  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-</table>
+    </ngx-table>
+  </div>
+</div>

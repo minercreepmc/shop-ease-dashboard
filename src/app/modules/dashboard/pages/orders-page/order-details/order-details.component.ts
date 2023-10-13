@@ -1,75 +1,32 @@
-import { AsyncPipe, NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
 import { ActivatedRoute } from '@angular/router';
-import { faShippingFast, faTimes } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { OrderStatusEnum } from '@api/http';
-import { ToastrCustomService } from '@shared/libraries/toastr';
-import { OrderService } from '@service';
+import { OrderCardComponent } from '@modules/dashboard/components';
+import { SkeletonComponent } from '@modules/dashboard/components/skeleton/skeleton.component';
 import { OrderRO } from '@ro';
-import { UpdateOrderDto } from '@dto';
 
 @Component({
   selector: 'app-order-details',
   templateUrl: './order-details.component.html',
   styleUrls: ['./order-details.component.scss'],
   standalone: true,
-  imports: [NgIf, AsyncPipe, FontAwesomeModule],
+  imports: [
+    SkeletonComponent,
+    MatCardModule,
+    MatButtonModule,
+    MatIconModule,
+    OrderCardComponent,
+  ],
 })
 export class OrderDetailsComponent implements OnInit {
-  faShippingFast = faShippingFast;
-  faTimes = faTimes;
-  id: string;
-  constructor(
-    private readonly orderService: OrderService,
-    private readonly activateRoute: ActivatedRoute,
-    private readonly toast: ToastrCustomService,
-  ) {}
+  constructor(private route: ActivatedRoute) {}
   order: OrderRO;
-
-  ngOnInit() {
-    this.id = this.activateRoute.snapshot.paramMap.get('id')!;
-    this.orderService.getOrder$(this.id).subscribe({
-      next: (response) => {
-        this.order = response;
-      },
+  ngOnInit(): void {
+    this.route.data.subscribe((data) => {
+      console.log(data);
+      this.order = data.order;
     });
-  }
-
-  onShippingIconShow() {
-    return this.order.status === OrderStatusEnum.PROCESSING;
-  }
-
-  onShippingClick() {
-    const dto: UpdateOrderDto = {
-      status: OrderStatusEnum.SHIPPING,
-    };
-    this.orderService.updateOrder$(this.id, dto).subscribe({
-      next: (response) => {
-        this.order = {
-          ...this.order,
-          status: response.status as OrderStatusEnum,
-        };
-      },
-      complete: () => {
-        this.toast.success('Shipping status updated');
-      },
-    });
-  }
-
-  onCancelClick() {
-    this.orderService
-      .updateOrder$(this.id, { status: OrderStatusEnum.CANCELED })
-      .subscribe({
-        next: (response) => {
-          this.order = {
-            ...this.order,
-            status: response.status as OrderStatusEnum,
-          };
-        },
-        complete: () => {
-          this.toast.success('Canceled status updated');
-        },
-      });
   }
 }

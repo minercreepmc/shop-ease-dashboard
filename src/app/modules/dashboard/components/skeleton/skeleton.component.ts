@@ -16,6 +16,8 @@ export class SkeletonComponent {
   constructor(private dialog: MatDialog) {}
 
   @Input() dialogComponent: any;
+  @Input() title: string;
+  @Input() action: string;
 
   openDialog() {
     const dialogRef = this.dialog.open(this.dialogComponent, {

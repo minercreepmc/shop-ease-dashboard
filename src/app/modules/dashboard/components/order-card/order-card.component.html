@@ -1,0 +1,15 @@
+<mat-card class="example-card">
+  <mat-card-title>{{ order.member_name }}</mat-card-title>
+  <mat-card-subtitle class="subtitle"
+    >{{ order.total_price }} | number: numberFormat</mat-card-subtitle
+  >
+  <mat-card-content>
+    <p><mat-icon>phone</mat-icon>: {{ order.member_phone }}</p>
+    <p><mat-icon>location_on</mat-icon>: {{ order.address_location }}</p>
+    <p><mat-icon>local_shipping</mat-icon>: Fast Ship</p>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-button>ASSIGN</button>
+    <button mat-button>CANCEL</button>
+  </mat-card-actions>
+</mat-card>

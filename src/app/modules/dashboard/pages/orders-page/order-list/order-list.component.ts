@@ -1,22 +1,25 @@
 import { DecimalPipe } from '@angular/common';
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
-import { MatDialog } from '@angular/material/dialog';
-import { MatSort, MatSortModule } from '@angular/material/sort';
-import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { numberFormat } from '@constant';
+import { Router, RouterModule } from '@angular/router';
+import { OrderModel } from '@model';
 import { OrderRO } from '@ro';
 import { OrderService } from '@service';
-import { ShippersDialogComponent } from '../shippers-dialog/shippers-dialog.component';
+import { Columns, Config, DefaultConfig, TableModule } from 'ngx-easy-table';
 
 @Component({
   selector: 'app-order-list',
   templateUrl: './order-list.component.html',
   styleUrls: ['./order-list.component.scss'],
   standalone: true,
-  imports: [MatTableModule, MatSortModule, DecimalPipe, MatButtonModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [DecimalPipe, MatButtonModule, RouterModule, TableModule],
 })
-export class OrderListComponent implements AfterViewInit, OnInit {
+export class OrderListComponent implements OnInit {
+  constructor(
+    private router: Router,
+    private orderService: OrderService,
+  ) {}
   displayedColumns: string[] = [
     'member_name',
     'member_phone',
@@ -24,35 +27,29 @@ export class OrderListComponent implements AfterViewInit, OnInit {
     'status',
     'action',
   ];
-  dataSource: MatTableDataSource<OrderRO>;
-  numberFormat = numberFormat;
+  columns: Columns[] = [
+    { key: 'member_name', title: 'Member' },
+    { key: 'member_phone', title: 'Phone' },
+    { key: 'address_location', title: 'Address' },
+    { key: 'total_price', title: 'Total' },
+    { key: 'status', title: 'Status' },
+  ];
+  configuration: Config;
+  clicked: string;
+  orders: OrderRO[] = [];
 
-  constructor(
-    private orderService: OrderService,
-    private dialog: MatDialog,
-  ) {}
-
-  @ViewChild(MatSort) sort: MatSort;
-
-  ngOnInit() {
+  ngOnInit(): void {
+    this.configuration = { ...DefaultConfig };
+    this.configuration.searchEnabled = true;
     this.orderService.orders$.subscribe({
       next: (orders) => {
-        this.dataSource = new MatTableDataSource(orders);
+        this.orders = orders;
       },
     });
   }
-
-  ngAfterViewInit() {
-    this.dataSource.sort = this.sort;
-  }
-
-  openDialog(orderId: string) {
-    const dialogRef = this.dialog.open(ShippersDialogComponent, {
-      data: orderId,
-    });
-    dialogRef.afterClosed().subscribe((result) => {
-      console.log('The dialog was closed');
-      console.log(result);
-    });
+  eventEmitted($event: { event: string; value: any }): void {
+    this.clicked = JSON.stringify($event);
+    // eslint-disable-next-line no-console
+    this.router.navigate(['dashboard', 'orders', $event.value.row.id]);
   }
 }

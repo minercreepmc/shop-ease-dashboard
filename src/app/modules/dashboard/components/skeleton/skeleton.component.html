@@ -1,7 +1,7 @@
 <section class="section">
-  <mat-toolbar color="primary" class="header">Category List</mat-toolbar>
+  <mat-toolbar color="primary" class="header">{{ title }}</mat-toolbar>
   <button *ngIf="dialogComponent" mat-raised-button (click)="openDialog()">
-    Add Category
+    {{ action }}
   </button>
   <ng-content></ng-content>
 </section>

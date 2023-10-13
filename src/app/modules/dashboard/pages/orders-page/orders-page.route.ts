@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { OrderResolver } from '@shared/resolver';
 import { OrdersResolver } from '@shared/resolver/orders.resolver';
 import { ShippersResolver } from '@shared/resolver/shippers.resolver';
 import { OrdersPageComponent } from './orders-page.component';
@@ -12,6 +13,7 @@ const routes: Routes = [
   },
   {
     path: ':id',
+    resolve: { order: OrderResolver },
     loadComponent: () =>
       import('./order-details/order-details.component').then(
         (m) => m.OrderDetailsComponent,

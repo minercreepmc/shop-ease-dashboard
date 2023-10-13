@@ -24,7 +24,7 @@ export class OrderService {
     return this.http.get<OrderRO>(
       ApiApplication.ORDER.CONTROLLER +
         '/' +
-        ApiApplication.ORDER.GET_ONE.replace(':id', id),
+        ApiApplication.ORDER.GET_ONE.replace(':orderId', id),
     );
   }
 

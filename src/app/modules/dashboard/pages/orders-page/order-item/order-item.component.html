@@ -1,0 +1,11 @@
+<mat-card class="example-card">
+  <mat-card-title-group>
+    <mat-card-title>{{ item.name }}</mat-card-title>
+    <mat-card-subtitle>{{ item.price }} | {{ item.amount }}</mat-card-subtitle>
+    <img
+      mat-card-lg-image
+      [src]="item.image_urls[0] || '/assets/default-image.webp'"
+    />
+  </mat-card-title-group>
+  <mat-card-content>{{ item.description }}</mat-card-content>
+</mat-card>

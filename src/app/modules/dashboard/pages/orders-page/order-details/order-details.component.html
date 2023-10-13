@@ -1,17 +1,13 @@
 <app-skeleton [title]="'Order details'" [action]="'Test'">
-  <app-order-card></app-order-card>
-  <mat-card class="example-card">
-    <mat-card-title-group>
-      <mat-card-title>Shiba Inu</mat-card-title>
-      <mat-card-subtitle>Large</mat-card-subtitle>
-      <img
-        mat-card-lg-image
-        src="https://material.angular.io/assets/img/examples/shiba2.jpg"
-      />
-    </mat-card-title-group>
-    <mat-card-content>
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur,
-      dolores.
-    </mat-card-content>
-  </mat-card>
+  <div class="order-card">
+    <app-order-card [order]="order"></app-order-card>
+  </div>
+
+  <div class="order-items">
+    <app-order-item-list [items]="order.items!"></app-order-item-list>
+  </div>
+
+  <div class="order-status">
+    <app-order-status></app-order-status>
+  </div>
 </app-skeleton>

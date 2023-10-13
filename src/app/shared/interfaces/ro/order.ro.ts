@@ -10,6 +10,7 @@ export class OrderRO {
   member_name: string;
   member_phone: string;
   updated_at: Date;
+  items?: OrderItemRO[];
 }
 
 export class OrderItemRO {
@@ -19,7 +20,7 @@ export class OrderItemRO {
   product_id: string;
   amount: number;
   name: string;
-  images: string[];
+  image_urls: string[];
   description: string;
   category_name: string;
 }

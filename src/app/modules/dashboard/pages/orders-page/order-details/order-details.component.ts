@@ -6,6 +6,8 @@ import { ActivatedRoute } from '@angular/router';
 import { OrderCardComponent } from '@modules/dashboard/components';
 import { SkeletonComponent } from '@modules/dashboard/components/skeleton/skeleton.component';
 import { OrderRO } from '@ro';
+import { OrderItemListComponent } from '../order-item-list/order-item-list.component';
+import { OrderStatusComponent } from '../order-status/order-status.component';
 
 @Component({
   selector: 'app-order-details',
@@ -18,6 +20,8 @@ import { OrderRO } from '@ro';
     MatButtonModule,
     MatIconModule,
     OrderCardComponent,
+    OrderItemListComponent,
+    OrderStatusComponent,
   ],
 })
 export class OrderDetailsComponent implements OnInit {
@@ -25,7 +29,6 @@ export class OrderDetailsComponent implements OnInit {
   order: OrderRO;
   ngOnInit(): void {
     this.route.data.subscribe((data) => {
-      console.log(data);
       this.order = data.order;
     });
   }

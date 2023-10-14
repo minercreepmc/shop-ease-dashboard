@@ -13,3 +13,4 @@ export * from './profile.resolver';
 export * from './categories-include-count.resolver';
 export * from './shipping-fee.resolver';
 export * from './shipping-fees.resolver';
+export * from './shipping-by-order.resolver';

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { CacheStorageFacet, CacheStorageService } from '@service';
@@ -15,7 +15,6 @@ export class WhiteFormComponent implements OnInit {
   constructor(cacheService: CacheStorageService) {
     this.cacheStorage = cacheService.forKey('shipper-form');
   }
-  @Input() submitFn: (dto: any) => void;
   @Input() dto: any;
   @Input() title: string;
 
@@ -23,8 +22,9 @@ export class WhiteFormComponent implements OnInit {
     this.restoreCacheStorage();
   }
 
+  @Output() formSubmitted = new EventEmitter<any>();
   onSubmit() {
-    this.submitFn(this.dto);
+    this.formSubmitted.emit(this.dto);
   }
 
   async restoreCacheStorage(): Promise<void> {

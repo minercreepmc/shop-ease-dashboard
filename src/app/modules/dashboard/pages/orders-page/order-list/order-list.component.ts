@@ -2,7 +2,6 @@ import { DecimalPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { Router, RouterModule } from '@angular/router';
-import { OrderModel } from '@model';
 import { OrderRO } from '@ro';
 import { OrderService } from '@service';
 import { Columns, Config, DefaultConfig, TableModule } from 'ngx-easy-table';
@@ -43,6 +42,7 @@ export class OrderListComponent implements OnInit {
     this.configuration.searchEnabled = true;
     this.orderService.orders$.subscribe({
       next: (orders) => {
+        console.log(orders);
         this.orders = orders;
       },
     });
@@ -50,6 +50,7 @@ export class OrderListComponent implements OnInit {
   eventEmitted($event: { event: string; value: any }): void {
     this.clicked = JSON.stringify($event);
     // eslint-disable-next-line no-console
-    this.router.navigate(['dashboard', 'orders', $event.value.row.id]);
+    console.log($event);
+    this.router.navigate(['dashboard', 'orders', $event.value?.row?.id]);
   }
 }

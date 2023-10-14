@@ -14,6 +14,7 @@ import {
 } from './core/interceptors';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrCustomModule } from '@shared/libraries/toastr';
+import { MatNativeDateModule } from '@angular/material/core';
 
 const exceptionHandlers: Provider[] = [
   {
@@ -41,6 +42,7 @@ const interceptors: Provider[] = [
     ReactiveFormsModule,
     DashboardModule,
     BrowserAnimationsModule,
+    MatNativeDateModule,
   ],
   providers: [...exceptionHandlers, ...interceptors],
   bootstrap: [AppComponent],

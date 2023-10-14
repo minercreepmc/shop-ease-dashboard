@@ -32,9 +32,11 @@ export const ApiApplication = {
     CONTROLLER: ApiBaseUrl + '/shipping',
     CREATE: '',
     UPDATE: ':id',
-    DELETE: ':id',
+    UPDATE_STATUS: 'update-status/:id',
+    DELETE_BY_ORDER: ':orderId',
     GET_ALL: '',
     GET_ONE: ':id',
+    GET_BY_ORDER_ID: 'get-by-order',
     GET_BY_SHIPPER_ID: 'get-by-shipper',
   },
   SHIPPING_FEE: {

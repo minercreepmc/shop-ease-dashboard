@@ -1,3 +1,9 @@
 .order-card {
   margin-bottom: 2rem;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.order-items {
+  margin-top: 2rem;
 }

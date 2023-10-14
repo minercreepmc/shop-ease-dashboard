@@ -1,7 +1,7 @@
 <app-white-form
+  (formSubmitted)="createShipping($event)"
   [dto]="createShippingDto"
   [title]="'Create Shipping'"
-  [submitFn]="createShipping"
 >
   <mat-form-field class="form-field">
     <mat-label>Shipper</mat-label>
@@ -10,5 +10,17 @@
         shipper.full_name
       }}</mat-option>
     </mat-select>
+  </mat-form-field>
+
+  <mat-form-field class="form-field">
+    <mat-label>Choose a date</mat-label>
+    <input
+      [(ngModel)]="createShippingDto.dueDate"
+      matInput
+      [matDatepicker]="picker"
+    />
+    <mat-hint>MM/DD/YYYY</mat-hint>
+    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker> </mat-datepicker>
   </mat-form-field>
 </app-white-form>

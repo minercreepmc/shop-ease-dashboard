@@ -1,13 +1,22 @@
 <app-skeleton [title]="'Order details'" [action]="'Test'">
   <div class="order-card">
     <app-order-card [order]="order"></app-order-card>
+    <app-order-status
+      *ngIf="isAssigned()"
+      [order]="order"
+      [shipping]="shipping"
+    ></app-order-status>
+  </div>
+
+  <div class="progress-bar">
+    <mat-progress-bar mode="determinate" [value]="getProgressBarValue()">
+    </mat-progress-bar>
+    <div style="position: absolute; padding: 10px">
+      {{ order.status }}
+    </div>
   </div>
 
   <div class="order-items">
     <app-order-item-list [items]="order.items!"></app-order-item-list>
-  </div>
-
-  <div class="order-status">
-    <app-order-status></app-order-status>
   </div>
 </app-skeleton>

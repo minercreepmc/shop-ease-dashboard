@@ -58,6 +58,7 @@ export class ShippingDetailsComponent implements OnInit {
   }
 
   createButtonShow() {
+    console.log(this.shipping.status);
     return this.isDelivering();
   }
 

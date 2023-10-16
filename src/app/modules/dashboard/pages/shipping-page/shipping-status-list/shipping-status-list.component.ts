@@ -59,7 +59,6 @@ export class ShippingStatusListComponent implements OnInit {
           ...status,
         },
       })
-      .afterClosed()
-      .subscribe();
+      .afterClosed();
   }
 }

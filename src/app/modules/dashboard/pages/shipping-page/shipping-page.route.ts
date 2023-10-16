@@ -5,7 +5,6 @@ import {
   ShippingsByShipperResolver,
   ShippingStatusListResolver,
 } from '@shared/resolver';
-import { ShippingDetailsComponent } from './shipping-details/shipping-details.component';
 import { ShippingPageComponent } from './shipping-page.component';
 
 const routes: Routes = [

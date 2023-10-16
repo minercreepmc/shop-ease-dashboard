@@ -35,6 +35,7 @@ export class ShippingStatusUpdateFormComponent implements OnInit {
     this.updateShippingStatusDto = {
       ...this.data,
     };
+    console.log('update', this.updateShippingStatusDto);
   }
 
   updateShippingStatus() {

@@ -58,12 +58,23 @@ export class ShippingDetailsComponent implements OnInit {
   }
 
   createButtonShow() {
-    console.log(this.shipping.status);
-    return this.isDelivering();
+    return this.isDelivering() && !this.isDelivered();
+  }
+
+  deliverButtonShow() {
+    return this.isDelivering() && !this.isDelivered();
+  }
+
+  deliveredButtonShow() {
+    return this.isDelivering() || !this.isDelivered();
   }
 
   isDelivering() {
     return this.shipping.status === OrderStatus.DELIVERING;
+  }
+
+  isDelivered() {
+    return this.shipping.status === OrderStatus.DELIVERED;
   }
 
   onCreateClick() {
@@ -99,6 +110,36 @@ export class ShippingDetailsComponent implements OnInit {
       .subscribe({
         next: () => {
           this.toast.success('Deliver shipping success!');
+        },
+        error: (e) => {
+          e.error.message.forEach((m: any) => {
+            this.toast.error(m.error);
+          });
+          console.log(e);
+        },
+      });
+  }
+
+  onDeliveredClick() {
+    this.dialog
+      .open(ConfirmDialogComponent)
+      .afterClosed()
+      .subscribe((result) => {
+        if (result) {
+          this.deliveredShipping();
+        }
+      });
+  }
+
+  deliveredShipping() {
+    this.orderService
+      .updateOrder$(this.shipping.order_id, {
+        status: OrderStatus.DELIVERED,
+      })
+      .subscribe({
+        next: () => {
+          this.toast.success('Delivered shipping success!');
+          this.shipping.status = OrderStatus.DELIVERED;
         },
         error: (e) => {
           e.error.message.forEach((m: any) => {

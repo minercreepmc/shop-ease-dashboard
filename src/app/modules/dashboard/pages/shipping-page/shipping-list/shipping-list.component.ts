@@ -1,5 +1,6 @@
 import { NgFor } from '@angular/common';
 import { Component, Input } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { ShippingRO } from '@ro';
 import { ShippingCardComponent } from '../shipping-card/shipping-card.component';
 
@@ -8,7 +9,7 @@ import { ShippingCardComponent } from '../shipping-card/shipping-card.component'
   templateUrl: './shipping-list.component.html',
   styleUrls: ['./shipping-list.component.scss'],
   standalone: true,
-  imports: [ShippingCardComponent, NgFor],
+  imports: [ShippingCardComponent, NgFor, RouterLink],
 })
 export class ShippingListComponent {
   @Input() shippings: ShippingRO[];

@@ -31,9 +31,7 @@ export class ShippingStatusListComponent implements OnInit {
 
   onDeleteClick(id: string) {
     this.dialog
-      .open(ConfirmDialogComponent, {
-        data: {},
-      })
+      .open(ConfirmDialogComponent)
       .afterClosed()
       .subscribe((result) => {
         if (result) {

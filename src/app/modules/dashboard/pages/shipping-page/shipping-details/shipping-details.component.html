@@ -8,13 +8,24 @@
       <p><mat-icon>phone</mat-icon>: {{ shipping.member_phone }}</p>
       <p><mat-icon>location_on</mat-icon>: {{ shipping.address }}</p>
       <p><mat-icon>local_shipping</mat-icon>: {{ shipping.fee_name }}</p>
+      <p><mat-icon>arrow_forward</mat-icon>: {{ shipping.status }}</p>
     </mat-card-content>
   </mat-card>
 
-  <button mat-raised-button *ngIf="!isDelivering()" (click)="onDeliverClick()">
+  <button
+    mat-raised-button
+    *ngIf="deliverButtonShow()"
+    (click)="onDeliverClick()"
+  >
     DELIVER
   </button>
-  <button mat-raised-button>{{ DELIVERED }}</button>
+  <button
+    mat-raised-button
+    *ngIf="deliveredButtonShow()"
+    (click)="onDeliveredClick()"
+  >
+    {{ DELIVERED }}
+  </button>
 
   <app-shipping-status-list
     [statusList]="statusList"

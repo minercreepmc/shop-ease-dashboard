@@ -99,6 +99,7 @@ export const ApiApplication = {
   PRODUCT_IMAGE: {
     CONTROLLER: ApiBaseUrl + '/product-image',
     ADD: '',
+    REMOVE: 'remove',
     GET_PRODUCT_IMAGES: ':productId',
   },
   ORDER: {

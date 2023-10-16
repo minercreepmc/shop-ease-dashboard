@@ -1,28 +1,8 @@
 <div class="container responsive-grid">
-  <mat-card *ngFor="let product of products">
-    <mat-card-header>
-      <mat-card-title>{{ product.name }} </mat-card-title>
-      <mat-card-subtitle
-        >{{ product.price | number: numberFormat }} VND</mat-card-subtitle
-      >
-    </mat-card-header>
-    <br />
-    <img
-      mat-card-image
-      [src]="product?.image_urls?.[0] || 'assets/default-image.webp'"
-      alt="Product Image"
-    />
-    <mat-card-content>
-      <br />
-      <p>{{ product.description }}</p>
-    </mat-card-content>
-    <mat-card-actions *ngIf="isAdmin()">
-      <button mat-button routerLink="/dashboard/products/{{ product.id }}">
-        EDIT
-      </button>
-      <button mat-button color="warn" (click)="deleteProduct(product.id)">
-        DELETE
-      </button>
-    </mat-card-actions>
-  </mat-card>
+  <app-product-card
+    *ngFor="let product of products"
+    [product]="product"
+    (deleteClicked)="deleteProduct(product.id)"
+    [role]="role"
+  ></app-product-card>
 </div>

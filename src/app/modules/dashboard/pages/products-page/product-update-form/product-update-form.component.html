@@ -1,0 +1,72 @@
+<form class="product-form" (ngSubmit)="onSubmit()">
+  <h3>Update product</h3>
+  <mat-form-field class="form-field">
+    <mat-label>Product Name</mat-label>
+    <input
+      matInput
+      [value]="product.name"
+      (change)="onNameChange($event)"
+      name="name"
+    />
+  </mat-form-field>
+
+  <mat-form-field class="form-field">
+    <mat-label>Product Price</mat-label>
+    <input
+      matInput
+      [value]="product.price"
+      (change)="onPriceChange($event)"
+      name="price"
+    />
+  </mat-form-field>
+
+  <mat-form-field class="form-field">
+    <mat-label>Product Description</mat-label>
+    <textarea
+      matInput
+      [value]="product.description"
+      (change)="onDescriptionChange($event)"
+      name="description"
+    ></textarea>
+  </mat-form-field>
+
+  <mat-form-field class="form-field">
+    <mat-label>Discount</mat-label>
+    <mat-select
+      [value]="product.discount?.id"
+      (selectionChange)="onDiscountChange($event)"
+    >
+      <mat-option [value]="null"></mat-option>
+      <mat-option *ngFor="let discount of discounts" [value]="discount.id"
+        >{{ discount.name }} (-{{ discount.percentage }}%)</mat-option
+      >
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field class="form-field">
+    <mat-label>Categories</mat-label>
+    <mat-select
+      [value]="product.category_ids"
+      (selectionChange)="onCategoriesChange($event)"
+      multiple
+    >
+      <mat-option *ngFor="let category of categories" [value]="category.id">
+        {{ category.name }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field class="form-field">
+    <mat-label>Product Image</mat-label>
+    <ngx-mat-file-input
+      [(ngModel)]="fileInput"
+      name="files"
+      placeholder="Images"
+      multiple
+    ></ngx-mat-file-input>
+
+    <mat-icon matSuffix>folder</mat-icon>
+  </mat-form-field>
+
+  <button mat-raised-button color="primary">Update</button>
+</form>

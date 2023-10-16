@@ -46,7 +46,7 @@ export class OrderDetailsComponent implements OnInit {
     switch (status) {
       case OrderStatus.PROCESSING:
       case OrderStatus.CANCELED:
-      case OrderStatus.REFUSED:
+      case OrderStatus.REJECTED:
         return 0;
       case OrderStatus.ASSIGNED:
         return 20;

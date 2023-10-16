@@ -16,14 +16,14 @@ import { Observable, BehaviorSubject, tap } from 'rxjs';
 })
 export class ProductService {
   constructor(private readonly http: HttpClient) {}
-  readonly products = new BehaviorSubject<ProductModel[]>([]);
+  readonly products = new BehaviorSubject<any[]>([]);
 
-  get products$(): BehaviorSubject<ProductModel[]> {
+  get products$(): BehaviorSubject<any[]> {
     return this.products;
   }
 
-  getProducts$(): Observable<ProductModel[]> {
-    return this.http.get<ProductModel[]>(
+  getProducts$(): Observable<any[]> {
+    return this.http.get<any[]>(
       ApiApplication.PRODUCT.CONTROLLER + '/' + ApiApplication.PRODUCT.GET_ALL,
     );
   }
@@ -37,7 +37,7 @@ export class ProductService {
     );
   }
 
-  setProducts$(products: ProductModel[]) {
+  setProducts$(products: any[]) {
     this.products.next(products);
   }
 

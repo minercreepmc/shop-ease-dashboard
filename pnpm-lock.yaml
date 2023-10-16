@@ -35,6 +35,9 @@ dependencies:
   '@angular/router':
     specifier: ^15.0.0
     version: 15.0.0(@angular/common@15.0.0)(@angular/core@15.0.0)(@angular/platform-browser@15.0.0)(rxjs@7.5.0)
+  '@daelmaak/ngx-gallery':
+    specifier: ^2.1.0
+    version: 2.1.0(@angular/animations@15.0.0)(@angular/common@15.0.0)(@angular/core@15.0.0)(@angular/platform-browser@15.0.0)(rxjs@7.5.0)
   '@fortawesome/angular-fontawesome':
     specifier: 0.12.0
     version: 0.12.0(@angular/core@15.0.0)(@fortawesome/fontawesome-svg-core@6.4.0)
@@ -1877,6 +1880,24 @@ packages:
     resolution: {integrity: sha512-ooWCrlZP11i8GImSjTHYHLkvFDP48nS4+204nGb1RiX/WXYHmJA2III9/e2DWVabCESdW7hBAEzHRqUn9OUVvQ==}
     engines: {node: '>=0.1.90'}
     dev: true
+
+  /@daelmaak/ngx-gallery@2.1.0(@angular/animations@15.0.0)(@angular/common@15.0.0)(@angular/core@15.0.0)(@angular/platform-browser@15.0.0)(rxjs@7.5.0):
+    resolution: {integrity: sha512-f6glanPOjth4pqWrNhbFN5ByuL16hoGdG5wB3o29F+hGrCD3SN2J+z+fIHuNK6F5UPt1xFW7W9JHEcHHRrNoow==}
+    engines: {node: '>=12.0.0'}
+    peerDependencies:
+      '@angular/animations': '>=13.0.0'
+      '@angular/common': '>=13.0.0'
+      '@angular/core': '>=13.0.0'
+      '@angular/platform-browser': '>=13.0.0'
+      rxjs: '>=6.6.0'
+    dependencies:
+      '@angular/animations': 15.0.0(@angular/core@15.0.0)
+      '@angular/common': 15.0.0(@angular/core@15.0.0)(rxjs@7.5.0)
+      '@angular/core': 15.0.0(rxjs@7.5.0)(zone.js@0.12.0)
+      '@angular/platform-browser': 15.0.0(@angular/animations@15.0.0)(@angular/common@15.0.0)(@angular/core@15.0.0)
+      rxjs: 7.5.0
+      tslib: 2.6.2
+    dev: false
 
   /@discoveryjs/json-ext@0.5.7:
     resolution: {integrity: sha512-dBVuXR082gk3jsFp7Rd/JI4kytwGHecnCoTtXFb7DB6CNHp4rg5k1bhg0nWdLGLnOV71lmDzGQaLMy8iPLY0pw==}

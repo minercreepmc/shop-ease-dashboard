@@ -6,6 +6,7 @@ import {
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { UserRole } from '@constant';
 import { AuthService } from '@service';
 import { LogInDto } from '@shared/interfaces/dto';
 import { ToastrCustomService } from '@shared/libraries/toastr';
@@ -37,8 +38,17 @@ export class LogInFormComponent {
         password,
       })
       .subscribe({
-        next: () => {
-          this.router.navigate(['/dashboard']);
+        next: (user) => {
+          switch (user.role) {
+            case UserRole.ADMIN:
+              this.router.navigate(['/dashboard']);
+              break;
+            case UserRole.SHIPPER:
+              this.router.navigate(['/dashboard/shipping']);
+              break;
+            default:
+              this.router.navigate(['/dashboard/products']);
+          }
         },
         error: (error: HttpErrorResponse) => {
           if (error.status === HttpStatusCode.Unauthorized) {

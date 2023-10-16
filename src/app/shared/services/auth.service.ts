@@ -10,7 +10,7 @@ import { UserModel } from '@model';
 })
 export class AuthService {
   constructor(private readonly http: HttpClient) {}
-  profile = new ReplaySubject<UserModel>();
+  private profile = new ReplaySubject<UserModel>();
 
   get profile$() {
     return this.profile;
@@ -28,7 +28,7 @@ export class AuthService {
   }
 
   logInDashboard$(dto: LogInDto) {
-    return this.http.post(
+    return this.http.post<UserModel>(
       ApiApplication.AUTH.CONTROLLER +
         '/' +
         ApiApplication.AUTH.LOGIN_DASHBOARD,

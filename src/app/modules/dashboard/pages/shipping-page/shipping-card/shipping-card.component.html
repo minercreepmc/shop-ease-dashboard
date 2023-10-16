@@ -1,0 +1,19 @@
+<mat-card class="example-card">
+  <mat-card-title>{{ shipping.member_name }}</mat-card-title>
+  <mat-card-subtitle class="subtitle"
+    >{{ shipping.total_price | number: numberFormat }} VND</mat-card-subtitle
+  >
+  <mat-card-content>
+    <p><mat-icon>phone</mat-icon>: {{ shipping.member_phone }}</p>
+    <p><mat-icon>location_on</mat-icon>: {{ shipping.address }}</p>
+    <p><mat-icon>local_shipping</mat-icon>: {{ shipping.fee_name }}</p>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-button *ngIf="acceptShow()" (click)="onAcceptClick()">
+      ACCEPT
+    </button>
+    <button mat-button *ngIf="rejectShow()" (click)="onRejectClick()">
+      REJECT
+    </button>
+  </mat-card-actions>
+</mat-card>

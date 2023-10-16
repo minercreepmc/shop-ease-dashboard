@@ -11,3 +11,4 @@ export * from './shipping.dto';
 export * from './upload-file.dto';
 export * from './user.dto';
 export * from './order.dto';
+export * from './shipping-status.dto';

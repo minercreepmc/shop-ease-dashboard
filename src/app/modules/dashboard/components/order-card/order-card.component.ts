@@ -98,7 +98,7 @@ export class OrderCardComponent {
   }
 
   isRefused() {
-    return this.order.status === OrderStatus.REFUSED;
+    return this.order.status === OrderStatus.REJECTED;
   }
 
   isCancel() {

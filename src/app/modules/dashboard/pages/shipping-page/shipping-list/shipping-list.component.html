@@ -1,1 +1,5 @@
-<p>shipping-list works!</p>
+<div class="shipping-list">
+  <div *ngFor="let shipping of shippings">
+    <app-shipping-card [shipping]="shipping"></app-shipping-card>
+  </div>
+</div>

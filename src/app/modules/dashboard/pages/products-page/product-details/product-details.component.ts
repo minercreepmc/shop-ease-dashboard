@@ -1,12 +1,6 @@
-import { NgFor } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
-import { MatDialogModule } from '@angular/material/dialog';
-import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
-import { MatInputModule } from '@angular/material/input';
-import { MatSelectChange, MatSelectModule } from '@angular/material/select';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { ActivatedRoute } from '@angular/router';
 import { numberFormat } from '@constant';
@@ -14,12 +8,9 @@ import { UpdateProductDto } from '@dto';
 import { CategoryModel, DiscountModel } from '@model';
 import { ProductSliderComponent } from '@modules/dashboard/components/product-slider/product-slider.component';
 import { ProductRO } from '@ro';
-import { CategoryService, DiscountService, ProductService } from '@service';
-import {
-  ToastrCustomModule,
-  ToastrCustomService,
-} from '@shared/libraries/toastr';
-import { MaterialFileInputModule } from 'ngx-material-file-input';
+import { CategoryService, DiscountService } from '@service';
+import { ProductGalleryComponent } from '../product-gallery/product-gallery.component';
+import { ProductUpdateFormComponent } from '../product-update-form/product-update-form.component';
 
 @Component({
   selector: 'app-product-details',
@@ -29,26 +20,17 @@ import { MaterialFileInputModule } from 'ngx-material-file-input';
   imports: [
     ProductSliderComponent,
     MatToolbarModule,
-    MatButtonModule,
-    FormsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatSelectModule,
-    MaterialFileInputModule,
     MatIconModule,
     MatButtonModule,
-    ToastrCustomModule,
-    MatDialogModule,
-    NgFor,
+    ProductUpdateFormComponent,
+    ProductGalleryComponent,
   ],
 })
 export class ProductDetailsComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
-    private productSerivce: ProductService,
     private discountService: DiscountService,
     private categoryService: CategoryService,
-    private toast: ToastrCustomService,
   ) {}
   product: ProductRO;
   discounts: DiscountModel[];
@@ -68,42 +50,5 @@ export class ProductDetailsComponent implements OnInit {
         this.categories = categories;
       },
     });
-  }
-
-  onNameChange($event: any) {
-    this.updateProductDto.name = $event.target.value;
-  }
-
-  onDescriptionChange($event: any) {
-    this.updateProductDto.description = $event.target.value;
-  }
-
-  onPriceChange($event: any) {
-    this.updateProductDto.price = $event.target.value;
-  }
-
-  onDiscountChange($event: MatSelectChange) {
-    this.updateProductDto.discountId = $event.value;
-  }
-
-  onCategoriesChange($event: MatSelectChange) {
-    this.updateProductDto.categoryIds = $event.value;
-  }
-
-  onSubmit() {
-    this.updateProduct(this.product.id, this.updateProductDto);
-  }
-
-  updateProduct(id: string, dto: UpdateProductDto) {
-    console.log(dto);
-    this.productSerivce.updateProduct$(id, dto).subscribe({
-      next: () => {
-        this.toast.success('Update product successfully');
-      },
-      error: (e) => {
-        console.log(e);
-      },
-    });
-    console.log(this.updateProductDto);
   }
 }

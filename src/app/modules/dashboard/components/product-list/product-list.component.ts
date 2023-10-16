@@ -12,7 +12,7 @@ import {
   ToastrCustomModule,
   ToastrCustomService,
 } from '@shared/libraries/toastr';
-import { ProductWithImagesRO } from '@ro';
+import { ProductRO, ProductWithImagesRO } from '@ro';
 import { numberFormat, UserRole } from '@constant';
 
 @Component({
@@ -40,7 +40,7 @@ export class ProductListComponent implements OnInit {
     private route: ActivatedRoute,
     private toast: ToastrCustomService,
   ) {}
-  @Input() products: ProductWithImagesRO[];
+  @Input() products: ProductRO[];
   role: string;
 
   numberFormat = numberFormat;
@@ -49,10 +49,6 @@ export class ProductListComponent implements OnInit {
     this.route.data.subscribe((data) => {
       this.role = data.profile.role;
     });
-  }
-
-  isAdmin() {
-    return this.role === UserRole.ADMIN;
   }
 
   deleteProduct(id: string) {

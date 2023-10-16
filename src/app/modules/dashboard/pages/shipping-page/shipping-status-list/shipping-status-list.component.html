@@ -1,0 +1,13 @@
+<div class="shipping-status-list">
+  <mat-list role="list">
+    <mat-list-item role="listitem" *ngFor="let status of statusList">
+      <p>
+        {{ status.created_at | date: "medium" : "UTC" }} -
+        {{ status.status }}
+      </p>
+
+      <mat-icon (click)="onDeleteClick(status.id)">delete</mat-icon>
+      <mat-icon (click)="onUpdateClick(status)">edit</mat-icon>
+    </mat-list-item>
+  </mat-list>
+</div>

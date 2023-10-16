@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
+import { MatDialogRef } from '@angular/material/dialog';
 import { CacheStorageFacet, CacheStorageService } from '@service';
 
 @Component({
@@ -12,7 +13,10 @@ import { CacheStorageFacet, CacheStorageService } from '@service';
 })
 export class WhiteFormComponent implements OnInit {
   private cacheStorage: CacheStorageFacet;
-  constructor(cacheService: CacheStorageService) {
+  constructor(
+    cacheService: CacheStorageService,
+    private dialogRef: MatDialogRef<WhiteFormComponent>,
+  ) {
     this.cacheStorage = cacheService.forKey('shipper-form');
   }
   @Input() dto: any;
@@ -25,6 +29,7 @@ export class WhiteFormComponent implements OnInit {
   @Output() formSubmitted = new EventEmitter<any>();
   onSubmit() {
     this.formSubmitted.emit(this.dto);
+    this.dialogRef.close();
   }
 
   async restoreCacheStorage(): Promise<void> {

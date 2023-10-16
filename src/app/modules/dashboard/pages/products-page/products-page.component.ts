@@ -9,7 +9,7 @@ import { FormsModule } from '@angular/forms';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { ProductFormComponent } from './product-form/product-form.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { ProductWithImagesRO } from '@ro';
+import { ProductRO, ProductWithImagesRO } from '@ro';
 import { ActivatedRoute } from '@angular/router';
 import { UserModel } from '@model';
 import { UserRole } from '@constant';
@@ -38,7 +38,7 @@ export class ProductsPageComponent implements OnInit {
     private route: ActivatedRoute,
   ) {}
 
-  products: ProductWithImagesRO[];
+  products: ProductRO[];
   userRole: string;
 
   ngOnInit(): void {

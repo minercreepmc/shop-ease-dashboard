@@ -1,0 +1,10 @@
+<app-white-form [title]="'Add Status'" (formSubmitted)="updateShippingStatus()">
+  <mat-form-field class="form-field">
+    <mat-label>Product Status</mat-label>
+    <input
+      matInput
+      [(ngModel)]="updateShippingStatusDto.status"
+      name="status"
+    />
+  </mat-form-field>
+</app-white-form>

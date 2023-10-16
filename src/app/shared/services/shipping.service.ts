@@ -4,13 +4,23 @@ import { ApiApplication } from '@constant';
 import { CreateShippingDto } from '@dto';
 import { ShippingModel } from '@model';
 import { ShippingRO } from '@ro';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ShippingService {
   constructor(private http: HttpClient) {}
+
+  private shippings = new BehaviorSubject<any>([]);
+
+  get shippings$() {
+    return this.shippings.asObservable();
+  }
+
+  setShippings$(shippings: any[]) {
+    this.shippings.next(shippings);
+  }
 
   create$(dto: CreateShippingDto): Observable<ShippingModel> {
     return this.http.post<ShippingModel>(
@@ -35,6 +45,25 @@ export class ShippingService {
       {
         orderId: id,
       },
+    );
+  }
+
+  getByShipperId$(shipperId: string): Observable<ShippingRO[]> {
+    return this.http.post<ShippingRO[]>(
+      ApiApplication.SHIPPING.CONTROLLER +
+        '/' +
+        ApiApplication.SHIPPING.GET_BY_SHIPPER_ID,
+      {
+        shipperId,
+      },
+    );
+  }
+
+  getShipping$(id: string): Observable<ShippingRO> {
+    return this.http.get<ShippingRO>(
+      ApiApplication.SHIPPING.CONTROLLER +
+        '/' +
+        ApiApplication.SHIPPING.GET_ONE.replace(':id', id),
     );
   }
 }

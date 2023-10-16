@@ -9,3 +9,4 @@ export * from './product.model';
 export * from './shipping-fee.model';
 export * from './shipping.model';
 export * from './user.model';
+export * from './shipping-status.model';

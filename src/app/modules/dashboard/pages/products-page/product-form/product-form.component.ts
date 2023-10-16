@@ -13,13 +13,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { CategoryModel, DiscountModel } from '@model';
-import { ActivatedRoute } from '@angular/router';
 import { CreateProductDto, UploadFilesDto } from '@dto';
-import {
-  MatDialogModule,
-  MatDialogRef,
-  MAT_DIALOG_DATA,
-} from '@angular/material/dialog';
+import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { FileInput, MaterialFileInputModule } from 'ngx-material-file-input';
 import { UploadService } from '@service/upload.service';
 import { concatMap, map } from 'rxjs';

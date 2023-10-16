@@ -8,10 +8,7 @@ import { LogInModule } from '@modules/log-in/log-in.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpCustomExceptionHandler } from './core/exception-handler';
-import {
-  CleanPayloadInterceptor,
-  httpInterceptorProviders,
-} from './core/interceptors';
+import { httpInterceptorProviders } from './core/interceptors';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrCustomModule } from '@shared/libraries/toastr';
 import { MatNativeDateModule } from '@angular/material/core';
@@ -23,14 +20,7 @@ const exceptionHandlers: Provider[] = [
   },
 ];
 
-const interceptors: Provider[] = [
-  {
-    provide: HTTP_INTERCEPTORS,
-    useClass: CleanPayloadInterceptor,
-    multi: true,
-  },
-  httpInterceptorProviders,
-];
+const interceptors: Provider[] = [httpInterceptorProviders];
 
 @NgModule({
   declarations: [AppComponent],

@@ -1,6 +1,4 @@
-export class GetCartItemsDto {
-  cartId: string;
-}
+export class GetCartItemsDto {}
 
 export class CreateCartItemDto {
   cartId: string;
@@ -9,5 +7,10 @@ export class CreateCartItemDto {
 }
 
 export class UpdateCartItemDto {
+  amount: number;
+}
+
+export class UpsertCartItemDto {
+  productId: string;
   amount: number;
 }

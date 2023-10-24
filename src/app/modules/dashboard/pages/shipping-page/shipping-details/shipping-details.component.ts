@@ -62,7 +62,7 @@ export class ShippingDetailsComponent implements OnInit {
   }
 
   deliverButtonShow() {
-    return this.isDelivering() && !this.isDelivered();
+    return this.isAccepted();
   }
 
   deliveredButtonShow() {
@@ -75,6 +75,10 @@ export class ShippingDetailsComponent implements OnInit {
 
   isDelivered() {
     return this.shipping.status === OrderStatus.DELIVERED;
+  }
+
+  isAccepted() {
+    return this.shipping.status === OrderStatus.ACCEPTED;
   }
 
   onCreateClick() {
@@ -110,6 +114,7 @@ export class ShippingDetailsComponent implements OnInit {
       .subscribe({
         next: () => {
           this.toast.success('Deliver shipping success!');
+          this.shipping.status = OrderStatus.DELIVERING;
         },
         error: (e) => {
           e.error.message.forEach((m: any) => {

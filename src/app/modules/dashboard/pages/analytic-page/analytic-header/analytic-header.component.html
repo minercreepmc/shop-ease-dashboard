@@ -1,10 +1,22 @@
 <h3 class="title">Analytic</h3>
 
+<mat-form-field>
+  <mat-label>Sort by date</mat-label>
+  <mat-select>
+    <mat-option value="daily" (click)="getDailyStatistics()">Daily</mat-option>
+    <mat-option value="monthly" (click)="getMonthlyStatistics()"
+      >Monthly</mat-option
+    >
+    <mat-option value="weekly" (click)="getWeeklyStatistics()"
+      >Weekly</mat-option
+    >
+  </mat-select>
+</mat-form-field>
 <div class="body">
   <div class="box">
     <fa-icon [icon]="faUsers"></fa-icon>
     <div>
-      <h3>8,267</h3>
+      <h3>{{ memberCount }}</h3>
       <span>New Users</span>
     </div>
   </div>
@@ -12,7 +24,7 @@
   <div class="box">
     <fa-icon [icon]="faShoppingCart"></fa-icon>
     <div>
-      <h3>200,521</h3>
+      <h3>{{ orderCount }}</h3>
       <span>Total Orders</span>
     </div>
   </div>
@@ -20,7 +32,7 @@
   <div class="box">
     <fa-icon [icon]="faCoffee"></fa-icon>
     <div>
-      <h3>215,543</h3>
+      <h3>{{ sold }}</h3>
       <span>Products Sell</span>
     </div>
   </div>
@@ -28,8 +40,8 @@
   <div class="box">
     <fa-icon [icon]="faDollarSign"></fa-icon>
     <div>
-      <h3>$677.89</h3>
-      <span>This Month</span>
+      <h3>{{ income || 0 | number: numberFormat }}</h3>
+      <span>Daily Income</span>
     </div>
   </div>
 </div>

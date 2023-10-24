@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import {
+  ProfileResolver,
   ShippingResolver,
   ShippingsByShipperResolver,
   ShippingStatusListResolver,
@@ -11,7 +12,10 @@ const routes: Routes = [
   {
     path: '',
     component: ShippingPageComponent,
-    resolve: { shippings: ShippingsByShipperResolver },
+    resolve: {
+      shippings: ShippingsByShipperResolver,
+      profile: ProfileResolver,
+    },
   },
   {
     path: ':id',

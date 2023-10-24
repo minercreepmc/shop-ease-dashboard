@@ -5,7 +5,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
 import { ToastrCustomService } from '@shared/libraries/toastr';
-import { CategoryModel, ProductModel } from '@model';
+import { ProductModel } from '@model';
 import { UpdateCategoryDto } from '@dto';
 import { CategoryService } from '@service';
 import { MatToolbarModule } from '@angular/material/toolbar';

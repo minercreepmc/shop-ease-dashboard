@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LogInPageComponent } from '@modules/log-in/pages/sign-in-page/log-in-page.component';
 import { AuthGuard } from '@shared/guards/auth.guard';
+import { ProfileResolver } from '@shared/resolver';
 
 const routes: Routes = [
   {
@@ -12,6 +13,9 @@ const routes: Routes = [
   {
     path: 'dashboard',
     canActivate: [AuthGuard],
+    resolve: {
+      profile: ProfileResolver
+    },
     loadChildren: () =>
       import('./modules/dashboard/dashboard.module').then(
         (m) => m.DashboardModule,

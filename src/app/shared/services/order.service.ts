@@ -50,4 +50,27 @@ export class OrderService {
       ApiApplication.ORDER.CONTROLLER + '/' + ApiApplication.ORDER.GET_ALL,
     );
   }
+
+  countDaily$(): Observable<number> {
+    return this.http.post<number>(
+      ApiApplication.ORDER.CONTROLLER + '/' + ApiApplication.ORDER.COUNT_DAILY,
+      {},
+    );
+  }
+
+  countWeekly$(): Observable<number> {
+    return this.http.post<number>(
+      ApiApplication.ORDER.CONTROLLER + '/' + ApiApplication.ORDER.COUNT_WEEKLY,
+      {},
+    );
+  }
+
+  countMonthly$(): Observable<number> {
+    return this.http.post<number>(
+      ApiApplication.ORDER.CONTROLLER +
+        '/' +
+        ApiApplication.ORDER.COUNT_MONTHLY,
+      {},
+    );
+  }
 }

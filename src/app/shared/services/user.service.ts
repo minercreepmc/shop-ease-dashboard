@@ -89,4 +89,31 @@ export class UserService {
       {},
     );
   }
+
+  countDailyMember$() {
+    return this.http.post<number>(
+      ApiApplication.USER.CONTROLLER +
+        '/' +
+        ApiApplication.USER.COUNT_DAILY_MEMBER,
+      {},
+    );
+  }
+
+  countMonthlyMember$() {
+    return this.http.post<number>(
+      ApiApplication.USER.CONTROLLER +
+        '/' +
+        ApiApplication.USER.COUNT_MONTHLY_MEMBER,
+      {},
+    );
+  }
+
+  countWeeklyMember$() {
+    return this.http.post<number>(
+      ApiApplication.USER.CONTROLLER +
+        '/' +
+        ApiApplication.USER.COUNT_WEEKLY_MEMBER,
+      {},
+    );
+  }
 }

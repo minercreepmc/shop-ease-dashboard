@@ -46,7 +46,7 @@ export class ProductGalleryComponent implements OnInit, AfterViewInit {
     private uploadService: UploadService,
     private productImageService: ProductImageService,
     private toast: ToastrCustomService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
   ) {}
   @Input() image_urls: string[];
   id: string;

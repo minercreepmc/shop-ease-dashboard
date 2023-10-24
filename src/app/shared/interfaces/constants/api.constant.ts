@@ -20,6 +20,9 @@ export const ApiApplication = {
     GET_ALL_STAFF: 'get-all-staff',
     GET_ONE: ':id',
     UPDATE: ':id',
+    COUNT_DAILY_MEMBER: 'count-daily-member',
+    COUNT_MONTHLY_MEMBER: 'count-monthly-member',
+    COUNT_WEEKLY_MEMBER: 'count-weekly-member',
   },
   ADDRESS: {
     CONTROLLER: ApiBaseUrl + '/address',
@@ -56,6 +59,9 @@ export const ApiApplication = {
     GET_ALL: '',
     GET_ALL_WITH_IMAGES: 'get-all-with-images',
     GET_ONE: ':id',
+    GET_DAILY_SOLD: 'get-daily-sold',
+    GET_WEEKLY_SOLD: 'get-weekly-sold',
+    GET_MONTHLY_SOLD: 'get-monthly-sold',
   },
   CATEGORY: {
     CONTROLLER: ApiBaseUrl + '/category',
@@ -109,6 +115,16 @@ export const ApiApplication = {
     GET_ALL: '',
     UPDATE: ':id',
     GET_ONE: ':orderId',
+    COUNT_DAILY: 'count-daily',
+    COUNT_WEEKLY: 'count-weekly',
+    COUNT_MONTHLY: 'count-monthly',
+  },
+  INCOME: {
+    CONTROLLER: ApiBaseUrl + '/income',
+    GET_DAILY: 'get-daily',
+    GET_WEEKLY: 'get-weekly',
+    GET_MONTHLY: 'get-monthly',
+    GET_YEARLY: 'get-yearly',
   },
   SHIPPING_STATUS: {
     CONTROLLER: ApiBaseUrl + '/shipping-status',

@@ -31,6 +31,7 @@ export class NavigationComponent implements OnInit {
   }
 
   showSearch() {
+    console.log(this.isShipper());
     return !this.isShipper();
   }
 

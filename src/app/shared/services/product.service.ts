@@ -37,6 +37,33 @@ export class ProductService {
     );
   }
 
+  getDailySold$() {
+    return this.http.post<number>(
+      ApiApplication.PRODUCT.CONTROLLER +
+        '/' +
+        ApiApplication.PRODUCT.GET_DAILY_SOLD,
+      {},
+    );
+  }
+
+  getMonthlySold$() {
+    return this.http.post<number>(
+      ApiApplication.PRODUCT.CONTROLLER +
+        '/' +
+        ApiApplication.PRODUCT.GET_MONTHLY_SOLD,
+      {},
+    );
+  }
+
+  getWeeklySold$() {
+    return this.http.post<number>(
+      ApiApplication.PRODUCT.CONTROLLER +
+        '/' +
+        ApiApplication.PRODUCT.GET_WEEKLY_SOLD,
+      {},
+    );
+  }
+
   setProducts$(products: any[]) {
     this.products.next(products);
   }

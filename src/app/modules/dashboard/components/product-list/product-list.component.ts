@@ -62,7 +62,7 @@ export class ProductListComponent implements OnInit {
       if (result) {
         this.productService.deleteProduct$(id).subscribe({
           next: () => {
-            this.toast.success('Delete product successfully');
+            this.toast.success('Xóa thành công');
           },
         });
       }

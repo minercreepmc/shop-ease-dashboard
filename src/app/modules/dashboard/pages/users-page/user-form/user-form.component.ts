@@ -42,10 +42,9 @@ export class UserFormComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.createUserDto);
     this.userService.createStaff$(this.createUserDto).subscribe({
       next: () => {
-        this.toast.success('Create successfully');
+        this.toast.success('Thêm thành công');
       },
       error: (e) => {
         e.error.message.forEach((m: any) => {

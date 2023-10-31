@@ -57,8 +57,7 @@ export class ProductUpdateFormComponent {
       this.uploadImageDto,
     ).subscribe({
       next: () => {
-        console.log('oke');
-        this.toast.success('Update product successfully');
+        this.toast.success('Cập nhật thành công');
       },
       error: (e: HttpErrorResponse) => {
         e.error.message.forEach((m: any) => {

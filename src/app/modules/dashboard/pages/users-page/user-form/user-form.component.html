@@ -1,6 +1,6 @@
 <div class="user-form form">
   <form (ngSubmit)="onSubmit()" (valueChanges)="saveToTemporaryStorage()">
-    <h3 class="title">Add new user</h3>
+    <h3 class="title">Thêm nhân viên mới</h3>
 
     <mat-form-field class="form-field">
       <mat-label>Username</mat-label>
@@ -18,18 +18,18 @@
     </mat-form-field>
 
     <mat-form-field class="form-field">
-      <mat-label>Phone</mat-label>
+      <mat-label>Số điện thoại</mat-label>
       <input matInput [(ngModel)]="createUserDto.phone" name="phone" />
       <mat-icon matSuffix>phone</mat-icon>
     </mat-form-field>
 
     <mat-form-field class="form-field">
-      <mat-label>Full Name</mat-label>
+      <mat-label>Tên đầy đủ</mat-label>
       <input matInput [(ngModel)]="createUserDto.fullName" name="full_name" />
     </mat-form-field>
 
     <mat-form-field class="form-field">
-      <mat-label>Enter your password</mat-label>
+      <mat-label>Mật khẩu</mat-label>
       <input
         [(ngModel)]="createUserDto.password"
         name="password"
@@ -48,6 +48,6 @@
       </button>
     </mat-form-field>
 
-    <button mat-flat-button color="primary" class="button">Submit</button>
+    <button mat-flat-button color="primary" class="button">Tạo</button>
   </form>
 </div>

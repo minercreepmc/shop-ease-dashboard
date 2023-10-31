@@ -1,7 +1,7 @@
 <form class="product-form" (ngSubmit)="onSubmit()">
-  <h3>Update product</h3>
+  <h3>Cập nhật hàng</h3>
   <mat-form-field class="form-field">
-    <mat-label>Product Name</mat-label>
+    <mat-label>Tên</mat-label>
     <input
       matInput
       [value]="product.name"
@@ -11,7 +11,7 @@
   </mat-form-field>
 
   <mat-form-field class="form-field">
-    <mat-label>Product Price</mat-label>
+    <mat-label>Giá</mat-label>
     <input
       matInput
       [value]="product.price"
@@ -21,7 +21,7 @@
   </mat-form-field>
 
   <mat-form-field class="form-field">
-    <mat-label>Product Description</mat-label>
+    <mat-label>Mô tả</mat-label>
     <textarea
       matInput
       [value]="product.description"
@@ -31,7 +31,7 @@
   </mat-form-field>
 
   <mat-form-field class="form-field">
-    <mat-label>Discount</mat-label>
+    <mat-label>Giảm giá</mat-label>
     <mat-select
       [value]="product.discount?.id"
       (selectionChange)="onDiscountChange($event)"
@@ -44,7 +44,7 @@
   </mat-form-field>
 
   <mat-form-field class="form-field">
-    <mat-label>Categories</mat-label>
+    <mat-label>Danh mục</mat-label>
     <mat-select
       [value]="product.category_ids"
       (selectionChange)="onCategoriesChange($event)"
@@ -57,7 +57,7 @@
   </mat-form-field>
 
   <mat-form-field class="form-field">
-    <mat-label>Product Image</mat-label>
+    <mat-label>Hình ảnh</mat-label>
     <ngx-mat-file-input
       [(ngModel)]="fileInput"
       name="files"
@@ -68,5 +68,5 @@
     <mat-icon matSuffix>folder</mat-icon>
   </mat-form-field>
 
-  <button mat-raised-button color="primary">Update</button>
+  <button mat-raised-button color="primary">Cập nhật</button>
 </form>

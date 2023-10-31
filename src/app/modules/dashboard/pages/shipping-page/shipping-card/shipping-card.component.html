@@ -10,17 +10,17 @@
   </mat-card-content>
   <mat-card-actions>
     <button mat-button *ngIf="acceptShow()" (click)="onAcceptClick()">
-      ACCEPT
+      ĐỒNG Ý
     </button>
     <button mat-button *ngIf="rejectShow()" (click)="onRejectClick()">
-      REJECT
+      TỪ CHỐI
     </button>
     <button
       routerLink="/dashboard/shipping/{{ shipping.id }}"
       mat-button
       *ngIf="isAccepted()"
     >
-      EDIT
+      CẬP NHẬT
     </button>
   </mat-card-actions>
 </mat-card>

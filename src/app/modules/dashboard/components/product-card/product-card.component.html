@@ -20,10 +20,10 @@
   </mat-card-content>
   <mat-card-actions *ngIf="isAdmin()">
     <button mat-button routerLink="/dashboard/products/{{ product.id }}">
-      EDIT
+      SỮA
     </button>
     <button mat-button color="warn" (click)="onDeleteClick(product.id)">
-      DELETE
+      XÓA
     </button>
   </mat-card-actions>
 </mat-card>

@@ -48,16 +48,13 @@ export class UserDetailsComponent implements OnInit {
   onSubmit() {
     this.userService.updateUser$(this.user.id, this.updateUserDto).subscribe({
       next: () => {
-        this.toast.success('Update successfully');
+        this.toast.success('Cập nhật thành công');
       },
       error: (e) => {
         e.error.message.forEach((m: any) => {
           this.toast.error(m.error);
         });
         console.log(e);
-      },
-      complete: () => {
-        this.updateUserDto = new UpdateUserDto();
       },
     });
   }

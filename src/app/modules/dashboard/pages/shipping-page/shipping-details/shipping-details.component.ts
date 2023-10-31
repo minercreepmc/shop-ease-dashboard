@@ -39,7 +39,6 @@ export class ShippingDetailsComponent implements OnInit {
     private toast: ToastrCustomService,
   ) {}
   numberFormat = numberFormat;
-  DELIVERED = OrderStatus.DELIVERED;
 
   shipping: ShippingRO;
   statusList: ShippingStatusModel[];

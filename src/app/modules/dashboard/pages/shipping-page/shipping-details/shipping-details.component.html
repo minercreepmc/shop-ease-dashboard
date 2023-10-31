@@ -17,14 +17,14 @@
     *ngIf="deliverButtonShow()"
     (click)="onDeliverClick()"
   >
-    DELIVER
+    BẮT ĐẦU GIAO
   </button>
   <button
     mat-raised-button
     *ngIf="deliveredButtonShow()"
     (click)="onDeliveredClick()"
   >
-    {{ DELIVERED }}
+    ĐÃ GIAO
   </button>
 
   <app-shipping-status-list

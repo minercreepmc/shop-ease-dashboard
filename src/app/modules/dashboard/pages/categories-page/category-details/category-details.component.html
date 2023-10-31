@@ -1,15 +1,15 @@
 <section class="section category-details">
-  <mat-toolbar color="primary" class="header">Category Details</mat-toolbar>
+  <mat-toolbar color="primary" class="header">Chi tiết danh mục</mat-toolbar>
 
   <form class="form" (ngSubmit)="onSubmit()">
     <h3 class="title">Update category</h3>
     <mat-form-field class="form-field">
-      <mat-label>Category Name</mat-label>
+      <mat-label>Tên danh mục</mat-label>
       <input matInput [(ngModel)]="updateCategoryDto.name" name="name" />
     </mat-form-field>
 
     <mat-form-field class="form-field">
-      <mat-label>Category Description</mat-label>
+      <mat-label>Mô tả</mat-label>
       <textarea
         matInput
         [(ngModel)]="updateCategoryDto.description"
@@ -17,7 +17,7 @@
       ></textarea>
     </mat-form-field>
 
-    <button mat-raised-button color="primary">Update</button>
+    <button mat-raised-button color="primary">Cập nhật</button>
   </form>
 
   <app-product-list [products]="category.products"></app-product-list>

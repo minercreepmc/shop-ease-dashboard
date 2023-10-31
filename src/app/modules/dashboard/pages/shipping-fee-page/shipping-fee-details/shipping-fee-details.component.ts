@@ -61,6 +61,9 @@ export class ShippingFeeDetailsComponent implements OnInit {
 
           console.log(e);
         },
+        complete: () => {
+          this.updateShippingFeeDto = new UpdateShippingFeeDto();
+        },
       });
   }
 }

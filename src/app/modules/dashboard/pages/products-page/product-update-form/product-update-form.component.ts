@@ -14,7 +14,7 @@ import { ProductService, UploadService } from '@service';
 import { ProductImageService } from '@service/product-image.service';
 import { ToastrCustomService } from '@shared/libraries/toastr';
 import { FileInput, MaterialFileInputModule } from 'ngx-material-file-input';
-import { concatMap, map } from 'rxjs';
+import { concatMap, map, of } from 'rxjs';
 
 @Component({
   selector: 'app-product-update-form',
@@ -57,6 +57,7 @@ export class ProductUpdateFormComponent {
       this.uploadImageDto,
     ).subscribe({
       next: () => {
+        console.log('oke');
         this.toast.success('Update product successfully');
       },
       error: (e: HttpErrorResponse) => {
@@ -74,17 +75,20 @@ export class ProductUpdateFormComponent {
   updateProduct$(id: string, dto: UpdateProductDto, imageDto: UploadFilesDto) {
     return this.productSerivce.updateProduct$(id, dto).pipe(
       concatMap((product) => {
-        return this.uploadService
-          .uploadMultiple(imageDto)
-          .pipe(map((imageUrls) => ({ product, imageUrls })));
-      }),
-      concatMap(({ product, imageUrls }) => {
-        return this.productImageService
-          .addImages$({
-            productId: product.id,
-            urls: imageUrls,
-          })
-          .pipe(map(() => ({ product, imageUrls })));
+        if (imageDto.files) {
+          return this.uploadService.uploadMultiple(imageDto).pipe(
+            concatMap((imageUrls) =>
+              this.productImageService
+                .addImages$({
+                  productId: product.id,
+                  urls: imageUrls,
+                })
+                .pipe(map(() => ({ product, imageUrls }))),
+            ),
+          );
+        } else {
+          return of(product);
+        }
       }),
     );
   }

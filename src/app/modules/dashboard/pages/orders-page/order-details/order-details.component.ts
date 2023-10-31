@@ -65,4 +65,8 @@ export class OrderDetailsComponent implements OnInit {
   isAssigned() {
     return this.order.status === OrderStatus.ASSIGNED;
   }
+
+  isProcessing() {
+    return this.order.status === OrderStatus.PROCESSING;
+  }
 }

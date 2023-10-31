@@ -107,4 +107,8 @@ export class ShippingCardComponent implements OnInit {
   isAssigned() {
     return this.shipping.status === OrderStatus.ASSIGNED;
   }
+
+  isAccepted() {
+    return this.shipping.status === OrderStatus.ACCEPTED;
+  }
 }

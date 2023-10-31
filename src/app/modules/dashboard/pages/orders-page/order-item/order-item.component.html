@@ -1,7 +1,10 @@
 <mat-card class="example-card">
   <mat-card-title-group>
     <mat-card-title>{{ item.name }}</mat-card-title>
-    <mat-card-subtitle>{{ item.price }} | {{ item.amount }}</mat-card-subtitle>
+    <mat-card-subtitle
+      >{{ item.price | number: numberFormat }} VND |
+      {{ item.amount }}</mat-card-subtitle
+    >
     <img
       mat-card-lg-image
       [src]="item.image_urls[0] || '/assets/default-image.webp'"

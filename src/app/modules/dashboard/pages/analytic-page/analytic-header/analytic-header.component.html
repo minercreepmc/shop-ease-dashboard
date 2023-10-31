@@ -1,15 +1,13 @@
 <h3 class="title">Analytic</h3>
 
 <mat-form-field>
-  <mat-label>Sort by date</mat-label>
+  <mat-label>Lấy doanh thu theo...</mat-label>
   <mat-select>
-    <mat-option value="daily" (click)="getDailyStatistics()">Daily</mat-option>
+    <mat-option value="daily" (click)="getDailyStatistics()">Ngày</mat-option>
     <mat-option value="monthly" (click)="getMonthlyStatistics()"
-      >Monthly</mat-option
+      >Tháng</mat-option
     >
-    <mat-option value="weekly" (click)="getWeeklyStatistics()"
-      >Weekly</mat-option
-    >
+    <mat-option value="weekly" (click)="getWeeklyStatistics()">Tuần</mat-option>
   </mat-select>
 </mat-form-field>
 <div class="body">
@@ -17,7 +15,7 @@
     <fa-icon [icon]="faUsers"></fa-icon>
     <div>
       <h3>{{ memberCount }}</h3>
-      <span>New Users</span>
+      <span>Khách hàng mới</span>
     </div>
   </div>
 
@@ -25,7 +23,7 @@
     <fa-icon [icon]="faShoppingCart"></fa-icon>
     <div>
       <h3>{{ orderCount }}</h3>
-      <span>Total Orders</span>
+      <span>Tổng đơn hàng</span>
     </div>
   </div>
 
@@ -33,7 +31,7 @@
     <fa-icon [icon]="faCoffee"></fa-icon>
     <div>
       <h3>{{ sold }}</h3>
-      <span>Products Sell</span>
+      <span>Hàng đã bán</span>
     </div>
   </div>
 
@@ -41,7 +39,7 @@
     <fa-icon [icon]="faDollarSign"></fa-icon>
     <div>
       <h3>{{ income || 0 | number: numberFormat }}</h3>
-      <span>Daily Income</span>
+      <span>Doanh thu</span>
     </div>
   </div>
 </div>

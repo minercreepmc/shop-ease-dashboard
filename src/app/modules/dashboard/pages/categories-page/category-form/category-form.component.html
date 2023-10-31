@@ -1,27 +1,27 @@
 <form (ngSubmit)="onCategorySubmit()" class="category-form">
-  <h3>Add new category</h3>
+  <h3>Thêm danh mục mới</h3>
 
   <mat-form-field class="form-group">
-    <mat-label>Name</mat-label>
+    <mat-label>Tên</mat-label>
     <input
       matInput
-      placeholder="Ex. Dark Coffee"
+      placeholder="Ex. Laptop"
       [(ngModel)]="createCategoryDto.name"
       name="name"
     />
   </mat-form-field>
 
   <mat-form-field class="form-group">
-    <mat-label>Description</mat-label>
+    <mat-label>Mô tả</mat-label>
     <textarea
       matInput
-      placeholder="Enter category description"
+      placeholder="Nhập vào mô tả"
       [(ngModel)]="createCategoryDto.description"
       name="description"
     ></textarea>
   </mat-form-field>
 
   <button mat-flat-button color="primary" class="button" type="submit">
-    Submit
+    Tạo
   </button>
 </form>

@@ -1,11 +1,13 @@
 <section class="section shipping-fee-details">
-  <mat-toolbar color="primary" class="header">Shipping Fee Details</mat-toolbar>
+  <mat-toolbar color="primary" class="header"
+    >Phí giao hàng chi tiết</mat-toolbar
+  >
 
   <form class="form" (ngSubmit)="onSubmit()">
-    <h3 class="title">Update shipping fee</h3>
+    <h3 class="title">Cập nhật phí giao hàng</h3>
 
     <mat-form-field class="form-field">
-      <mat-label>Name</mat-label>
+      <mat-label>Tên</mat-label>
       <input
         matInput
         placeholder="Ex. Fast"
@@ -16,7 +18,7 @@
     </mat-form-field>
 
     <mat-form-field class="form-field">
-      <mat-label>Fee</mat-label>
+      <mat-label>Phí</mat-label>
       <input
         matInput
         placeholder="Enter shipping fee"
@@ -27,6 +29,6 @@
       />
     </mat-form-field>
 
-    <button mat-raised-button color="primary">Update</button>
+    <button mat-raised-button color="primary">Cập nhật</button>
   </form>
 </section>

@@ -23,10 +23,10 @@ export class UserListComponent implements OnInit {
   @Input() detailRoute = 'users';
 
   columns: Columns[] = [
-    { key: 'full_name', title: 'Name' },
-    { key: 'phone', title: 'Phone' },
+    { key: 'full_name', title: 'Tên' },
+    { key: 'phone', title: 'Số điện thoại' },
     { key: 'email', title: 'Email' },
-    { key: 'role', title: 'Role' },
+    { key: 'role', title: 'Chức Năng' },
   ];
   configuration: Config;
   clicked: string;

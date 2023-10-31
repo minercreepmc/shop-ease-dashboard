@@ -1,20 +1,20 @@
 <div class="form">
   <form (ngSubmit)="onSubmit()" (valueChanges)="saveToTemporaryStorage()">
-    <h3 class="title">Add new shipper</h3>
+    <h3 class="title">Thêm nhân viên giao hàng mới</h3>
 
     <mat-form-field class="form-field">
-      <mat-label>Username</mat-label>
+      <mat-label>Tên người dùng</mat-label>
       <input matInput [(ngModel)]="createShipperDto.username" name="username" />
     </mat-form-field>
 
     <mat-form-field class="form-field">
-      <mat-label>Phone</mat-label>
+      <mat-label>Số điện thoại</mat-label>
       <input matInput [(ngModel)]="createShipperDto.phone" name="phone" />
       <mat-icon matSuffix>phone</mat-icon>
     </mat-form-field>
 
     <mat-form-field class="form-field">
-      <mat-label>Full Name</mat-label>
+      <mat-label>Tên đầy đủ</mat-label>
       <input
         matInput
         [(ngModel)]="createShipperDto.fullName"
@@ -23,7 +23,7 @@
     </mat-form-field>
 
     <mat-form-field class="form-field">
-      <mat-label>Enter your password</mat-label>
+      <mat-label>Mât khẩu</mat-label>
       <input
         [(ngModel)]="createShipperDto.password"
         name="password"
@@ -42,6 +42,6 @@
       </button>
     </mat-form-field>
 
-    <button mat-flat-button color="primary" class="button">Submit</button>
+    <button mat-flat-button color="primary" class="button">Tạo</button>
   </form>
 </div>

@@ -97,7 +97,7 @@ export class ProductFormComponent implements OnInit {
     }
     this.createProductAndPublishImages().subscribe({
       next: () => {
-        this.toast.success('Product created successfully');
+        this.toast.success('Tạo thành công');
         this.dialogRef.close();
       },
       error: (e: HttpErrorResponse) => {
@@ -107,7 +107,7 @@ export class ProductFormComponent implements OnInit {
         console.log(e);
       },
       complete: () => {
-        console.log('complete');
+        window.location.reload();
       },
     });
   }

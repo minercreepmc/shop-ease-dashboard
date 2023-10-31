@@ -6,48 +6,47 @@
 
   <div class="menu__items">
     <div *ngIf="!isShipper()">
-    <li routerLink="products" routerLinkActive="active">
-      <fa-icon [icon]="faBoxOpen"></fa-icon>
-      <a>Products</a>
-    </li>
+      <li routerLink="products" routerLinkActive="active">
+        <fa-icon [icon]="faBoxOpen"></fa-icon>
+        <a>Hàng hóa</a>
+      </li>
 
-    <li routerLink="categories" routerLinkActive="active">
-      <fa-icon [icon]="faList"></fa-icon>
-      <a>Categories</a>
-    </li>
+      <li routerLink="categories" routerLinkActive="active">
+        <fa-icon [icon]="faList"></fa-icon>
+        <a>Danh muc</a>
+      </li>
 
-    <li *ngIf="isAdmin()" routerLink="users" routerLinkActive="active">
-      <fa-icon [icon]="faUser"></fa-icon>
-      <a>Users</a>
-    </li>
+      <li *ngIf="isAdmin()" routerLink="users" routerLinkActive="active">
+        <fa-icon [icon]="faUser"></fa-icon>
+        <a>Người dùng</a>
+      </li>
 
-    <li routerLink="discounts" routerLinkActive="active">
-      <fa-icon [icon]="faTag"></fa-icon>
-      <a>Discounts</a>
-    </li>
-
+      <li routerLink="discounts" routerLinkActive="active">
+        <fa-icon [icon]="faTag"></fa-icon>
+        <a>Giảm giá</a>
+      </li>
     </div>
     <div *ngIf="isStaff()">
       <li routerLink="shipping-fee" routerLinkActive="active">
         <fa-icon [icon]="faList"></fa-icon>
-        <a>Shipping Fee</a>
+        <a>Phí giao hàng</a>
       </li>
 
       <li routerLink="orders" routerLinkActive="active">
         <fa-icon [icon]="faList"></fa-icon>
-        <a>Orders</a>
+        <a>Đơn hàng</a>
       </li>
 
       <li routerLink="shipper" routerLinkActive="active">
         <fa-icon [icon]="faList"></fa-icon>
-        <a>Shippers</a>
+        <a>Nhân viên giao hàng</a>
       </li>
     </div>
 
     <div *ngIf="isShipper()">
       <li routerLink="shipping" routerLinkActive="active">
         <fa-icon [icon]="faList"></fa-icon>
-        <a>Shipping</a>
+        <a>Giao hàng</a>
       </li>
     </div>
   </div>

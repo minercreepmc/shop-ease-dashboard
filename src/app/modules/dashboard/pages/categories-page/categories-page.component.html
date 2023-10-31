@@ -1,12 +1,12 @@
 <section class="categories-page">
-  <mat-toolbar color="primary" class="header">Category List</mat-toolbar>
+  <mat-toolbar color="primary" class="header">Danh mục</mat-toolbar>
   <button
     *ngIf="isAdmin()"
     type="add-category"
     mat-raised-button
     (click)="openDialog()"
   >
-    Add Category
+    Thêm danh mục
   </button>
   <app-category-list></app-category-list>
 </section>

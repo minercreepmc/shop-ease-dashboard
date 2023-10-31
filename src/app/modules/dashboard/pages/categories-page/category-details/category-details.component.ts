@@ -56,7 +56,7 @@ export class CategoryDetailsComponent implements OnInit {
       .updateCategory$(this.category.id, this.updateCategoryDto)
       .subscribe({
         next: () => {
-          this.toast.success('Category updated successfully');
+          this.toast.success('Cập nhật hàng thành công');
         },
         error: (error) => {
           error.error.message.forEach((m: any) => {

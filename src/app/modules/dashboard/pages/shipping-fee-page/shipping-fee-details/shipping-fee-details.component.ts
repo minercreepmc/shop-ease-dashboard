@@ -52,7 +52,7 @@ export class ShippingFeeDetailsComponent implements OnInit {
       .updateFee$(this.shippingFee.id, this.updateShippingFeeDto)
       .subscribe({
         next: () => {
-          this.toast.success('Updated successfully');
+          this.toast.success('Cập nhật phí thành công');
         },
         error: (e: HttpErrorResponse) => {
           e.error.message.forEach((m: any) => {

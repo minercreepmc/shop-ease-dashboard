@@ -1,12 +1,12 @@
 <section class="products-page">
-  <mat-toolbar color="primary" class="header">Product List</mat-toolbar>
+  <mat-toolbar color="primary" class="header">Hàng hóa</mat-toolbar>
   <button
     *ngIf="isAdmin()"
     class="add-product"
     mat-raised-button
     (click)="openDialog()"
   >
-    Add Product
+    Thêm hàng hóa
   </button>
   <app-product-list [products]="products"></app-product-list>
 </section>

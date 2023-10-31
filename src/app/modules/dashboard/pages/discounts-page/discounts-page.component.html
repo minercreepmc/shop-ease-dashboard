@@ -1,12 +1,12 @@
 <section class="discount-page section">
-  <mat-toolbar color="primary" class="header">Discount List</mat-toolbar>
+  <mat-toolbar color="primary" class="header">Giảm giá</mat-toolbar>
   <button
     *ngIf="isAdmin()"
     type="add-category"
     mat-raised-button
     (click)="openDialog()"
   >
-    Add Discount
+    Thêm giảm giá
   </button>
   <app-discount-list></app-discount-list>
 </section>

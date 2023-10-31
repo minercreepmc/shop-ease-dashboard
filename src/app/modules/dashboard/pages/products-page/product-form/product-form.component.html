@@ -1,14 +1,14 @@
 <div class="product-form">
   <form (ngSubmit)="onSubmit()">
-    <h3>Add new product</h3>
+    <h3>Thêm hàng hóa</h3>
 
     <mat-form-field class="form-field">
-      <mat-label>Product Name</mat-label>
+      <mat-label>Tên</mat-label>
       <input matInput [(ngModel)]="createProductDto.name" name="name" />
     </mat-form-field>
 
     <mat-form-field class="form-field">
-      <mat-label>Product Price</mat-label>
+      <mat-label>Giá</mat-label>
       <input
         matInput
         type="number"
@@ -18,7 +18,7 @@
     </mat-form-field>
 
     <mat-form-field class="form-field">
-      <mat-label>Product Description</mat-label>
+      <mat-label>Mô tả</mat-label>
       <textarea
         matInput
         [(ngModel)]="createProductDto.description"
@@ -27,7 +27,7 @@
     </mat-form-field>
 
     <mat-form-field class="form-field">
-      <mat-label>Product Image</mat-label>
+      <mat-label>Hình ảnh</mat-label>
       <ngx-mat-file-input
         [(ngModel)]="fileInput"
         name="files"
@@ -39,7 +39,7 @@
     </mat-form-field>
 
     <mat-form-field class="form-field">
-      <mat-label>Categories</mat-label>
+      <mat-label>Danh mục</mat-label>
       <mat-select
         multiple
         [(ngModel)]="createProductDto.categoryIds"
@@ -52,7 +52,7 @@
     </mat-form-field>
 
     <mat-form-field class="form-field">
-      <mat-label>Discount</mat-label>
+      <mat-label>Giảm giá</mat-label>
       <mat-select [(ngModel)]="createProductDto.discountId">
         <mat-option *ngFor="let discount of discounts" [value]="discount.id"
           >{{ discount.name }} (-{{ discount.percentage }}%)</mat-option
@@ -69,6 +69,6 @@
     <!--   #productImage -->
     <!--   (change)="handleFileInput($event)" -->
     <!-- /> -->
-    <button mat-flat-button color="primary" class="button">Submit</button>
+    <button mat-flat-button color="primary" class="button">Tạo</button>
   </form>
 </div>

@@ -52,11 +52,11 @@ export class LogInFormComponent {
         },
         error: (error: HttpErrorResponse) => {
           if (error.status === HttpStatusCode.Unauthorized) {
-            this.toast.error('Fail to login');
+            this.toast.error('Đăng nhập thất bại');
           } else if (error.status === HttpStatusCode.Forbidden) {
-            this.toast.error('You are not allow to do this');
+            this.toast.error('Bạn không có quyền để truy cập');
           } else {
-            this.toast.error('Something went wrong');
+            this.toast.error('Đã xảy ra vấn đề. Vui lòng thử lại sau');
           }
         },
       });

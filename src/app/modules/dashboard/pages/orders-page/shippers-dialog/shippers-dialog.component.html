@@ -4,7 +4,7 @@
   [title]="'Create Shipping'"
 >
   <mat-form-field class="form-field">
-    <mat-label>Shipper</mat-label>
+    <mat-label>Nhân viên giao hàng</mat-label>
     <mat-select [(ngModel)]="createShippingDto.shipperId">
       <mat-option *ngFor="let shipper of shippers" [value]="shipper.id">{{
         shipper.full_name
@@ -13,7 +13,7 @@
   </mat-form-field>
 
   <mat-form-field class="form-field">
-    <mat-label>Choose a date</mat-label>
+    <mat-label>Chọn ngày</mat-label>
     <input
       [(ngModel)]="createShippingDto.dueDate"
       matInput

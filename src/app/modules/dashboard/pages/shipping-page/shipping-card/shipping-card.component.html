@@ -15,5 +15,12 @@
     <button mat-button *ngIf="rejectShow()" (click)="onRejectClick()">
       REJECT
     </button>
+    <button
+      routerLink="/dashboard/shipping/{{ shipping.id }}"
+      mat-button
+      *ngIf="isAccepted()"
+    >
+      EDIT
+    </button>
   </mat-card-actions>
 </mat-card>

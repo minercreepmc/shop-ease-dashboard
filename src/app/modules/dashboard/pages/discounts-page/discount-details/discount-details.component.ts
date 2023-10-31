@@ -65,6 +65,9 @@ export class DiscountDetailsComponent implements OnInit {
           });
           console.log(e);
         },
+        complete: () => {
+          this.updateDiscountDto = new UpdateDiscountDto();
+        },
       });
   }
 }

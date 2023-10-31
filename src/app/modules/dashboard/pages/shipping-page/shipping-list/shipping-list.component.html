@@ -1,8 +1,5 @@
 <div class="shipping-list">
   <div *ngFor="let shipping of shippings">
-    <app-shipping-card
-      routerLink="/dashboard/shipping/{{ shipping.id }}"
-      [shipping]="shipping"
-    ></app-shipping-card>
+    <app-shipping-card [shipping]="shipping"></app-shipping-card>
   </div>
 </div>

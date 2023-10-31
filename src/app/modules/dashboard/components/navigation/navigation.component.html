@@ -3,7 +3,7 @@
     <div>
       <fa-icon class="menu-btn" [icon]="faBars"></fa-icon>
     </div>
-    <div class="search" *ngIf="showSearch()">
+    <div class="search" *ngIf="isShipper()">
       <fa-icon [icon]="faSearch"></fa-icon>
       <input type="text" placeholder="Search" />
     </div>

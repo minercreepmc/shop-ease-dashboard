@@ -1,5 +1,10 @@
 .example-card {
-  max-width: 260px;
+  img {
+    height: fit-content; //so that it takes up full space
+    max-height: 500px !important; // this prevents the image from being extremely big
+    object-fit: cover;
+    object-position: center; /* this centers and crops the image so that it doesn't break the aspect ratio */
+  }
 }
 
 .example-header-image {

@@ -56,6 +56,9 @@ export class UserDetailsComponent implements OnInit {
         });
         console.log(e);
       },
+      complete: () => {
+        this.updateUserDto = new UpdateUserDto();
+      },
     });
   }
 }

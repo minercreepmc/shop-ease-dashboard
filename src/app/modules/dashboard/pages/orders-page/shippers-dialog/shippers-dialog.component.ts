@@ -68,7 +68,7 @@ export class ShippersDialogComponent implements OnInit {
         console.log(e);
       },
       complete: () => {
-        this.dialogRef.close({ event: 'created' });
+        this.dialogRef.close(true);
       },
     });
   }

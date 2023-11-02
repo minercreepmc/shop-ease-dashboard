@@ -26,7 +26,7 @@ export class DiscountFormComponent {
   onSubmit() {
     this.discountService.createDiscount$(this.createDiscountDto).subscribe({
       next: () => {
-        this.toast.success('Create successfully');
+        this.toast.success('Tạo thành công');
       },
       error: (e) => {
         e.error.message.forEach((m: any) => {

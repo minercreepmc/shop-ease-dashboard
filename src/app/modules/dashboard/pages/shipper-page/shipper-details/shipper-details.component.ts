@@ -10,6 +10,7 @@ import { UpdateUserDto } from '@dto';
 import { UserRO } from '@ro';
 import { UserService } from '@service';
 import { ToastrCustomService } from '@shared/libraries/toastr';
+import { handleError } from '@shared/utils';
 
 @Component({
   selector: 'app-shipper-details',
@@ -48,13 +49,10 @@ export class ShipperDetailsComponent implements OnInit {
   onSubmit() {
     this.userService.updateUser$(this.user.id, this.updateUserDto).subscribe({
       next: () => {
-        this.toast.success('Update successfully');
+        this.toast.success('Cập nhật shipper thành công');
       },
       error: (e) => {
-        e.error.message.forEach((m: any) => {
-          this.toast.error(m.error);
-        });
-        console.log(e);
+        handleError(e, this.toast);
       },
     });
   }

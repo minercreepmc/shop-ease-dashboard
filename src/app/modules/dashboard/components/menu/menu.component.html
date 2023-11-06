@@ -7,38 +7,38 @@
   <div class="menu__items">
     <div *ngIf="!isShipper()">
       <li routerLink="products" routerLinkActive="active">
-        <fa-icon [icon]="faBoxOpen"></fa-icon>
+        <mat-icon area-hidden="true">local_grocery_store</mat-icon>
         <a>Hàng hóa</a>
       </li>
 
       <li routerLink="categories" routerLinkActive="active">
-        <fa-icon [icon]="faList"></fa-icon>
+        <mat-icon area-hidden="true">list</mat-icon>
         <a>Danh muc</a>
       </li>
 
       <li *ngIf="isAdmin()" routerLink="users" routerLinkActive="active">
-        <fa-icon [icon]="faUser"></fa-icon>
+        <mat-icon area-hidden="true">person</mat-icon>
         <a>Người dùng</a>
       </li>
 
       <li routerLink="discounts" routerLinkActive="active">
-        <fa-icon [icon]="faTag"></fa-icon>
+        <mat-icon area-hidden="true">loyalty</mat-icon>
         <a>Giảm giá</a>
       </li>
     </div>
     <div *ngIf="isStaff()">
       <li routerLink="shipping-fee" routerLinkActive="active">
-        <fa-icon [icon]="faList"></fa-icon>
+        <mat-icon area-hidden="true">motorcycle</mat-icon>
         <a>Phí giao hàng</a>
       </li>
 
       <li routerLink="orders" routerLinkActive="active">
-        <fa-icon [icon]="faList"></fa-icon>
+        <mat-icon area-hidden="true">description</mat-icon>
         <a>Đơn hàng</a>
       </li>
 
       <li routerLink="shipper" routerLinkActive="active">
-        <fa-icon [icon]="faList"></fa-icon>
+        <mat-icon area-hidden="true">people</mat-icon>
         <a>Nhân viên giao hàng</a>
       </li>
     </div>

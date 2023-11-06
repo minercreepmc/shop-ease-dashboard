@@ -1,5 +1,6 @@
 import { NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { MatIconModule } from '@angular/material/icon';
 import { ActivatedRoute, RouterLink, RouterLinkActive } from '@angular/router';
 import { UserRole } from '@constant';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -15,7 +16,13 @@ import {
   templateUrl: './menu.component.html',
   styleUrls: ['./menu.component.scss'],
   standalone: true,
-  imports: [FontAwesomeModule, RouterLink, RouterLinkActive, NgIf],
+  imports: [
+    MatIconModule,
+    FontAwesomeModule,
+    RouterLink,
+    RouterLinkActive,
+    NgIf,
+  ],
 })
 export class MenuComponent implements OnInit {
   constructor(private route: ActivatedRoute) {}

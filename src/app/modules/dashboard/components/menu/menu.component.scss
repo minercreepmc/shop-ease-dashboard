@@ -30,6 +30,14 @@
       margin: 0 10px 0 25px;
     }
 
+    mat-icon {
+      color: #868d91;
+      line-height: 30px;
+      text-align: center;
+      font-size: 14px;
+      margin: 0 10px 0 20px;
+    }
+
     a {
       text-decoration: none;
       color: #868d91;
@@ -41,13 +49,10 @@
   &__items li:hover {
     background: #253047;
     cursor: pointer;
+    border-left: 4px solid #fff;
     i,
     a {
       color: #f3f4f6;
     }
-  }
-
-  &__items li:nth-child(1) {
-    border-left: 4px solid #fff;
   }
 }

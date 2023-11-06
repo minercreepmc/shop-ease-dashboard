@@ -48,6 +48,7 @@ export class ShippingFeeDetailsComponent implements OnInit {
   }
 
   onSubmit() {
+    console.log(this.updateShippingFeeDto);
     this.shippingFeeService
       .updateFee$(this.shippingFee.id, this.updateShippingFeeDto)
       .subscribe({

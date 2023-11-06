@@ -3,11 +3,11 @@ import { ToastrCustomService } from '@shared/libraries/toastr';
 
 export function handleError(e: HttpErrorResponse, toast: ToastrCustomService) {
   if (e.status === HttpStatusCode.Unauthorized) {
-    toast.error('Please log in to do action');
+    toast.error('Vui lòng dăng nhập');
   }
 
   if (e.status === HttpStatusCode.Forbidden) {
-    toast.error('You don\'t have permission to do this action');
+    toast.error('Bạn không có quyền làm điều này');
   }
 
   e.error.message.forEach((m: any) => {

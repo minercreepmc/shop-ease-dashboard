@@ -44,7 +44,7 @@ export class ShipperFormComponent implements OnInit {
   onSubmit() {
     this.userService.createShipper$(this.createShipperDto).subscribe({
       next: () => {
-        this.toast.success('Create successfully');
+        this.toast.success('Tạo shipper thành công');
       },
       error: (e) => {
         e.error.message.forEach((m: any) => {

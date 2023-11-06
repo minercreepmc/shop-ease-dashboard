@@ -27,7 +27,7 @@ export class ShippingFeeFormComponent {
   onSubmit() {
     this.shippingFeeService.createFee$(this.createShippingFeeDto).subscribe({
       next: () => {
-        this.toast.success('Created successfully');
+        this.toast.success('Tạo phi ship thành công');
       },
       error: (e: HttpErrorResponse) => {
         e.error.message.forEach((m: any) => {

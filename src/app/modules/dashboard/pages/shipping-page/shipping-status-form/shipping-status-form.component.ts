@@ -37,7 +37,7 @@ export class ShippingStatusFormComponent implements OnInit {
   createShippingStatus() {
     this.shipingStatusService.create$(this.createShippingStatusDto).subscribe({
       next: () => {
-        this.toast.success('Add shipping status successfully');
+        this.toast.success('Thêm tình trạng đơn thành công');
       },
       error: (e: HttpErrorResponse) => {
         e.error.message.forEach((m: any) => {

@@ -43,7 +43,7 @@ export class ShippingStatusUpdateFormComponent implements OnInit {
       .update$(this.data.id, this.updateShippingStatusDto)
       .subscribe({
         next: () => {
-          this.toast.success('Update shipping status successfully');
+          this.toast.success('Cập nhật tình trạng đơn thành công');
         },
         error: (e: HttpErrorResponse) => {
           e.error.message.forEach((m: any) => {

@@ -112,7 +112,7 @@ export class ShippingDetailsComponent implements OnInit {
       })
       .subscribe({
         next: () => {
-          this.toast.success('Deliver shipping success!');
+          this.toast.success('Bắt đầu giao hàng!');
           this.shipping.status = OrderStatus.DELIVERING;
         },
         error: (e) => {
@@ -142,7 +142,7 @@ export class ShippingDetailsComponent implements OnInit {
       })
       .subscribe({
         next: () => {
-          this.toast.success('Delivered shipping success!');
+          this.toast.success('Giao hàng thành công.');
           this.shipping.status = OrderStatus.DELIVERED;
         },
         error: (e) => {

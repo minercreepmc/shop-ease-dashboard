@@ -51,7 +51,7 @@ export class ShippingCardComponent implements OnInit {
         if (result) {
           this.updateOrder$(OrderStatus.ACCEPTED).subscribe({
             next: () => {
-              this.toast.success('Shipping accepted');
+              this.toast.success('Đơn hàng đã được chấp nhận');
             },
             error: (e) => {
               e.error.message.forEach((m: any) => {
@@ -77,7 +77,7 @@ export class ShippingCardComponent implements OnInit {
         if (result) {
           this.updateOrder$(OrderStatus.REJECTED).subscribe({
             next: () => {
-              this.toast.success('Shipping rejected');
+              this.toast.success('Đơn hàng đã từ chối');
             },
             error: (e) => {
               e.error.message.forEach((m: any) => {

@@ -58,7 +58,7 @@ export class ShippersDialogComponent implements OnInit {
 
     this.shippingService.create$(this.createShippingDto).subscribe({
       next: () => {
-        this.toast.success('Create successfully');
+        this.toast.success('Gởi cho shipper thành công!!');
       },
       error: (e) => {
         e.error.message.forEach((m: any) => {

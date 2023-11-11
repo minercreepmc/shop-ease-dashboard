@@ -4,10 +4,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialog } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
-import { Router, RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { numberFormat, OrderStatus } from '@constant';
 import { ShippersDialogComponent } from '@modules/dashboard/pages/orders-page/shippers-dialog/shippers-dialog.component';
-import { OrderRO } from '@ro';
+import { OrderGetDetailsRO } from '@ro';
 import { OrderService } from '@service';
 import { ToastrCustomService } from '@shared/libraries/toastr';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
@@ -32,7 +32,7 @@ export class OrderCardComponent {
     private orderService: OrderService,
     private toast: ToastrCustomService,
   ) {}
-  @Input() order: OrderRO;
+  @Input() order: OrderGetDetailsRO;
 
   numberFormat = numberFormat;
 

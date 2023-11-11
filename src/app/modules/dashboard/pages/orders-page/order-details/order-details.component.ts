@@ -8,7 +8,7 @@ import { ActivatedRoute } from '@angular/router';
 import { OrderStatus } from '@constant';
 import { OrderCardComponent } from '@modules/dashboard/components';
 import { SkeletonComponent } from '@modules/dashboard/components/skeleton/skeleton.component';
-import { OrderRO, ShippingRO } from '@ro';
+import { OrderGetDetailsRO, ShippingRO } from '@ro';
 import { OrderItemListComponent } from '../order-item-list/order-item-list.component';
 import { OrderStatusComponent } from '../order-status/order-status.component';
 
@@ -31,7 +31,7 @@ import { OrderStatusComponent } from '../order-status/order-status.component';
 })
 export class OrderDetailsComponent implements OnInit {
   constructor(private route: ActivatedRoute) {}
-  order: OrderRO;
+  order: OrderGetDetailsRO;
   shipping: ShippingRO;
   ngOnInit(): void {
     this.route.data.subscribe((data) => {

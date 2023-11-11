@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Resolve } from '@angular/router';
-import { OrderRO } from '@ro';
+import { OrderGetAllRO } from '@ro';
 import { OrderService } from '@service';
 import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
-export class OrdersResolver implements Resolve<OrderRO[]> {
+export class OrdersResolver implements Resolve<OrderGetAllRO> {
   constructor(private readonly orderService: OrderService) {}
-  resolve(): Observable<OrderRO[]> {
+  resolve(): Observable<OrderGetAllRO> {
     this.orderService.getOrders$().subscribe({
       next: (orders) => {
         this.orderService.setOrders$(orders);

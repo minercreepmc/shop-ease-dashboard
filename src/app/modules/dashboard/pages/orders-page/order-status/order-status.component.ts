@@ -5,7 +5,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDialog } from '@angular/material/dialog';
 import { OrderStatus } from '@constant';
 import { ConfirmDialogComponent } from '@modules/dashboard/components/confirm-dialog/confirm-dialog.component';
-import { OrderRO, ShippingRO } from '@ro';
+import { OrderGetDetailsRO, ShippingRO } from '@ro';
 import { ShippingService } from '@service';
 import { ToastrCustomService } from '@shared/libraries/toastr';
 
@@ -28,7 +28,7 @@ export class OrderStatusComponent {
     private toast: ToastrCustomService,
     private dialog: MatDialog,
   ) {}
-  @Input() order: OrderRO;
+  @Input() order: OrderGetDetailsRO;
   @Input() shipping: ShippingRO;
 
   isAssigned() {
@@ -49,7 +49,7 @@ export class OrderStatusComponent {
   deleteShipping() {
     this.shippingService.delete$(this.order.id).subscribe({
       next: () => {
-        this.toast.success('Cancel order success!');
+        this.toast.success('Hủy đơn thành công!');
       },
       error: (e) => {
         e.error.message.forEach((m: any) => {

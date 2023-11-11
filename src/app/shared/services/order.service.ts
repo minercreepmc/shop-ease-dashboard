@@ -1,35 +1,35 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ApiApplication } from '@constant';
-import { OrderRO } from '@ro';
-import { UpdateOrderDto } from '@dto';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { OrderGetAllDto, UpdateOrderDto } from '@dto';
+import { Observable, ReplaySubject } from 'rxjs';
 import { OrderModel } from '@model';
+import { OrderGetAllRO } from '@ro';
 
 @Injectable({
   providedIn: 'root',
 })
 export class OrderService {
   constructor(private readonly http: HttpClient) {}
-  private orders = new BehaviorSubject<OrderRO[]>([]);
+  private orders = new ReplaySubject<any>();
   get orders$() {
     return this.orders;
   }
 
-  setOrders$(orders: OrderRO[]) {
+  setOrders$(orders: any) {
     this.orders.next(orders);
   }
 
-  getOrder$(id: string): Observable<OrderRO> {
-    return this.http.get<OrderRO>(
+  getOrder$(id: string): Observable<any> {
+    return this.http.get<any>(
       ApiApplication.ORDER.CONTROLLER +
         '/' +
         ApiApplication.ORDER.GET_ONE.replace(':orderId', id),
     );
   }
 
-  getByMember$(): Observable<OrderRO[]> {
-    return this.http.get<OrderRO[]>(
+  getByMember$(): Observable<OrderGetAllRO[]> {
+    return this.http.get<OrderGetAllRO[]>(
       ApiApplication.ORDER.CONTROLLER +
         '/' +
         ApiApplication.ORDER.GET_BY_MEMBER,
@@ -45,9 +45,12 @@ export class OrderService {
     );
   }
 
-  getOrders$(): Observable<OrderRO[]> {
-    return this.http.get<OrderRO[]>(
+  getOrders$(dto?: OrderGetAllDto): Observable<OrderGetAllRO> {
+    return this.http.get<OrderGetAllRO>(
       ApiApplication.ORDER.CONTROLLER + '/' + ApiApplication.ORDER.GET_ALL,
+      {
+        params: dto ? this.toHttpParams(dto) : undefined,
+      },
     );
   }
 
@@ -72,5 +75,13 @@ export class OrderService {
         ApiApplication.ORDER.COUNT_MONTHLY,
       {},
     );
+  }
+
+  toHttpParams(request: any): HttpParams {
+    let httpParams = new HttpParams();
+    Object.keys(request).forEach(function (key) {
+      httpParams = httpParams.append(key, request[key]);
+    });
+    return httpParams;
   }
 }

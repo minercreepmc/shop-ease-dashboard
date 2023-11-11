@@ -1,16 +1,20 @@
 import { OrderModel } from '@model';
+import { PaginateRO } from './paginate.ro';
 
-export class OrderRO {
+export class OrderGetAllDataRO {
   id: string;
   status: string;
   total_price: number;
   fee_name: string;
   fee_price: number;
   address_location: string;
-  member_name: string;
-  member_phone: string;
-  updated_at: Date;
-  items?: OrderItemRO[];
+  member_name?: string | undefined;
+  member_phone?: string | undefined;
+  created_at: Date;
+}
+
+export class OrderGetAllRO extends PaginateRO<OrderGetAllDataRO> {
+  data: OrderGetAllDataRO[];
 }
 
 export class OrderItemRO {
@@ -28,4 +32,8 @@ export class OrderItemRO {
 export class CreateOrderRO extends OrderModel {
   itemIds: string[];
   cartId: string;
+}
+
+export class OrderGetDetailsRO extends OrderGetAllDataRO {
+  items: OrderItemRO[];
 }

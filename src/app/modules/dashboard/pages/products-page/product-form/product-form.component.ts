@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { faX } from '@fortawesome/free-solid-svg-icons';
 import {
@@ -10,7 +10,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
-import { CommonModule } from '@angular/common';
+import { CommonModule, CurrencyPipe } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { CategoryModel, DiscountModel } from '@model';
 import { CreateProductDto, UploadFilesDto } from '@dto';
@@ -47,6 +47,13 @@ export interface IProductFormErrors {
   ],
 })
 export class ProductFormComponent implements OnInit {
+  fileInput: FileInput;
+  createProductDto = new CreateProductDto();
+  uploadImageDto = new UploadFilesDto();
+  categories: CategoryModel[] = [];
+  discounts: DiscountModel[] = [];
+  faX = faX;
+
   constructor(
     private productService: ProductService,
     private productImageService: ProductImageService,
@@ -56,13 +63,6 @@ export class ProductFormComponent implements OnInit {
     private toast: ToastrCustomService,
     private dialogRef: MatDialogRef<ProductFormComponent>,
   ) {}
-
-  fileInput: FileInput;
-  createProductDto = new CreateProductDto();
-  uploadImageDto = new UploadFilesDto();
-  categories: CategoryModel[] = [];
-  discounts: DiscountModel[] = [];
-  faX = faX;
 
   ngOnInit() {
     this.categoryService.categories$.subscribe({
@@ -140,5 +140,9 @@ export class ProductFormComponent implements OnInit {
   @Output() closeButtonClicked = new EventEmitter();
   onCloseButtonClicked() {
     this.closeButtonClicked.emit();
+  }
+
+  onPriceChange($event: any) {
+    this.createProductDto.price = $event;
   }
 }

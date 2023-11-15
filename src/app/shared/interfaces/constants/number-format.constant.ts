@@ -1,1 +1,1 @@
-export const numberFormat = '1.0-0';
+export const numberFormat = '1.0-2';

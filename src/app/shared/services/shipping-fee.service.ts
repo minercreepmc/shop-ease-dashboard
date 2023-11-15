@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { ApiApplication } from '@constant';
 import { CreateShippingFeeDto, UpdateShippingFeeDto } from '@dto';
 import { ShippingFeeModel } from '@model';
+import { ShippingFeeGetAllRO } from '@ro/shipping-fee.ro';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 
 @Injectable({
@@ -10,13 +11,13 @@ import { BehaviorSubject, Observable, tap } from 'rxjs';
 })
 export class ShippingFeeService {
   constructor(private http: HttpClient) {}
-  private fees = new BehaviorSubject<ShippingFeeModel[]>([]);
+  private fees = new BehaviorSubject<any[]>([]);
 
-  get fees$(): Observable<ShippingFeeModel[]> {
+  get fees$(): Observable<any[]> {
     return this.fees.asObservable();
   }
 
-  setFees(fees: ShippingFeeModel[]) {
+  setFees(fees: any[]) {
     this.fees.next(fees);
   }
 
@@ -29,7 +30,7 @@ export class ShippingFeeService {
   }
 
   getFees$() {
-    return this.http.get<ShippingFeeModel[]>(
+    return this.http.get<ShippingFeeGetAllRO>(
       ApiApplication.SHIPPING_FEE.CONTROLLER +
         '/' +
         ApiApplication.SHIPPING_FEE.GET_ALL,

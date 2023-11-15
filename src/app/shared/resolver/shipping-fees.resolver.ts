@@ -1,18 +1,20 @@
 import { Injectable } from '@angular/core';
 import { Resolve } from '@angular/router';
-import { ShippingFeeModel } from '@model';
+import { ShippingFeeGetAllDataRO } from '@ro/shipping-fee.ro';
 import { ShippingFeeService } from '@service';
 import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
-export class ShippingFeesResolver implements Resolve<ShippingFeeModel[]> {
+export class ShippingFeesResolver
+  implements Resolve<ShippingFeeGetAllDataRO[]>
+{
   constructor(private shippingFeeService: ShippingFeeService) {}
-  resolve(): Observable<ShippingFeeModel[]> {
+  resolve(): Observable<ShippingFeeGetAllDataRO[]> {
     this.shippingFeeService.getFees$().subscribe({
-      next: (fees) => {
-        this.shippingFeeService.setFees(fees);
+      next: (response) => {
+        this.shippingFeeService.setFees(response.data);
       },
     });
     return this.shippingFeeService.fees$;

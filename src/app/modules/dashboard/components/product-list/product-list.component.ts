@@ -12,8 +12,8 @@ import {
   ToastrCustomModule,
   ToastrCustomService,
 } from '@shared/libraries/toastr';
-import { ProductRO, ProductWithImagesRO } from '@ro';
-import { numberFormat, UserRole } from '@constant';
+import { ProductRO } from '@ro';
+import { numberFormat } from '@constant';
 
 @Component({
   selector: 'app-product-list',

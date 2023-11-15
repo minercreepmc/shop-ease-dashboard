@@ -72,8 +72,7 @@ export class CategoryService {
         {},
       )
       .pipe(
-        tap((category: CategoryModel) => {
-          const id = category.id;
+        tap(() => {
           this.categories.next(
             this.categories.value.filter((category) => category.id !== id),
           );

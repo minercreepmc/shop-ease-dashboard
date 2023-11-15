@@ -18,6 +18,14 @@
     </mat-form-field>
 
     <button mat-raised-button color="primary">Cập nhật</button>
+    <button
+      mat-raised-button
+      color="warn"
+      type="button"
+      (click)="deleteCategory()"
+    >
+      Xóa
+    </button>
   </form>
 
   <app-product-list [products]="category.products"></app-product-list>

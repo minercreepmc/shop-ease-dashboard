@@ -6,6 +6,11 @@
 
   <div class="menu__items">
     <div *ngIf="!isShipper()">
+      <li routerLink="/dashboard" routerLinkActive="active">
+        <mat-icon area-hidden="true">assignment</mat-icon>
+        <a>Thống kê</a>
+      </li>
+
       <li routerLink="products" routerLinkActive="active">
         <mat-icon area-hidden="true">local_grocery_store</mat-icon>
         <a>Hàng hóa</a>

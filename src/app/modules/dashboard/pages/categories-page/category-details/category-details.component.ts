@@ -11,6 +11,8 @@ import { CategoryService } from '@service';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { ProductListComponent } from '@modules/dashboard/components/product-list/product-list.component';
 import { CategoryRO } from '@ro';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmDialogComponent } from '@modules/dashboard/components';
 
 @Component({
   selector: 'app-category-details',
@@ -32,11 +34,11 @@ export class CategoryDetailsComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private toast: ToastrCustomService,
+    private dialog: MatDialog,
   ) {}
   category: CategoryRO;
   products: ProductModel[];
   updateCategoryDto: UpdateCategoryDto;
-  id: string;
 
   ngOnInit(): void {
     this.category = this.route.snapshot.data.category;
@@ -44,10 +46,21 @@ export class CategoryDetailsComponent implements OnInit {
   }
 
   deleteCategory() {
-    return this.categoryService.deleteCategory$(this.id).subscribe({
-      next: () => {
-        this.router.navigate(['/categories']);
-      },
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '250px',
+      enterAnimationDuration: '100ms',
+      exitAnimationDuration: '100ms',
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.categoryService.deleteCategory$(this.category.id).subscribe({
+          next: () => {
+            this.toast.success('Xóa danh mục thành công');
+            this.router.navigate(['/categories']);
+          },
+        });
+      }
     });
   }
 
@@ -56,13 +69,12 @@ export class CategoryDetailsComponent implements OnInit {
       .updateCategory$(this.category.id, this.updateCategoryDto)
       .subscribe({
         next: () => {
-          this.toast.success('Cập nhật hàng thành công');
+          this.toast.success('Cập nhật danh mục thành công');
         },
         error: (error) => {
           error.error.message.forEach((m: any) => {
             this.toast.error(m.error);
           });
-          console.log(error);
         },
       });
   }

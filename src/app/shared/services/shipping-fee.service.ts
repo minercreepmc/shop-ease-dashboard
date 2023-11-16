@@ -58,4 +58,14 @@ export class ShippingFeeService {
       )
       .pipe(tap((fee) => this.setFees([...this.fees.value, fee])));
   }
+
+  delete$(id: string) {
+    return this.http
+      .delete<ShippingFeeModel>(
+        ApiApplication.SHIPPING_FEE.CONTROLLER +
+          '/' +
+          ApiApplication.SHIPPING_FEE.DELETE.replace(':id', id),
+      )
+      .pipe(tap((fee) => this.setFees([...this.fees.value, fee])));
+  }
 }

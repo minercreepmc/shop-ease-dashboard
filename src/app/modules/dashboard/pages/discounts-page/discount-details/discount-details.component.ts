@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
+import { MatDialog } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { UpdateDiscountDto } from '@dto';
+import { ConfirmDialogComponent } from '@modules/dashboard/components';
 import { ProductListComponent } from '@modules/dashboard/components/product-list/product-list.component';
 import { DiscountRO } from '@ro';
 import { DiscountService } from '@service';
@@ -30,6 +32,8 @@ export class DiscountDetailsComponent implements OnInit {
     private route: ActivatedRoute,
     private discountService: DiscountService,
     private toast: ToastrCustomService,
+    private dialog: MatDialog,
+    private router: Router,
   ) {}
   updateDiscountDto = new UpdateDiscountDto();
   discount: DiscountRO;
@@ -57,7 +61,7 @@ export class DiscountDetailsComponent implements OnInit {
       .updateDiscount$(this.discount.id, this.updateDiscountDto)
       .subscribe({
         next: () => {
-          this.toast.success('Update success');
+          this.toast.success('Cập nhật giảm giá thành công');
         },
         error: (e) => {
           e.error.message.forEach((m: any) => {
@@ -69,5 +73,26 @@ export class DiscountDetailsComponent implements OnInit {
           this.updateDiscountDto = new UpdateDiscountDto();
         },
       });
+  }
+
+  deleteDiscount() {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '250px',
+      enterAnimationDuration: '100ms',
+      exitAnimationDuration: '100ms',
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.discountService.deleteDiscount$(this.discount.id).subscribe({
+          next: () => {
+            this.toast.success('Xóa giảm giá thành công');
+          },
+          complete: () => {
+            this.router.navigate(['/discounts']);
+          },
+        });
+      }
+    });
   }
 }

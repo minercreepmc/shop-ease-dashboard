@@ -35,6 +35,14 @@
     </mat-form-field>
 
     <button mat-raised-button color="primary">Cập nhật</button>
+    <button
+      mat-raised-button
+      color="warn"
+      type="button"
+      (click)="deleteDiscount()"
+    >
+      Xóa
+    </button>
   </form>
 
   <app-product-list [products]="discount.products"></app-product-list>

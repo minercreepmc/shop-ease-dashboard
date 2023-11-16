@@ -2,12 +2,14 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
+import { MatDialog } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { UpdateShippingFeeDto } from '@dto';
 import { ShippingFeeModel } from '@model';
+import { ConfirmDialogComponent } from '@modules/dashboard/components';
 import { ShippingFeeService } from '@service';
 import { ToastrCustomService } from '@shared/libraries/toastr';
 
@@ -22,6 +24,7 @@ import { ToastrCustomService } from '@shared/libraries/toastr';
     FormsModule,
     MatInputModule,
     MatButtonModule,
+    RouterModule,
   ],
 })
 export class ShippingFeeDetailsComponent implements OnInit {
@@ -29,6 +32,8 @@ export class ShippingFeeDetailsComponent implements OnInit {
     private route: ActivatedRoute,
     private shippingFeeService: ShippingFeeService,
     private toast: ToastrCustomService,
+    private dialog: MatDialog,
+    private router: Router,
   ) {}
   updateShippingFeeDto = new UpdateShippingFeeDto();
   shippingFee: ShippingFeeModel;
@@ -48,7 +53,6 @@ export class ShippingFeeDetailsComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.updateShippingFeeDto);
     this.shippingFeeService
       .updateFee$(this.shippingFee.id, this.updateShippingFeeDto)
       .subscribe({
@@ -66,5 +70,26 @@ export class ShippingFeeDetailsComponent implements OnInit {
           this.updateShippingFeeDto = new UpdateShippingFeeDto();
         },
       });
+  }
+
+  deleteShippingFee() {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '250px',
+      enterAnimationDuration: '100ms',
+      exitAnimationDuration: '100ms',
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.shippingFeeService.delete$(this.shippingFee.id).subscribe({
+          next: () => {
+            this.toast.success('Xóa phí giao hàng thành công');
+          },
+          complete: () => {
+            this.router.navigate(['/shipping-fee']);
+          },
+        });
+      }
+    });
   }
 }

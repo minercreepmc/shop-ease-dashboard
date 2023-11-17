@@ -42,7 +42,6 @@ import { MatSelectChange, MatSelectModule } from '@angular/material/select';
     NgIf,
     MatProgressSpinnerModule,
     MatSelectModule,
-    MatInputModule,
   ],
 })
 export class OrderListComponent implements OnInit {

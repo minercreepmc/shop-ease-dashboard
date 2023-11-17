@@ -7,7 +7,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { ActivatedRoute } from '@angular/router';
 import { UpdateUserDto } from '@dto';
-import { UserRO } from '@ro';
+import { UserDataRO } from '@ro';
 import { UserService } from '@service';
 import { ToastrCustomService } from '@shared/libraries/toastr';
 import { handleError } from '@shared/utils';
@@ -32,7 +32,7 @@ export class ShipperDetailsComponent implements OnInit {
     private userService: UserService,
     private toast: ToastrCustomService,
   ) {}
-  user: UserRO;
+  user: UserDataRO;
   updateUserDto = new UpdateUserDto();
   hide = true;
   ngOnInit() {

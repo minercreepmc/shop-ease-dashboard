@@ -1,9 +1,14 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ApiApplication } from '@constant';
-import { CreateShipperDto, CreateStaffDto, UpdateUserDto } from '@dto';
+import {
+  CreateShipperDto,
+  CreateStaffDto,
+  ShipperGetAllDto,
+  UpdateUserDto,
+} from '@dto';
 import { UserModel } from '@model';
-import { UserRO } from '@ro';
+import { ShipperGetAllRO, UserDataRO } from '@ro';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 
 @Injectable({
@@ -59,7 +64,7 @@ export class UserService {
   }
 
   getUser$(id: string) {
-    return this.http.get<UserRO>(
+    return this.http.get<UserDataRO>(
       ApiApplication.USER.CONTROLLER +
         '/' +
         ApiApplication.USER.GET_ONE.replace(':id', id),
@@ -74,19 +79,21 @@ export class UserService {
     );
   }
 
-  getAllStaffs$(): Observable<UserRO[]> {
-    return this.http.post<UserRO[]>(
+  getAllStaffs$(): Observable<UserDataRO[]> {
+    return this.http.post<UserDataRO[]>(
       ApiApplication.USER.CONTROLLER + '/' + ApiApplication.USER.GET_ALL_STAFF,
       {},
     );
   }
 
-  getAllShippers$(): Observable<UserRO[]> {
-    return this.http.get<UserRO[]>(
+  getAllShippers$(dto?: ShipperGetAllDto): Observable<ShipperGetAllRO> {
+    return this.http.get<ShipperGetAllRO>(
       ApiApplication.USER.CONTROLLER +
         '/' +
         ApiApplication.USER.GET_ALL_SHIPPER,
-      {},
+      {
+        params: dto ? this.toHttpParams(dto) : undefined,
+      },
     );
   }
 
@@ -115,5 +122,13 @@ export class UserService {
         ApiApplication.USER.COUNT_WEEKLY_MEMBER,
       {},
     );
+  }
+
+  toHttpParams(request: any): HttpParams {
+    let httpParams = new HttpParams();
+    Object.keys(request).forEach(function (key) {
+      httpParams = httpParams.append(key, request[key]);
+    });
+    return httpParams;
   }
 }

@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Resolve } from '@angular/router';
-import { UserRO } from '@ro';
+import { UserDataRO } from '@ro';
 import { UserService } from '@service';
 import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
-export class StaffsResolver implements Resolve<UserRO[]> {
+export class StaffsResolver implements Resolve<UserDataRO[]> {
   constructor(private userService: UserService) {}
-  resolve(): Observable<UserRO[]> {
+  resolve(): Observable<UserDataRO[]> {
     this.userService.getAllStaffs$().subscribe({
       next: (users) => {
         this.userService.setUsers$(users);

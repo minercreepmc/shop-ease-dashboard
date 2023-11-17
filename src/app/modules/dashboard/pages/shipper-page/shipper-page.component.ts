@@ -6,13 +6,19 @@ import { UserModel } from '@model';
 import { UserListComponent } from '@modules/dashboard/components/user-list/user-list.component';
 import { UserService } from '@service';
 import { ShipperFormComponent } from './shipper-form/shipper-form.component';
+import { ShipperListComponent } from './shipper-list/shipper-list.component';
 
 @Component({
   selector: 'app-shipper-page',
   templateUrl: './shipper-page.component.html',
   styleUrls: ['./shipper-page.component.scss'],
   standalone: true,
-  imports: [MatToolbarModule, MatButtonModule, UserListComponent],
+  imports: [
+    MatToolbarModule,
+    MatButtonModule,
+    UserListComponent,
+    ShipperListComponent,
+  ],
 })
 export class ShipperPageComponent implements OnInit {
   constructor(

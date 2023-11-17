@@ -1,3 +1,5 @@
+import { PaginationParams } from './pagination.dto';
+
 export class CreateMemberDto {
   username: string;
   password: string;
@@ -38,3 +40,5 @@ export class UpdateUserDto {
   phone?: string;
   email?: string;
 }
+
+export class ShipperGetAllDto extends PaginationParams {}

@@ -54,7 +54,7 @@ export class ShippersDialogComponent implements OnInit {
   createShipping($event: any) {
     const date = this.createShippingDto.dueDate;
 
-    this.createShippingDto.dueDate = new Date(date).toISOString();
+    this.createShippingDto.dueDate = new Date(date);
 
     this.shippingService.create$(this.createShippingDto).subscribe({
       next: () => {

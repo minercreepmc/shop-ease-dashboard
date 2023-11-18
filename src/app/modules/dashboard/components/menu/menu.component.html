@@ -6,7 +6,7 @@
 
   <div class="menu__items">
     <div *ngIf="!isShipper()">
-      <li routerLink="/dashboard" routerLinkActive="active">
+      <li *ngIf="isAdmin()" routerLink="/dashboard" routerLinkActive="active">
         <mat-icon area-hidden="true">assignment</mat-icon>
         <a>Thống kê</a>
       </li>

@@ -1,5 +1,7 @@
+import { NgIf } from '@angular/common';
 import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import {
   MatPaginator,
@@ -25,7 +27,9 @@ import { UserService } from '@service';
     MatSelectModule,
     RouterLink,
     MatSortModule,
-    MatInputModule
+    MatInputModule,
+    MatIconModule,
+    NgIf,
   ],
 })
 export class ShipperListComponent implements OnInit {
@@ -97,5 +101,9 @@ export class ShipperListComponent implements OnInit {
     const previousSize = pageSize * pageIndex;
 
     this.getNextData(previousSize, pageIndex, pageSize);
+  }
+
+  isShipping(shippingCount: number) {
+    return shippingCount > 0;
   }
 }

@@ -1,9 +1,13 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ApiApplication } from '@constant';
-import { CreateShippingDto } from '@dto';
+import {
+  CreateShippingDto,
+  ShippingGetAllDto,
+  ShippingGetDetailDto,
+} from '@dto';
 import { ShippingModel } from '@model';
-import { ShippingRO } from '@ro';
+import { ShippingGetAllRO, ShippingGetDetailRO, ShippingRO } from '@ro';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
@@ -37,33 +41,31 @@ export class ShippingService {
     );
   }
 
-  getByOrderId$(id: string): Observable<ShippingRO> {
-    return this.http.post<ShippingRO>(
+  getAll$(dto?: ShippingGetAllDto) {
+    return this.http.get<ShippingGetAllRO>(
       ApiApplication.SHIPPING.CONTROLLER +
         '/' +
-        ApiApplication.SHIPPING.GET_BY_ORDER_ID,
+        ApiApplication.SHIPPING.GET_ALL,
+      {},
+    );
+  }
+
+  getDetail$(dto: ShippingGetDetailDto) {
+    return this.http.post<ShippingGetDetailRO>(
+      ApiApplication.SHIPPING.CONTROLLER +
+        '/' +
+        ApiApplication.SHIPPING.GET_DETAIL,
       {
-        orderId: id,
+        params: dto ? this.toHttpParams(dto) : undefined,
       },
     );
   }
 
-  getByShipperId$(shipperId: string): Observable<ShippingRO[]> {
-    return this.http.post<ShippingRO[]>(
-      ApiApplication.SHIPPING.CONTROLLER +
-        '/' +
-        ApiApplication.SHIPPING.GET_BY_SHIPPER_ID,
-      {
-        shipperId,
-      },
-    );
-  }
-
-  getShipping$(id: string): Observable<ShippingRO> {
-    return this.http.get<ShippingRO>(
-      ApiApplication.SHIPPING.CONTROLLER +
-        '/' +
-        ApiApplication.SHIPPING.GET_ONE.replace(':id', id),
-    );
+  toHttpParams(request: any): HttpParams {
+    let httpParams = new HttpParams();
+    Object.keys(request).forEach(function (key) {
+      httpParams = httpParams.append(key, request[key]);
+    });
+    return httpParams;
   }
 }

@@ -36,7 +36,10 @@
         <ng-container matColumnDef="is_shipping">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>Ship</th>
           <td mat-cell *matCellDef="let row">
-            {{ row.shipping_count }}
+            {{ row.shipping_count }} đơn hàng
+            <mat-icon *ngIf="isShipping(row.shipping_count)">
+              local_shipping</mat-icon
+            >
           </td>
         </ng-container>
 

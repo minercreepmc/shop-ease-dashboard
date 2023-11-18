@@ -1,21 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import {
-  ProfileResolver,
-  ShippingResolver,
-  ShippingsByShipperResolver,
-  ShippingStatusListResolver,
-} from '@shared/resolver';
+import { ShippingResolver, ShippingStatusListResolver } from '@shared/resolver';
 import { ShippingPageComponent } from './shipping-page.component';
 
 const routes: Routes = [
   {
     path: '',
     component: ShippingPageComponent,
-    resolve: {
-      shippings: ShippingsByShipperResolver,
-      profile: ProfileResolver,
-    },
   },
   {
     path: ':id',

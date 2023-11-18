@@ -10,7 +10,9 @@ import { Observable } from 'rxjs';
 export class ShippingResolver implements Resolve<ShippingRO> {
   constructor(private shippingService: ShippingService) {}
   resolve(route: ActivatedRouteSnapshot): Observable<ShippingRO> {
-    const id = route.paramMap.get('id');
-    return this.shippingService.getShipping$(id!);
+    const id = route.paramMap.get('id')!;
+    return this.shippingService.getDetail$({
+      id,
+    });
   }
 }

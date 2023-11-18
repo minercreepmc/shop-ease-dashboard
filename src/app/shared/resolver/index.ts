@@ -13,7 +13,6 @@ export * from './profile.resolver';
 export * from './categories-include-count.resolver';
 export * from './shipping-fee.resolver';
 export * from './shipping-fees.resolver';
-export * from './shipping-by-order.resolver';
-export * from './shippings-by-shipper.resolver';
 export * from './shipping.resolver';
 export * from './shipping-status-list.resolver';
+export * from './shipping-by-order.resolver';

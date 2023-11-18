@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
-import { MatDialog } from '@angular/material/dialog';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { UserModel } from '@model';
 import { ShippingRO } from '@ro';
 import { ShippingService } from '@service';
 import { ShippingListComponent } from './shipping-list/shipping-list.component';
@@ -25,9 +23,10 @@ export class ShippingPageComponent implements OnInit {
   shippings: ShippingRO[] = [];
 
   ngOnInit(): void {
-    this.shippingService.shippings$.subscribe({
-      next: (shippings) => {
-        this.shippings = shippings;
+    this.shippingService.getAll$().subscribe({
+      next: (response) => {
+        console.log(response);
+        this.shippings = response.data;
       },
     });
   }

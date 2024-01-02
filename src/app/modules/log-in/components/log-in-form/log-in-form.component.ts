@@ -39,6 +39,7 @@ export class LogInFormComponent {
       })
       .subscribe({
         next: (user) => {
+          console.log(user);
           switch (user.role) {
             case UserRole.ADMIN:
               this.router.navigate(['/dashboard']);

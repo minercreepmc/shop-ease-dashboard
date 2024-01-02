@@ -1,4 +1,4 @@
-<app-skeleton [title]="'Shipping Details'">
+<app-skeleton [title]="'Chi tiết đơn giao'">
   <mat-card class="example-card">
     <mat-card-title>{{ shipping.member_name }}</mat-card-title>
     <mat-card-subtitle class="subtitle"
@@ -8,7 +8,10 @@
       <p><mat-icon>phone</mat-icon>: {{ shipping.member_phone }}</p>
       <p><mat-icon>location_on</mat-icon>: {{ shipping.address }}</p>
       <p><mat-icon>local_shipping</mat-icon>: {{ shipping.fee_name }}</p>
-      <p><mat-icon>arrow_forward</mat-icon>: {{ shipping.status }}</p>
+      <p>
+        <mat-icon>arrow_forward</mat-icon>:
+        {{ getOrderStatusMessage(shipping.status) }}
+      </p>
     </mat-card-content>
   </mat-card>
 

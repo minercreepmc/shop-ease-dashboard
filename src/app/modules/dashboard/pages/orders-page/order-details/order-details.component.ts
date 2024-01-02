@@ -69,4 +69,12 @@ export class OrderDetailsComponent implements OnInit {
   isProcessing() {
     return this.order.status === OrderStatus.PROCESSING;
   }
+
+  isCancel() {
+    return this.order.status === OrderStatus.CANCELED;
+  }
+
+  orderStatusShow() {
+    return !this.isProcessing() && !this.isCancel();
+  }
 }

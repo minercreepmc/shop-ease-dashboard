@@ -2,7 +2,7 @@
   <div class="order-card">
     <app-order-card [order]="order"></app-order-card>
     <app-order-status
-      *ngIf="!isProcessing()"
+      *ngIf="orderStatusShow()"
       [order]="order"
       [shipping]="shipping"
     ></app-order-status>

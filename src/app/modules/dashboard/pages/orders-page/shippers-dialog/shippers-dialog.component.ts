@@ -64,11 +64,10 @@ export class ShippersDialogComponent implements OnInit {
         e.error.message.forEach((m: any) => {
           this.toast.error(m.error);
         });
-
-        console.log(e);
       },
       complete: () => {
         this.dialogRef.close(true);
+        window.location.reload();
       },
     });
   }

@@ -11,7 +11,7 @@
   <mat-card-actions>
     <button (click)="openDialog()" mat-button *ngIf="assignShow()">GIAO</button>
     <button mat-button *ngIf="isShipping()">TÌNH TRẠNG ĐƠN</button>
-    <button mat-button (click)="onCancelClick()" *ngIf="isAssigned()">
+    <button mat-button (click)="onCancelClick()" *ngIf="!isAssigned()">
       HỦY
     </button>
   </mat-card-actions>

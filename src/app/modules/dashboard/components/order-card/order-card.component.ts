@@ -67,7 +67,7 @@ export class OrderCardComponent {
       })
       .subscribe({
         next: () => {
-          this.toast.success('Cancel order success!');
+          this.toast.success('Từ chối đơn hàng thành công!');
         },
         error: (e) => {
           e.error.message.forEach((m: any) => {

@@ -37,7 +37,7 @@ export class ShippingStatusListComponent implements OnInit {
         if (result) {
           this.shippingStatusService.delete$(id).subscribe({
             next: () => {
-              this.toast.success('Delete shipping status success!');
+              this.toast.success('Xóa tình trạng giao hàng thành công!');
             },
             error: (e) => {
               e.error.message.forEach((m: any) => {

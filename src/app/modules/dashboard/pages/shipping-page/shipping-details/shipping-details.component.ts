@@ -153,4 +153,19 @@ export class ShippingDetailsComponent implements OnInit {
         },
       });
   }
+
+  getOrderStatusMessage(status: string) {
+    switch (status) {
+      case OrderStatus.ACCEPTED:
+        return 'Đơn hàng đã được shipper tiếp nhận';
+      case OrderStatus.DELIVERING:
+        return 'Đơn đang giao';
+      case OrderStatus.DELIVERED:
+        return 'Đơn đã giao';
+      case OrderStatus.CANCELED:
+        return 'Đơn đá huỷ';
+      default:
+        return '';
+    }
+  }
 }
